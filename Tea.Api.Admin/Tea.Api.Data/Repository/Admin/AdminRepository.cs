@@ -18,7 +18,18 @@ namespace Tea.Api.Data.Repository.Admin
             _dataHandler = dataHandler;
         }
 
-       async Task<DataSet> IAdminRepository.GetCategory(CommonSelectModel _input)
+      async  Task<string> IAdminRepository.DeleteCategory(DeleteCategoryModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CategoryId", _input.CategoryId == null ? 0 : _input.CategoryId, false, "long"),
+              
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[ClientCategoryDelete]", oclsPairs);
+            return Msg;
+        }
+
+        async Task<DataSet> IAdminRepository.GetCategory(CommonSelectModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -119,6 +130,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@ClientAddress", _input.ClientAddress??"", false, "String"),
                 new ClsParamPair("@ContactNo", _input.ContactNo ??"", false, "String"),
                 new ClsParamPair("@EmailId", _input.EmailId ??"", false, "String"),
+                new ClsParamPair("@Password", _input.Password ??"", false, "String"),
                 new ClsParamPair("@CategoryID",  _input.CategoryID== null ? 0 : _input.CategoryID, false, "long"),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@IsActive", _input.IsActive == null ? false : _input.IsActive, false, "bool"),

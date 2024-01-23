@@ -18,7 +18,14 @@ namespace Tea.Api.Service.Admin
                 _unitOfWork = unitOfWork;
         }
 
-       async Task<DataSet> IAdminService.GetCategory(CommonSelectModel _input)
+       async Task<SaveReturnModel> IAdminService.DeleteCategory(DeleteCategoryModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.DeleteCategory(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<DataSet> IAdminService.GetCategory(CommonSelectModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetCategory(_input);

@@ -15,6 +15,7 @@ namespace Tea.Api.Entity.Admin
         public string? ClientAddress { get; set; }
         public string? ContactNo { get; set; }
         public string? EmailId { get; set; }
+        public string? Password { get; set; }
         public long? CategoryID { get; set; }
         public long? TenantId { get; set; }
         public bool? IsActive { get; set; }

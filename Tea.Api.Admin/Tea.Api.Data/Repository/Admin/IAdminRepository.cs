@@ -17,6 +17,8 @@ namespace Tea.Api.Data.Repository.Admin
 
         Task<string> SaveCategory(SaveCategoryModel _input);
 
+        Task<string> DeleteCategory(DeleteCategoryModel _input);
+
         Task<string> SaveClient(SaveClientModel _input);
 
         Task<string> SaveGrade(SaveGradeModel _input);

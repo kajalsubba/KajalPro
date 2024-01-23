@@ -24,6 +24,12 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("DeleteCategory")]
+        public async Task<IActionResult> DeleteCategory([FromBody] DeleteCategoryModel _input)
+        {
+            var results = await _adminService.DeleteCategory(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
 
         [HttpPost, Route("GetCategory")]
         public async Task<IActionResult> GetCategory([FromBody] CommonSelectModel _input)

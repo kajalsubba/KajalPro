@@ -14,6 +14,8 @@ namespace Tea.Api.Service.Admin
         Task<SaveReturnModel> SaveUser(SaveUserModel _input);
         Task<DataTable> Login(LoginModel _input);
         Task<SaveReturnModel> SaveCategory(SaveCategoryModel _input);
+        Task<SaveReturnModel> DeleteCategory(DeleteCategoryModel _input);
+        
         Task<SaveReturnModel> SaveClient(SaveClientModel _input);
 
         Task<SaveReturnModel> SaveGrade(SaveGradeModel _input);

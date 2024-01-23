@@ -14,4 +14,9 @@ namespace Tea.Api.Entity.Admin
         public long? CreatedBy { get; set; }
     
     }
+
+    public class DeleteCategoryModel
+    {
+        public long? CategoryId { get; set; }
+    }
 }
