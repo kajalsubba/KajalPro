@@ -25,6 +25,34 @@ namespace Tea.Api.Service.Admin
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
+       async Task<SaveReturnModel> IAdminService.DeleteClient(DeleteClientModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.DeleteClient(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+       async Task<SaveReturnModel> IAdminService.DeleteFactory(DeleteFactoryModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.DeleteFactory(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+      async  Task<SaveReturnModel> IAdminService.DeleteFactoryAccount(DeleteAccountModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.DeleteFactoryAccount(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IAdminService.DeleteGrade(DeleteGradeModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.DeleteGrade(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
         async Task<DataSet> IAdminService.GetCategory(CommonSelectModel _input)
         {
             DataSet ds;

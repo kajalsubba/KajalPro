@@ -29,6 +29,50 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
+      async  Task<string> IAdminRepository.DeleteClient(DeleteClientModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@ClientId", _input.ClientId == null ? 0 : _input.ClientId, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[ClientDelete]", oclsPairs);
+            return Msg;
+        }
+
+       async Task<string> IAdminRepository.DeleteFactory(DeleteFactoryModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FactoryId", _input.FactoryId == null ? 0 : _input.FactoryId, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[FactoryDelete]", oclsPairs);
+            return Msg;
+        }
+
+       async Task<string> IAdminRepository.DeleteFactoryAccount(DeleteAccountModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[FactoryAccountDelete]", oclsPairs);
+            return Msg;
+        }
+
+        async  Task<string> IAdminRepository.DeleteGrade(DeleteGradeModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@GradeId", _input.GradeId == null ? 0 : _input.GradeId, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[GradeDelete]", oclsPairs);
+            return Msg;
+        }
+
         async Task<DataSet> IAdminRepository.GetCategory(CommonSelectModel _input)
         {
             DataSet ds;

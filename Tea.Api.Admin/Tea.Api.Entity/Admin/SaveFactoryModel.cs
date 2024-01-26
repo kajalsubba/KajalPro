@@ -17,4 +17,8 @@ namespace Tea.Api.Entity.Admin
         public bool? IsActive { get; set; }
         public long? CreatedBy { get; set; }
     }
-}
+    public class DeleteFactoryModel
+    {
+        public long? FactoryId { get; set; }
+    }
+    }

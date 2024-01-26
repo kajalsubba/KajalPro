@@ -47,6 +47,14 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("DeleteClient")]
+        public async Task<IActionResult> DeleteClient([FromBody] DeleteClientModel _input)
+        {
+            var results = await _adminService.DeleteClient(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
         [HttpPost, Route("GetClient")]
         public async Task<IActionResult> GetClient([FromBody] CommonSelectModel _input)
         {
@@ -61,6 +69,13 @@ namespace Tea.Api.Admin.Controllers
         public async Task<IActionResult> SaveGrade([FromBody] SaveGradeModel _input)
         {
             var results = await _adminService.SaveGrade(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+        [HttpPost, Route("DeleteGrade")]
+        public async Task<IActionResult> DeleteGrade([FromBody] DeleteGradeModel _input)
+        {
+            var results = await _adminService.DeleteGrade(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
@@ -81,6 +96,14 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("DeleteFactory")]
+        public async Task<IActionResult> DeleteFactory([FromBody] DeleteFactoryModel _input)
+        {
+            var results = await _adminService.DeleteFactory(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
         [HttpPost, Route("GetFactory")]
         public async Task<IActionResult> GetFactory([FromBody] CommonSelectModel _input)
         {
@@ -94,6 +117,12 @@ namespace Tea.Api.Admin.Controllers
         public async Task<IActionResult> SaveFactoryAccount([FromBody] SaveAccountModel _input)
         {
             var results = await _adminService.SaveFactoryAccount(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+        [HttpPost, Route("DeleteFactoryAccount")]
+        public async Task<IActionResult> DeleteFactoryAccount([FromBody] DeleteAccountModel _input)
+        {
+            var results = await _adminService.DeleteFactoryAccount(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
 

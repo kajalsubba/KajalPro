@@ -13,4 +13,10 @@ namespace Tea.Api.Entity.Admin
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
     }
+
+    public class DeleteGradeModel
+    {
+        public long? GradeId { get; set; }
+      
+    }
 }

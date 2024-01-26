@@ -18,12 +18,13 @@ namespace Tea.Api.Service.Admin
         
         Task<SaveReturnModel> SaveClient(SaveClientModel _input);
 
+        Task<SaveReturnModel> DeleteClient(DeleteClientModel _input);
         Task<SaveReturnModel> SaveGrade(SaveGradeModel _input);
-
+        Task<SaveReturnModel> DeleteGrade(DeleteGradeModel _input);
         Task<SaveReturnModel> SaveFactory(SaveFactoryModel _input);
-
+        Task<SaveReturnModel> DeleteFactory(DeleteFactoryModel _input);
         Task<SaveReturnModel> SaveFactoryAccount(SaveAccountModel _input);
-
+        Task<SaveReturnModel> DeleteFactoryAccount(DeleteAccountModel _input);
         Task<DataSet> GetCategory(CommonSelectModel _input);
 
         Task<DataSet> GetClient(CommonSelectModel _input);

@@ -22,4 +22,9 @@ namespace Tea.Api.Entity.Admin
         public long? CreatedBy { get; set; }
  
     }
+
+    public class DeleteClientModel
+    {
+        public long? ClientId { get; set; }
+    }
 }
