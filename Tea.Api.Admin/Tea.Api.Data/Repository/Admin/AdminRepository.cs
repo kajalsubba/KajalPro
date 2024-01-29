@@ -138,6 +138,19 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
+       async Task<DataSet> IAdminRepository.GetVehicle(CommonSelectModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetVehicle]", oclsPairs);
+            ds.Tables[0].TableName = "VehicleDetails";
+            return ds;
+        }
+
         async Task<DataTable> IAdminRepository.Login(LoginModel _input)
         {
             DataTable dt;

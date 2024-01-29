@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Admin", "Tea.Api.Admin\Tea.Api.Admin.csproj", "{82B94125-87D1-4373-803A-0D886B8C1562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Admin", "Tea.Api.Admin\Tea.Api.Admin.csproj", "{82B94125-87D1-4373-803A-0D886B8C1562}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Service", "Tea.Api.Service\Tea.Api.Service.csproj", "{2E030E8D-B427-4AF9-8938-F64EC321CB3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Service", "Tea.Api.Service\Tea.Api.Service.csproj", "{2E030E8D-B427-4AF9-8938-F64EC321CB3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Data", "Tea.Api.Data\Tea.Api.Data.csproj", "{5971D582-55EF-456C-B853-7CE0C57CDF6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Data", "Tea.Api.Data\Tea.Api.Data.csproj", "{5971D582-55EF-456C-B853-7CE0C57CDF6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Entity", "Tea.Api.Entity\Tea.Api.Entity.csproj", "{00B5C8FA-A90D-4646-833A-94C7BDFF3F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Entity", "Tea.Api.Entity\Tea.Api.Entity.csproj", "{00B5C8FA-A90D-4646-833A-94C7BDFF3F7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Collection", "Tea.Api.Collection\Tea.Api.Collection.csproj", "{59461EE6-7441-456A-ACBD-7E08013F07DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Gateway", "Tea.Api.Gateway\Tea.Api.Gateway.csproj", "{368E15FA-83BA-4140-8B67-1E6423B8AEE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{00B5C8FA-A90D-4646-833A-94C7BDFF3F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00B5C8FA-A90D-4646-833A-94C7BDFF3F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00B5C8FA-A90D-4646-833A-94C7BDFF3F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59461EE6-7441-456A-ACBD-7E08013F07DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59461EE6-7441-456A-ACBD-7E08013F07DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59461EE6-7441-456A-ACBD-7E08013F07DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59461EE6-7441-456A-ACBD-7E08013F07DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

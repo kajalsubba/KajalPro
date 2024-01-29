@@ -88,6 +88,13 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
+       async Task<DataSet> IAdminService.GetVehicle(CommonSelectModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetVehicle(_input);
+            return ds;
+        }
+
         async Task<DataTable> IAdminService.Login(LoginModel _input)
         {
             DataTable dt;

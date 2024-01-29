@@ -134,5 +134,14 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetVehicle")]
+        public async Task<IActionResult> GetVehicle([FromBody] CommonSelectModel _input)
+        {
+            var results = await _adminService.GetVehicle(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }
