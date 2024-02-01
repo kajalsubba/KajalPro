@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,21 @@ namespace Tea.Api.Data.Repository.Collection
 
             _dataHandler = dataHandler;
         }
+
+       async Task<DataSet> ICollectionRepository.GetStgPendingData(StgFilterModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@CollectionDate", _input.CollectionDate ??"")
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGPendingData]", oclsPairs);
+            ds.Tables[0].TableName = "STGDetails";
+            return ds;
+        }
+
         async Task<string> ICollectionRepository.SaveSTG(SaveStgModel _input)
         {
             List<ClsParamPair> oclsPairs = new()

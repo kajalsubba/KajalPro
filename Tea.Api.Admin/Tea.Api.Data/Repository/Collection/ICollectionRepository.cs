@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,5 +13,7 @@ namespace Tea.Api.Data.Repository.Collection
     {
 
         Task<string> SaveSTG(SaveStgModel _input);
+
+        Task<DataSet> GetStgPendingData(StgFilterModel _input);
     }
 }

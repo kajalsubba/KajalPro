@@ -28,4 +28,11 @@ namespace Tea.Api.Entity.Collection
         public long? CreatedBy { get; set; }
    
     }
+
+    public class StgFilterModel
+    {
+        public string? CollectionDate { get; set; }
+        public long? TenantId { get; set; }
+    }
+
 }

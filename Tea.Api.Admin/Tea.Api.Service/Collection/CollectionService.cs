@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,14 @@ namespace Tea.Api.Service.Collection
         {
             _unitOfWork = unitOfWork;
         }
+
+       async Task<DataSet> ICollectionService.GetStgPendingData(StgFilterModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetStgPendingData(_input);
+            return ds;
+        }
+
         async Task<SaveReturnModel> ICollectionService.SaveSTG(SaveStgModel _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveSTG(_input);
