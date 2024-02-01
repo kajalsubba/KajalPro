@@ -99,7 +99,20 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetFactory(CommonSelectModel _input)
+      async  Task<DataSet> IAdminRepository.GetClientList(CommonSelectModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetClientAutocomplete]", oclsPairs);
+            ds.Tables[0].TableName = "ClientDetails";
+            return ds;
+        }
+
+        async  Task<DataSet> IAdminRepository.GetFactory(CommonSelectModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()

@@ -67,7 +67,14 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetFactory(CommonSelectModel _input)
+       async Task<DataSet> IAdminService.GetClientList(CommonSelectModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetClientList(_input);
+            return ds;
+        }
+
+        async Task<DataSet> IAdminService.GetFactory(CommonSelectModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetFactory(_input);

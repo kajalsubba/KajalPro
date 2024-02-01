@@ -40,5 +40,8 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> GetFactoryAccount(CommonSelectModel _input);
 
         Task<DataSet> GetVehicle(CommonSelectModel _input);
+
+
+        Task<DataSet> GetClientList(CommonSelectModel _input);
     }
 }

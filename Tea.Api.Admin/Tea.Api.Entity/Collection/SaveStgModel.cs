@@ -19,8 +19,12 @@ namespace Tea.Api.Entity.Collection
         public int? Deduction { get; set; }
         public decimal? FinalWeight { get; set; }
         public decimal? Rate { get; set; }
+
+        public decimal? GrossAmount { get; set; }
         public int? GradeId { get; set; }
         public string? Remarks { get; set; }
+        public long? TenantId { get; set; }
+        public string? Status { get; set; }
         public long? CreatedBy { get; set; }
    
     }

@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.MiddleWare;
+using Tea.Api.Data.Repository.Collection;
 using Tea.Api.Data.UnitOfWork;
 using Tea.Api.Service.Collection;
 
@@ -16,6 +17,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddScoped<IDataHandler, DataHandler>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
+builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
