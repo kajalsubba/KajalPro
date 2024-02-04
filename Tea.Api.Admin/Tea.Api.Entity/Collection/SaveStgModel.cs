@@ -31,7 +31,8 @@ namespace Tea.Api.Entity.Collection
 
     public class StgFilterModel
     {
-        public string? CollectionDate { get; set; }
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
         public long? TenantId { get; set; }
     }
 

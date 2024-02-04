@@ -26,7 +26,8 @@ namespace Tea.Api.Data.Repository.Collection
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
-                new ClsParamPair("@CollectionDate", _input.CollectionDate ??"")
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGPendingData]", oclsPairs);
