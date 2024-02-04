@@ -11,7 +11,7 @@ namespace Tea.Api.Entity.Collection
 
         public long? CollectionId { get; set; }
         public DateTime? CollectionDate { get; set; }
-        public long? VehicleId { get; set; }
+        public string? VehicleNo { get; set; }
         public long? ClientId { get; set; }
         public decimal? FirstWeight { get; set; }
         public int? WetLeaf { get; set; }

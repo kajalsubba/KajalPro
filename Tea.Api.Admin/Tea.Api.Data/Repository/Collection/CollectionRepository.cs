@@ -41,7 +41,7 @@ namespace Tea.Api.Data.Repository.Collection
             {
                 new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),
                 new ClsParamPair("@CollectionDate",Convert.ToDateTime(_input.CollectionDate), true,"Datetime"),
-                new ClsParamPair("@VehicleId", _input.VehicleId == null ? 0 : _input.VehicleId, false, "long"),
+                new ClsParamPair("@VehicleNo", _input.VehicleNo == null ? "" : _input.VehicleNo, false, "string"),
                 new ClsParamPair("@ClientId", _input.ClientId == null ? 0 : _input.ClientId, false, "long"),
                 new ClsParamPair("@FirstWeight", _input.FirstWeight == null ? 0 : _input.FirstWeight, false, "long"),
                 new ClsParamPair("@WetLeaf", _input.WetLeaf == null ? 0 : _input.WetLeaf, false, "long"),
