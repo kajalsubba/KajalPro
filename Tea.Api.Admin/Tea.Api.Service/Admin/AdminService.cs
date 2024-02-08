@@ -74,6 +74,13 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
+      async  Task<DataSet> IAdminService.GetCompany(GetCompanyModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetCompany(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAdminService.GetFactory(CommonSelectModel _input)
         {
             DataSet ds;
@@ -123,7 +130,14 @@ namespace Tea.Api.Service.Admin
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-       async Task<SaveReturnModel> IAdminService.SaveFactory(SaveFactoryModel _input)
+       async Task<SaveReturnModel> IAdminService.SaveCompany(SaveCompanyModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.SaveCompany(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IAdminService.SaveFactory(SaveFactoryModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveFactory(_input);
             string[] msgList = msg.Split(",");

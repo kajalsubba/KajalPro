@@ -112,6 +112,19 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
+      async  Task<DataSet> IAdminRepository.GetCompany(GetCompanyModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetCompany]", oclsPairs);
+            ds.Tables[0].TableName = "CompanyDetails";
+            return ds;
+        }
+
         async  Task<DataSet> IAdminRepository.GetFactory(CommonSelectModel _input)
         {
             DataSet ds;
@@ -210,7 +223,24 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.SaveFactory(SaveFactoryModel _input)
+       async Task<string> IAdminRepository.SaveCompany(SaveCompanyModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CompanyId", _input.CompanyId == null ? 0 : _input.CompanyId, false, "long"),
+                new ClsParamPair("@CompanyName", _input.CompanyName ?? "", false, "String"),
+                new ClsParamPair("@CompanyLogo", _input.CompanyLogo ??"", false, "String"),
+                new ClsParamPair("@UserEmail", _input.UserEmail??"", false, "String"),
+                new ClsParamPair("@ContactNo", _input.ContactNo??"", false, "String"),
+                new ClsParamPair("@CompanyDetails", _input.CompanyDetails??"", false, "String"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[CompanyInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+        async Task<string> IAdminRepository.SaveFactory(SaveFactoryModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {

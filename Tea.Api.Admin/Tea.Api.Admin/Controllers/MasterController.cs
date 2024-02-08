@@ -152,5 +152,26 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+
+
+        [HttpPost, Route("SaveCompany")]
+        public async Task<IActionResult> SaveCompany([FromBody] SaveCompanyModel _input)
+        {
+            var results = await _adminService.SaveCompany(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("GetCompany")]
+        public async Task<IActionResult> GetCompany([FromBody] GetCompanyModel _input)
+        {
+            var results = await _adminService.GetCompany(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

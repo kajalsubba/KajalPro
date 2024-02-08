@@ -36,5 +36,9 @@ namespace Tea.Api.Service.Admin
         Task<DataSet> GetVehicle(CommonSelectModel _input);
 
         Task<DataSet> GetClientList(CommonSelectModel _input);
+
+        Task<SaveReturnModel> SaveCompany(SaveCompanyModel _input);
+
+        Task<DataSet> GetCompany(GetCompanyModel _input);
     }
 }
