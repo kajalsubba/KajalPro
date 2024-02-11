@@ -31,5 +31,22 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("SaveTenant")]
+        public async Task<IActionResult> SaveTenant([FromBody] SaveTenantModel _input)
+        {
+            var results = await _adminService.SaveTenant(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
+        [HttpGet, Route("GetTenant")]
+        public async Task<IActionResult> GetTenant()
+        {
+            var results = await _adminService.GetTenant();
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

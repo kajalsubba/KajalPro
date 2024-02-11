@@ -34,6 +34,28 @@ namespace Tea.Api.Entity.Collection
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
         public long? TenantId { get; set; }
+        public string? VehicleNo { get; set; }
+    }
+
+    public class SaveApproveStg
+    {
+        public long? TotalFirstWeight { get; set; }
+        public long? TotalWetLeaf { get; set; }
+        public long? TotalLongLeaf { get; set; }
+        public long? TotalDeduction { get; set; }
+        public long? TotalFinalWeight { get; set; }
+        
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+
+        public List<ApproveStgMapping>? ApproveList { get; set; }
+    }
+
+    public class ApproveStgMapping
+    {
+        public Boolean? IsApprove { get; set; }
+        public  long ? CollectionId { get; set;}
+        public string? Status { get; set; }
     }
 
 }

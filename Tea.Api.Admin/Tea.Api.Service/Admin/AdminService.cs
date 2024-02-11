@@ -102,7 +102,14 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetVehicle(CommonSelectModel _input)
+       async Task<DataSet> IAdminService.GetTenant()
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetTenant();
+            return ds;
+        }
+
+        async Task<DataSet> IAdminService.GetVehicle(CommonSelectModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetVehicle(_input);
@@ -158,6 +165,13 @@ namespace Tea.Api.Service.Admin
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
 
+        }
+
+       async Task<SaveReturnModel> IAdminService.SaveTenant(SaveTenantModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.SaveTenant(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
         async  Task<SaveReturnModel> IAdminService.SaveUser(SaveUserModel _input)

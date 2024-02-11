@@ -16,5 +16,7 @@ namespace Tea.Api.Service.Collection
         Task<SaveReturnModel> SaveSTG(SaveStgModel _input);
 
         Task<DataSet> GetStgPendingData(StgFilterModel _input);
+
+        Task<SaveReturnModel> SaveApproveStg(SaveApproveStg _input);
     }
 }

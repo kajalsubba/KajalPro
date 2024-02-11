@@ -35,6 +35,11 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
-
+        [HttpPost, Route("SaveApproveStg")]
+        public async Task<IActionResult> SaveApproveStg([FromBody] SaveApproveStg _input)
+        {
+            var results = await _collectionService.SaveApproveStg(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
     }
 }

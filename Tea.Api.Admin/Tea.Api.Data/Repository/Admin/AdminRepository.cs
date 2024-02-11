@@ -164,7 +164,15 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetVehicle(CommonSelectModel _input)
+       async Task<DataSet> IAdminRepository.GetTenant()
+        {
+            DataSet ds;
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetTenant]");
+            ds.Tables[0].TableName = "TenantDetails";
+            return ds;
+        }
+
+        async Task<DataSet> IAdminRepository.GetVehicle(CommonSelectModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -282,6 +290,22 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Master].[GradeInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+      async  Task<string> IAdminRepository.SaveTenant(SaveTenantModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@TenantName", _input.TenantName ?? "", false, "String"),
+                new ClsParamPair("@TenantOwner", _input.TenantOwner ??"", false, "String"),
+                new ClsParamPair("@TenantEmail", _input.TenantEmail??"", false, "String"),
+                new ClsParamPair("@TenantContactNo", _input.TenantContactNo??"", false, "String"),
+                new ClsParamPair("@IsActive", _input.IsActive == null ? false : _input.IsActive, false, "bool")
+          
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[TenantInsertUpdate]", oclsPairs);
             return Msg;
         }
 

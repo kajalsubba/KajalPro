@@ -47,5 +47,8 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> SaveCompany(SaveCompanyModel _input);
 
         Task<DataSet> GetCompany(GetCompanyModel _input);
+        Task<string> SaveTenant(SaveTenantModel _input);
+
+        Task<DataSet> GetTenant();
     }
 }
