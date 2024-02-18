@@ -173,5 +173,15 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+
+        [HttpGet, Route("GetTrip")]
+        public async Task<IActionResult> GetTrip()
+        {
+            var results = await _adminService.GetTrip();
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

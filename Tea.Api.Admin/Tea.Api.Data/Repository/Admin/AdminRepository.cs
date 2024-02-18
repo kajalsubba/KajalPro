@@ -172,6 +172,14 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
+       async Task<DataSet> IAdminRepository.GetTrip()
+        {
+            DataSet ds;
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetTrip]");
+            ds.Tables[0].TableName = "TripDetails";
+            return ds;
+        }
+
         async Task<DataSet> IAdminRepository.GetVehicle(CommonSelectModel _input)
         {
             DataSet ds;

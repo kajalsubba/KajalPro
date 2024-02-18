@@ -41,5 +41,21 @@ namespace Tea.Api.Collection.Controllers
             var results = await _collectionService.SaveApproveStg(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+
+        [HttpPost, Route("SaveSale")]
+        public async Task<IActionResult> SaveSale([FromBody] SaveSaleModel _input)
+        {
+            var results = await _collectionService.SaveSale(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSaleDetails")]
+        public async Task<IActionResult> GetSaleDetails([FromBody] SelectSale _input)
+        {
+            var results = await _collectionService.GetSaleDetails(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

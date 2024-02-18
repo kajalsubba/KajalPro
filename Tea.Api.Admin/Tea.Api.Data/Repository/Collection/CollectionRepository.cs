@@ -22,7 +22,23 @@ namespace Tea.Api.Data.Repository.Collection
             _dataHandler = dataHandler;
         }
 
-       async Task<DataSet> ICollectionRepository.GetStgPendingData(StgFilterModel _input)
+       async Task<DataSet> ICollectionRepository.GetSaleDetails(SelectSale _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+           
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetSalesData]", oclsPairs);
+            ds.Tables[0].TableName = "SaleDetails";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetStgPendingData(StgFilterModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -31,9 +47,10 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@FromDate", _input.FromDate ??""),
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
+                new ClsParamPair("@Status",_input.Status??""),
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGPendingData]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGData]", oclsPairs);
             ds.Tables[0].TableName = "STGDetails";
             return ds;
         }
@@ -61,6 +78,30 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
+      async  Task<string> ICollectionRepository.SaveSale(SaveSaleModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@SaleId", _input.SaleId == null ? 0 : _input.SaleId, false, "long"),
+                new ClsParamPair("@ApproveId", _input.ApproveId == null ? 0 : _input.ApproveId, false, "long"),
+                new ClsParamPair("@SaleDate",Convert.ToDateTime(_input.SaleDate), true,"Datetime"),
+                new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId, false, "long"),
+                new ClsParamPair("@VehicleId", _input.VehicleId == null ? 0 : _input.VehicleId, false, "long"),
+                new ClsParamPair("@FieldCollectionWeight", _input.FieldCollectionWeight == null ? 0 : _input.FieldCollectionWeight, false, "long"),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf == null ? 0 : _input.FineLeaf, false, "long"),
+                new ClsParamPair("@ChallanWeight",_input.ChallanWeight == null ? 0 : _input.ChallanWeight, false, "long"),
+                new ClsParamPair("@Rate", _input.Rate == null ? 0 : _input.Rate, false, "long"),
+                new ClsParamPair("@Incentive", _input.Incentive == null ? 0 : _input.Incentive, false, "long"),
+                new ClsParamPair("@GrossAmount", _input.GrossAmount == null ? 0 : _input.GrossAmount, false, "long"),
+                new ClsParamPair("@Remarks",_input.Remarks ??"",false,"String"),
+                new ClsParamPair("@SaleTypeId",  _input.SaleTypeId == null ? 0 : _input.SaleTypeId, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Sales].[SaleInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
         async Task<string> ICollectionRepository.SaveSTG(SaveStgModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
@@ -69,6 +110,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@CollectionDate",Convert.ToDateTime(_input.CollectionDate), true,"Datetime"),
                 new ClsParamPair("@VehicleNo", _input.VehicleNo == null ? "" : _input.VehicleNo, false, "string"),
                 new ClsParamPair("@ClientId", _input.ClientId == null ? 0 : _input.ClientId, false, "long"),
+                new ClsParamPair("@TripId", _input.TripId == null ? 0 : _input.TripId, false, "long"),
                 new ClsParamPair("@FirstWeight", _input.FirstWeight == null ? 0 : _input.FirstWeight, false, "long"),
                 new ClsParamPair("@WetLeaf", _input.WetLeaf == null ? 0 : _input.WetLeaf, false, "long"),
                 new ClsParamPair("@LongLeaf", _input.LongLeaf == null ? 0 : _input.LongLeaf, false, "long"),

@@ -109,6 +109,13 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
+      async  Task<DataSet> IAdminService.GetTrip()
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetTrip();
+            return ds;
+        }
+
         async Task<DataSet> IAdminService.GetVehicle(CommonSelectModel _input)
         {
             DataSet ds;

@@ -17,5 +17,9 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetStgPendingData(StgFilterModel _input);
 
         Task<string> SaveApproveStg(SaveApproveStg _input);
+
+        Task<string> SaveSale(SaveSaleModel _input);
+
+        Task<DataSet> GetSaleDetails(SelectSale _input);
     }
 }

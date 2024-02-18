@@ -44,5 +44,6 @@ namespace Tea.Api.Service.Admin
         Task<SaveReturnModel> SaveTenant(SaveTenantModel _input);
 
         Task<DataSet> GetTenant();
+        Task<DataSet> GetTrip();
     }
 }

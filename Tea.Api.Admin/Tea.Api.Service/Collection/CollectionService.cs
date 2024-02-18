@@ -18,7 +18,14 @@ namespace Tea.Api.Service.Collection
             _unitOfWork = unitOfWork;
         }
 
-       async Task<DataSet> ICollectionService.GetStgPendingData(StgFilterModel _input)
+       async Task<DataSet> ICollectionService.GetSaleDetails(SelectSale _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSaleDetails(_input);
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionService.GetStgPendingData(StgFilterModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetStgPendingData(_input);
@@ -28,6 +35,13 @@ namespace Tea.Api.Service.Collection
       async  Task<SaveReturnModel> ICollectionService.SaveApproveStg(SaveApproveStg _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveApproveStg(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+      async  Task<SaveReturnModel> ICollectionService.SaveSale(SaveSaleModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.SaveSale(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }

@@ -50,5 +50,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> SaveTenant(SaveTenantModel _input);
 
         Task<DataSet> GetTenant();
+
+        Task<DataSet> GetTrip();
     }
 }
