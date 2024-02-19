@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace Tea.Api.Entity.Admin
         public long? CompanyId { get; set; }
         public string? CompanyName { get; set; }
         public string? CompanyLogo { get; set; }
+
+        public IFormFile? Image { get; set; }
         public string? UserEmail { get; set; }
         public string? ContactNo { get; set; }
         public string? CompanyDetails { get; set; }

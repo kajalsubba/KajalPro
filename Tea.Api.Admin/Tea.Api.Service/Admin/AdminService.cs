@@ -102,7 +102,14 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetTenant()
+      async  Task<DataSet> IAdminService.GetSaleType()
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetSaleType();
+            return ds;
+        }
+
+        async Task<DataSet> IAdminService.GetTenant()
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetTenant();

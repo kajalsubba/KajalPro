@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.Admin;
 
@@ -164,7 +165,16 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetTenant()
+       async Task<DataSet> IAdminRepository.GetSaleType()
+        {
+            DataSet ds;
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetSaleType]");
+            ds.Tables[0].TableName = "SaleTypes";
+            return ds;
+        }
+    
+
+        async Task<DataSet> IAdminRepository.GetTenant()
         {
             DataSet ds;
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetTenant]");
@@ -241,11 +251,14 @@ namespace Tea.Api.Data.Repository.Admin
 
        async Task<string> IAdminRepository.SaveCompany(SaveCompanyModel _input)
         {
+            string logoName= await ClsUploadFile.UploadFile(_input.TenantId.ToString(),_input.Image);
+
+        
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CompanyId", _input.CompanyId == null ? 0 : _input.CompanyId, false, "long"),
                 new ClsParamPair("@CompanyName", _input.CompanyName ?? "", false, "String"),
-                new ClsParamPair("@CompanyLogo", _input.CompanyLogo ??"", false, "String"),
+                new ClsParamPair("@CompanyLogo", logoName ??"", false, "String"),
                 new ClsParamPair("@UserEmail", _input.UserEmail??"", false, "String"),
                 new ClsParamPair("@ContactNo", _input.ContactNo??"", false, "String"),
                 new ClsParamPair("@CompanyDetails", _input.CompanyDetails??"", false, "String"),

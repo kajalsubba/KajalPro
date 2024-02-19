@@ -48,6 +48,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
                 new ClsParamPair("@Status",_input.Status??""),
+                new ClsParamPair("@TripId",_input.TripId == null ? 0 : _input.TripId),
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGData]", oclsPairs);

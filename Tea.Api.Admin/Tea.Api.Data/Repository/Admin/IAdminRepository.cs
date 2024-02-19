@@ -52,5 +52,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> GetTenant();
 
         Task<DataSet> GetTrip();
+
+        Task<DataSet> GetSaleType();
     }
 }

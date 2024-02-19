@@ -156,13 +156,12 @@ namespace Tea.Api.Admin.Controllers
 
 
         [HttpPost, Route("SaveCompany")]
-        public async Task<IActionResult> SaveCompany([FromBody] SaveCompanyModel _input)
+        public async Task<IActionResult> SaveCompany([FromForm] SaveCompanyModel _input)
         {
             var results = await _adminService.SaveCompany(_input);
-            string JsonResult;
-            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
-            return (results != null) ? Ok(JsonResult) : throw new Exception();
+            return (results != null) ? Ok(results) : throw new Exception();
         }
+    
 
 
         [HttpPost, Route("GetCompany")]
@@ -179,6 +178,15 @@ namespace Tea.Api.Admin.Controllers
         public async Task<IActionResult> GetTrip()
         {
             var results = await _adminService.GetTrip();
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpGet, Route("GetSaleType")]
+        public async Task<IActionResult> GetSaleType()
+        {
+            var results = await _adminService.GetSaleType();
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
