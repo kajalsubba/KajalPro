@@ -21,5 +21,11 @@ namespace Tea.Api.Data.Repository.Collection
         Task<string> SaveSale(SaveSaleModel _input);
 
         Task<DataSet> GetSaleDetails(SelectSale _input);
+
+        Task<string> SaveSupplier(SaveSupplierModel _input);
+
+        Task<string> UploadSupplierChallan(SaveChallanImageModel _input);
+
+        Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
     }
 }

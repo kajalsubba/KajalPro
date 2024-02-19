@@ -32,7 +32,14 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-      async  Task<SaveReturnModel> ICollectionService.SaveApproveStg(SaveApproveStg _input)
+      async  Task<DataSet> ICollectionService.GetSupplierDetails(SupplierFilterModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSupplierDetails(_input);
+            return ds;
+        }
+
+        async  Task<SaveReturnModel> ICollectionService.SaveApproveStg(SaveApproveStg _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveApproveStg(_input);
             string[] msgList = msg.Split(",");
@@ -49,6 +56,20 @@ namespace Tea.Api.Service.Collection
         async Task<SaveReturnModel> ICollectionService.SaveSTG(SaveStgModel _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveSTG(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+      async  Task<SaveReturnModel> ICollectionService.SaveSupplier(SaveSupplierModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.SaveSupplier(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+      async  Task<SaveReturnModel> ICollectionService.UploadSupplierChallan(SaveChallanImageModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.UploadSupplierChallan(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }

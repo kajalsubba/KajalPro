@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -14,9 +15,14 @@ namespace Tea.Api.Data.Repository.Admin
     {
         readonly IDataHandler _dataHandler;
 
+        readonly IConfiguration _config;
+        static readonly IConfiguration config = new ConfigurationBuilder()
+                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false).Build();
+
         public AdminRepository(IDataHandler dataHandler)
         {
             _dataHandler = dataHandler;
+            _config = config;
         }
 
       async  Task<string> IAdminRepository.DeleteCategory(DeleteCategoryModel _input)
@@ -251,7 +257,7 @@ namespace Tea.Api.Data.Repository.Admin
 
        async Task<string> IAdminRepository.SaveCompany(SaveCompanyModel _input)
         {
-            string logoName= await ClsUploadFile.UploadFile(_input.TenantId.ToString(),_input.Image);
+            string logoName= await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"),_input.TenantId.ToString(),_input.Image, "Logo");
 
         
             List<ClsParamPair> oclsPairs = new()

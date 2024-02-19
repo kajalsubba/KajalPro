@@ -57,5 +57,29 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("SaveSupplier")]
+        public async Task<IActionResult> SaveSupplier([FromBody] SaveSupplierModel _input)
+        {
+            var results = await _collectionService.SaveSupplier(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("UploadSupplierChallan")]
+        public async Task<IActionResult> UploadSupplierChallan([FromForm] SaveChallanImageModel _input)
+        {
+            var results = await _collectionService.UploadSupplierChallan(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSupplierDetails")]
+        public async Task<IActionResult> GetSupplierDetails([FromBody] SupplierFilterModel _input)
+        {
+            var results = await _collectionService.GetSupplierDetails(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

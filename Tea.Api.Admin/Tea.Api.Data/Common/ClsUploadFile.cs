@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,27 +12,36 @@ namespace Tea.Api.Data.Common
 {
     public static class ClsUploadFile
     {
-       
-        static readonly IConfiguration config = new ConfigurationBuilder()
-                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false).Build();
 
-       
-        public static async Task<string> UploadFile(string? name, IFormFile? Images)
+        //static readonly IConfiguration config = new ConfigurationBuilder()
+        //           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false).Build();
+
+
+        public static async Task<string> UploadFile(string? pathToSave,string? name, IFormFile? Images,string? type)
         {
             try
             {
-             
+
                 //// Getting Image
                 ///
-                var CompanyPath = config.GetConnectionString("CompanyLogoPath");
+                var FilePath = pathToSave;//config.GetConnectionString("CompanyLogoPath");
                 var image = Images;
 
-               // string CompanyPath = "D:\\Tea\\CompanyLogo\\";
+
+                string[] sentences = FilePath.Split('\\');
+
+        
                 string extension = Path.GetExtension(image.FileName);
-
-                string FileName = "Logo" + name + extension;
-
-                var folderName = CompanyPath + name; //Path.Combine("Upload", name);
+                string FileName = string.Empty;
+                if (type == "Logo")
+                { 
+                FileName = "Logo" + name + extension;
+                 }
+                else 
+                {
+                    FileName = type + extension;
+                }
+                var folderName = FilePath + name; //Path.Combine("Upload", name);
             
                 var filePath = Path.Combine(folderName, FileName);
 
@@ -51,7 +61,7 @@ namespace Tea.Api.Data.Common
                     }
                 }
 
-                return "http://72.167.37.70/TeaFiles/CompanyLogo/"+ name+"/"+ FileName;
+                return "http://72.167.37.70/TeaFiles/" + sentences[4]+"/" + name+"/"+ FileName;
 
                // return new ReturnData() { Id = 1, message = fileName + " is uploaded successfully." };
             }

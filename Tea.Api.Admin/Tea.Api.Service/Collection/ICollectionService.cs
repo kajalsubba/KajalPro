@@ -22,5 +22,11 @@ namespace Tea.Api.Service.Collection
         Task<SaveReturnModel> SaveSale(SaveSaleModel _input);
 
         Task<DataSet> GetSaleDetails(SelectSale _input);
+
+        Task<SaveReturnModel> SaveSupplier(SaveSupplierModel _input);
+
+        Task<SaveReturnModel> UploadSupplierChallan( SaveChallanImageModel _input);
+
+        Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
     }
 }

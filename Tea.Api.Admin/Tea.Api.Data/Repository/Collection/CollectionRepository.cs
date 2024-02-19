@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.Collection;
+using Tea.Api.Entity.Common;
 
 namespace Tea.Api.Data.Repository.Collection
 {
@@ -15,11 +17,16 @@ namespace Tea.Api.Data.Repository.Collection
     {
         readonly IDataHandler _dataHandler;
 
+        readonly IConfiguration _config;
+        static readonly IConfiguration config = new ConfigurationBuilder()
+                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false).Build();
+
 
         public CollectionRepository(IDataHandler dataHandler)
         {
 
             _dataHandler = dataHandler;
+            _config = config;
         }
 
        async Task<DataSet> ICollectionRepository.GetSaleDetails(SelectSale _input)
@@ -127,6 +134,66 @@ namespace Tea.Api.Data.Repository.Collection
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[TeaCollection].[STGInsertUpdate]", oclsPairs);
             return Msg;
+        }
+
+     async   Task<string> ICollectionRepository.SaveSupplier(SaveSupplierModel _input)
+        {
+
+         //   string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept");
+
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),
+                new ClsParamPair("@CollectionDate", Convert.ToDateTime(_input.CollectionDate), true,"Datetime"),
+                new ClsParamPair("@VehicleNo",_input.VehicleNo ??"",false,"String"),
+                new ClsParamPair("@ClientId", _input.ClientId == null ? 0 : _input.ClientId, false, "long"),
+                new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId, false, "long"),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf == null ? 0 : _input.FineLeaf, false, "long"),
+                new ClsParamPair("@ChallanWeight", _input.ChallanWeight == null ? 0 : _input.ChallanWeight, false, "long"),
+                new ClsParamPair("@Rate",_input.Rate == null ? 0 : _input.Rate, false, "long"),
+                new ClsParamPair("@GrossAmount", _input.GrossAmount == null ? 0 : _input.GrossAmount, false, "long"),
+                new ClsParamPair("@TripId", _input.TripId == null ? 0 : _input.TripId, false, "long"),
+                new ClsParamPair("@Remarks",_input.Remarks ??"",false,"String"),
+                new ClsParamPair("@Status",_input.Status ??"",false,"String"),
+             //   new ClsParamPair("@ChallanReceiptCopy",ChallanPath ??"",false,"String"),
+
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[TeaCollection].[SupplierInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+       async Task<string> ICollectionRepository.UploadSupplierChallan(SaveChallanImageModel _input)
+        {
+            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept"+_input.CollectionId);
+
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),
+                new ClsParamPair("@ChallanReceiptCopy",ChallanPath ??"",false,"String")
+             
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[TeaCollection].[SupplierChallanUpdate]", oclsPairs);
+            return Msg;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetSupplierDetails(SupplierFilterModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
+                new ClsParamPair("@Status",_input.Status??""),
+                new ClsParamPair("@TripId",_input.TripId == null ? 0 : _input.TripId),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierData]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierDetails";
+            return ds;
         }
     }
 }
