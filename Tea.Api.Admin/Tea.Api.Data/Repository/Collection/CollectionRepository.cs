@@ -34,10 +34,15 @@ namespace Tea.Api.Data.Repository.Collection
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+             
                 new ClsParamPair("@FromDate", _input.FromDate ??""),
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
-           
+                new ClsParamPair("@VehicleNo", _input.VehicleNo ??""),
+                new ClsParamPair("@FactoryId", _input.FactoryId == null ? 0 : _input.FactoryId),
+                new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId),
+                new ClsParamPair("@SaleTypeId", _input.SaleTypeId == null ? 0 : _input.SaleTypeId),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetSalesData]", oclsPairs);
@@ -194,6 +199,29 @@ namespace Tea.Api.Data.Repository.Collection
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierData]", oclsPairs);
             ds.Tables[0].TableName = "SupplierDetails";
             return ds;
+        }
+
+       async Task<string> ICollectionRepository.SaveApproveSupplier(SaveApproveStg _input)
+        {
+            List<ApproveStgMapping> _items = _input.ApproveList.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@ApproveData", dt, SqlDbType.Structured),
+
+
+    };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TotalFirstWeight", _input.TotalFirstWeight == null ? 0 : _input.TotalFirstWeight, false, "long"),
+                new ClsParamPair("@TotalWetLeaf", _input.TotalWetLeaf == null ? 0 : _input.TotalWetLeaf, false, "long"),
+                new ClsParamPair("@TotalLongLeaf", _input.TotalLongLeaf == null ? "" : _input.TotalLongLeaf, false, "long"),
+                new ClsParamPair("@TotalDeduction", _input.TotalDeduction == null ? 0 : _input.TotalDeduction, false, "long"),
+                new ClsParamPair("@TotalFinalWeight", _input.TotalFinalWeight == null ? 0 : _input.TotalFinalWeight, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[SupplierApproveInsertUpdate]", parameters, oclsPairs);
+            return Msg;
         }
     }
 }

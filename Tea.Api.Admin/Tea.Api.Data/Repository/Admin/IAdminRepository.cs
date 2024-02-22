@@ -42,7 +42,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> GetVehicle(CommonSelectModel _input);
 
 
-        Task<DataSet> GetClientList(CommonSelectModel _input);
+        Task<DataSet> GetClientList(SelectCategoryClientModel _input);
 
         Task<string> SaveCompany(SaveCompanyModel _input);
 

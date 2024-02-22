@@ -46,7 +46,14 @@ namespace Tea.Api.Service.Collection
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-      async  Task<SaveReturnModel> ICollectionService.SaveSale(SaveSaleModel _input)
+       async Task<SaveReturnModel> ICollectionService.SaveApproveSupplier(SaveApproveStg _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.SaveApproveSupplier(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async  Task<SaveReturnModel> ICollectionService.SaveSale(SaveSaleModel _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveSale(_input);
             string[] msgList = msg.Split(",");

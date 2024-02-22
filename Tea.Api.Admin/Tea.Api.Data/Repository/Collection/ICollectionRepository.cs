@@ -18,6 +18,8 @@ namespace Tea.Api.Data.Repository.Collection
 
         Task<string> SaveApproveStg(SaveApproveStg _input);
 
+        Task<string> SaveApproveSupplier(SaveApproveStg _input);
+
         Task<string> SaveSale(SaveSaleModel _input);
 
         Task<DataSet> GetSaleDetails(SelectSale _input);

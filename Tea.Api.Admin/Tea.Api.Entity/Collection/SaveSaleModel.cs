@@ -30,6 +30,10 @@ namespace Tea.Api.Entity.Collection
     {
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
+        public string? VehicleNo { get; set; }
+        public long? FactoryId { get; set; }
+        public long? AccountId { get; set; }
+        public int? SaleTypeId { get; set; }
         public long? TenantId { get; set; }
     }
 }

@@ -9,5 +9,12 @@ namespace Tea.Api.Entity.Admin
     public class CommonSelectModel
     {
         public long? TenantId { get; set; }
+      //  public string? Category { get; set; }
+    }
+
+    public class SelectCategoryClientModel
+    {
+        public long? TenantId { get; set; }
+        public string? Category { get; set; }
     }
 }

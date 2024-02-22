@@ -99,6 +99,7 @@ namespace Tea.Api.Data.Repository.Admin
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+               
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetClient]", oclsPairs);
@@ -106,12 +107,13 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetClientList(CommonSelectModel _input)
+      async  Task<DataSet> IAdminRepository.GetClientList(SelectCategoryClientModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@Category", _input.Category == null ? 0 : _input.Category)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetClientAutocomplete]", oclsPairs);

@@ -81,5 +81,13 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("SaveApproveSupplier")]
+        public async Task<IActionResult> SaveApproveSupplier([FromBody] SaveApproveStg _input)
+        {
+            var results = await _collectionService.SaveApproveSupplier(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
     }
 }
