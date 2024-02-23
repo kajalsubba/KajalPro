@@ -61,6 +61,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
                 new ClsParamPair("@Status",_input.Status??""),
                 new ClsParamPair("@TripId",_input.TripId == null ? 0 : _input.TripId),
+                new ClsParamPair("@CreatedBy",_input.CreatedBy == null ? 0 : _input.CreatedBy),
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGData]", oclsPairs);
@@ -194,6 +195,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
                 new ClsParamPair("@Status",_input.Status??""),
                 new ClsParamPair("@TripId",_input.TripId == null ? 0 : _input.TripId),
+                 new ClsParamPair("@CreatedBy",_input.CreatedBy == null ? 0 : _input.CreatedBy),
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierData]", oclsPairs);

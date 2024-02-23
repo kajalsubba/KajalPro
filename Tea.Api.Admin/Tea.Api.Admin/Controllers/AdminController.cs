@@ -48,5 +48,33 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+
+        [HttpPost, Route("CreateRole")]
+        public async Task<IActionResult> CreateRole([FromBody] SaveRoleModel _input)
+        {
+            var results = await _adminService.CreateRole(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("GetRole")]
+        public async Task<IActionResult> GetRole([FromBody] GetRoleModel _input)
+        {
+            var results = await _adminService.GetRole(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("ClientLogin")]
+        public async Task<IActionResult> ClientLogin([FromBody] ClientLoginModel _input)
+        {
+            var results = await _adminService.ClientLogin(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

@@ -18,7 +18,21 @@ namespace Tea.Api.Service.Admin
                 _unitOfWork = unitOfWork;
         }
 
-       async Task<SaveReturnModel> IAdminService.DeleteCategory(DeleteCategoryModel _input)
+       async Task<DataSet> IAdminService.ClientLogin(ClientLoginModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.ClientLogin(_input);
+            return ds;
+        }
+
+        async Task<SaveReturnModel> IAdminService.CreateRole(SaveRoleModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.CreateRole(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IAdminService.DeleteCategory(DeleteCategoryModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.DeleteCategory(_input);
             string[] msgList = msg.Split(",");
@@ -102,7 +116,14 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminService.GetSaleType()
+       async Task<DataSet> IAdminService.GetRole(GetRoleModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetRole(_input);
+            return ds;
+        }
+
+        async  Task<DataSet> IAdminService.GetSaleType()
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetSaleType();
@@ -130,11 +151,14 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-        async Task<DataTable> IAdminService.Login(LoginModel _input)
+        async Task<DataSet> IAdminService.Login(LoginModel _input)
         {
-            DataTable dt;
-            dt = await _unitOfWork.AdminRepository.Login(_input);
-            return dt;
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.Login(_input);
+            return ds;
+            //DataTable dt;
+            //dt = await _unitOfWork.AdminRepository.Login(_input);
+            //return dt;
         }
 
        async Task<SaveReturnModel> IAdminService.SaveCategory(SaveCategoryModel _input)

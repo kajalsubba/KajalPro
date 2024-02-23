@@ -211,16 +211,27 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-        async Task<DataTable> IAdminRepository.Login(LoginModel _input)
+        async Task<DataSet> IAdminRepository.Login(LoginModel _input)
         {
-            DataTable dt;
+            //DataTable dt;
+            //List<ClsParamPair> oclsPairs = new()
+            //{
+            //    new ClsParamPair("@LoginUserName", _input.UserName ??""),
+            //    new ClsParamPair("@Password", _input.Password ??"")
+            //};
+            //dt = await _dataHandler.ExecProcDataTableAsyn("[Admin].[Login]", oclsPairs);
+            //return dt;
+            DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-                new ClsParamPair("@LoginUserName", _input.UserName ??""),
+                  new ClsParamPair("@LoginUserName", _input.UserName ??""),
                 new ClsParamPair("@Password", _input.Password ??"")
             };
-            dt = await _dataHandler.ExecProcDataTableAsyn("[Admin].[Login]", oclsPairs);
-            return dt;
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[Login]", oclsPairs);
+            ds.Tables[0].TableName = "LoginDetails";
+            return ds;
+
         }
 
        async Task<string> IAdminRepository.SaveCategory(SaveCategoryModel _input)
@@ -357,6 +368,52 @@ namespace Tea.Api.Data.Repository.Admin
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[UserInsertUpdate]", oclsPairs);
             return Msg;
+        }
+
+       async Task<DataSet> IAdminRepository.GetRole(GetRoleModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetUserRole]", oclsPairs);
+            ds.Tables[0].TableName = "RoleDetails";
+            return ds;
+        
+    }
+
+       async Task<string> IAdminRepository.CreateRole(SaveRoleModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@UserRoleId", _input.UserRoleId == null ? 0 : _input.UserRoleId, false, "long"),
+                new ClsParamPair("@RoleName", _input.RoleName ?? "", false, "String"),
+                new ClsParamPair("@RoleDescription",  _input.RoleDescription ?? "", false, "String"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+        
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[RoleInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+      async  Task<DataSet> IAdminRepository.ClientLogin(ClientLoginModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@EmailId",  _input.Email ?? "", false, "String"),
+
+                new ClsParamPair("@Password",  _input.Password ?? "", false, "String"),
+
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[ClientLogin]", oclsPairs);
+            ds.Tables[0].TableName = "ClientLoginDetails";
+            return ds;
         }
     }
 }

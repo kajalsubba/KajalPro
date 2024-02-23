@@ -13,7 +13,9 @@ namespace Tea.Api.Data.Repository.Admin
     {
         Task<string> SaveUser(SaveUserModel _input);
 
-        Task<DataTable> Login(LoginModel _input);
+        Task<DataSet> Login(LoginModel _input);
+
+        Task<DataSet> ClientLogin(ClientLoginModel _input);
 
         Task<string> SaveCategory(SaveCategoryModel _input);
 
@@ -54,5 +56,8 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> GetTrip();
 
         Task<DataSet> GetSaleType();
+
+        Task<string> CreateRole(SaveRoleModel _input);
+        Task<DataSet> GetRole(GetRoleModel _input);
     }
 }

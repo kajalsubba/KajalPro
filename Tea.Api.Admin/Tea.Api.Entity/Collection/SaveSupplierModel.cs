@@ -43,6 +43,8 @@ namespace Tea.Api.Entity.Collection
         public string? Status { get; set; }
 
         public int? TripId { get; set; }
+
+        public long? CreatedBy { get; set; }
     }
 
 }
