@@ -47,4 +47,25 @@ namespace Tea.Api.Entity.Collection
         public long? CreatedBy { get; set; }
     }
 
+    public class SaveApproveSupplier
+    {
+        public long? CollectionId { get; set; }
+        public string? SaleStatus { get; set; }
+        public DateTime? CollectionDate { get; set; }
+
+        public long? AccountId { get; set; }
+        public long? VehicleId { get; set; }
+        //public float? FieldCollectionWeight { get; set; }
+        public int? FineLeaf { get; set; }
+        public float? ChallanWeight { get; set; }
+        public int? SaleTypeId { get; set; }
+        //public long? TotalFirstWeight { get; set; }
+        //public long? TotalWetLeaf { get; set; }
+        //public long? TotalLongLeaf { get; set; }
+        //public long? TotalDeduction { get; set; }
+        //public long? TotalFinalWeight { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
+
 }

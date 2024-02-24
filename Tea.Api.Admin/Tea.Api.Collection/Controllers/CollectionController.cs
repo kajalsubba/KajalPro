@@ -83,7 +83,7 @@ namespace Tea.Api.Collection.Controllers
         }
 
         [HttpPost, Route("SaveApproveSupplier")]
-        public async Task<IActionResult> SaveApproveSupplier([FromBody] SaveApproveStg _input)
+        public async Task<IActionResult> SaveApproveSupplier([FromBody] SaveApproveSupplier _input)
         {
             var results = await _collectionService.SaveApproveSupplier(_input);
             return (results != null) ? Ok(results) : throw new Exception();
