@@ -123,6 +123,13 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
+        async Task<DataSet> IAdminService.GetRolePermission(RolePermission _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetRolePermission(_input);
+            return ds;
+        }
+
         async  Task<DataSet> IAdminService.GetSaleType()
         {
             DataSet ds;
@@ -156,9 +163,7 @@ namespace Tea.Api.Service.Admin
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.Login(_input);
             return ds;
-            //DataTable dt;
-            //dt = await _unitOfWork.AdminRepository.Login(_input);
-            //return dt;
+        
         }
 
        async Task<SaveReturnModel> IAdminService.SaveCategory(SaveCategoryModel _input)

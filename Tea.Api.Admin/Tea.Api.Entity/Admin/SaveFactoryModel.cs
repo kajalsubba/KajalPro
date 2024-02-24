@@ -15,6 +15,7 @@ namespace Tea.Api.Entity.Admin
         public string? EmailId { get; set; }
         public long? TenantId { get; set; }
         public bool? IsActive { get; set; }
+        public bool? IsClientView { get; set; }
         public long? CreatedBy { get; set; }
     }
     public class DeleteFactoryModel

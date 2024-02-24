@@ -52,6 +52,8 @@ namespace Tea.Api.Service.Admin
         Task<SaveReturnModel> CreateRole(SaveRoleModel _input);
         Task<DataSet> GetRole(GetRoleModel _input);
 
+        Task<DataSet> GetRolePermission(RolePermission _input);
+
 
     }
 }

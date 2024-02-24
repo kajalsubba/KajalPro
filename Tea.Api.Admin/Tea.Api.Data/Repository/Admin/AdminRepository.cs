@@ -139,7 +139,8 @@ namespace Tea.Api.Data.Repository.Admin
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@IsClientView",  _input.IsClientView == null ? false : _input.IsClientView),
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetFactory]", oclsPairs);
@@ -299,6 +300,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@EmailId", _input.EmailId??"", false, "String"),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@IsActive", _input.IsActive == null ? false : _input.IsActive, false, "bool"),
+                new ClsParamPair("@IsClientView", _input.IsClientView == null ? false : _input.IsClientView, false, "bool"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Master].[FactoryInsertUpdate]", oclsPairs);
@@ -404,16 +406,27 @@ namespace Tea.Api.Data.Repository.Admin
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-                new ClsParamPair("@EmailId",  _input.Email ?? "", false, "String"),
-
+                new ClsParamPair("@UserId",  _input.UserId ?? "", false, "String"),
                 new ClsParamPair("@Password",  _input.Password ?? "", false, "String"),
-
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[ClientLogin]", oclsPairs);
             ds.Tables[0].TableName = "ClientLoginDetails";
             return ds;
+        }
+
+       async Task<DataSet> IAdminRepository.GetRolePermission(RolePermission _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+               new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetRolePermission]", oclsPairs);
+            ds.Tables[0].TableName = "RolePermission";
+            return ds; 
         }
     }
 }
