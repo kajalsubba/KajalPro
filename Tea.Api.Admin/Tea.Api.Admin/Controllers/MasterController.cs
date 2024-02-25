@@ -56,7 +56,7 @@ namespace Tea.Api.Admin.Controllers
 
 
         [HttpPost, Route("GetClient")]
-        public async Task<IActionResult> GetClient([FromBody] CommonSelectModel _input)
+        public async Task<IActionResult> GetClient([FromBody] SelectCategoryClientModel _input)
         {
             var results = await _adminService.GetClient(_input);
             string JsonResult;

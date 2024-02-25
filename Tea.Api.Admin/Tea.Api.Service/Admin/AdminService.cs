@@ -74,7 +74,7 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetClient(CommonSelectModel _input)
+       async Task<DataSet> IAdminService.GetClient(SelectCategoryClientModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetClient(_input);
@@ -148,6 +148,13 @@ namespace Tea.Api.Service.Admin
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetTrip();
+            return ds;
+        }
+
+      async  Task<DataSet> IAdminService.GetUser(SelectUserModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetUser(_input);
             return ds;
         }
 

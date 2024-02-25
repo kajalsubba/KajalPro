@@ -22,6 +22,14 @@ namespace Tea.Api.Admin.Controllers
             var results = await _adminService.SaveUser(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+        [HttpPost, Route("GetUser")]
+        public async Task<IActionResult> GetUser([FromBody] SelectUserModel _input)
+        {
+            var results = await _adminService.GetUser(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
 
         [HttpPost, Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginModel _input)

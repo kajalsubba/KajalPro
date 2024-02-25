@@ -12,7 +12,7 @@ namespace Tea.Api.Data.Repository.Admin
     public interface IAdminRepository
     {
         Task<string> SaveUser(SaveUserModel _input);
-
+        Task<DataSet> GetUser(SelectUserModel _input);
         Task<DataSet> Login(LoginModel _input);
 
         Task<DataSet> ClientLogin(ClientLoginModel _input);
@@ -33,7 +33,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> DeleteFactoryAccount(DeleteAccountModel _input);
         Task<DataSet> GetCategory(CommonSelectModel _input);
 
-        Task<DataSet> GetClient(CommonSelectModel _input);
+        Task<DataSet> GetClient(SelectCategoryClientModel _input);
 
         Task<DataSet> GetGrade(CommonSelectModel _input);
 

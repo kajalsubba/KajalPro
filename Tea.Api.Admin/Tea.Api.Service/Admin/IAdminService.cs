@@ -12,6 +12,8 @@ namespace Tea.Api.Service.Admin
     public interface IAdminService
     {
         Task<SaveReturnModel> SaveUser(SaveUserModel _input);
+        Task<DataSet>  GetUser( SelectUserModel _input);
+
         Task<DataSet> Login(LoginModel _input);
 
         Task<DataSet> ClientLogin(ClientLoginModel _input);
@@ -30,7 +32,7 @@ namespace Tea.Api.Service.Admin
         Task<SaveReturnModel> DeleteFactoryAccount(DeleteAccountModel _input);
         Task<DataSet> GetCategory(CommonSelectModel _input);
 
-        Task<DataSet> GetClient(CommonSelectModel _input);
+        Task<DataSet> GetClient(SelectCategoryClientModel _input);
         Task<DataSet> GetGrade(CommonSelectModel _input);
         Task<DataSet> GetFactory(CommonSelectModel _input);
 

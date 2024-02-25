@@ -93,13 +93,13 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetClient(CommonSelectModel _input)
+      async  Task<DataSet> IAdminRepository.GetClient(SelectCategoryClientModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
-               
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@Category", _input.Category ?? "")
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetClient]", oclsPairs);
@@ -214,14 +214,6 @@ namespace Tea.Api.Data.Repository.Admin
 
         async Task<DataSet> IAdminRepository.Login(LoginModel _input)
         {
-            //DataTable dt;
-            //List<ClsParamPair> oclsPairs = new()
-            //{
-            //    new ClsParamPair("@LoginUserName", _input.UserName ??""),
-            //    new ClsParamPair("@Password", _input.Password ??"")
-            //};
-            //dt = await _dataHandler.ExecProcDataTableAsyn("[Admin].[Login]", oclsPairs);
-            //return dt;
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
@@ -427,6 +419,19 @@ namespace Tea.Api.Data.Repository.Admin
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetRolePermission]", oclsPairs);
             ds.Tables[0].TableName = "RolePermission";
             return ds; 
+        }
+
+       async Task<DataSet> IAdminRepository.GetUser(SelectUserModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                  new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetUser]", oclsPairs);
+            ds.Tables[0].TableName = "UserDetails";
+            return ds;
         }
     }
 }
