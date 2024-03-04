@@ -30,5 +30,10 @@ namespace Tea.Api.Service.Collection
         Task<SaveReturnModel> UploadSupplierChallan( SaveChallanImageModel _input);
 
         Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
+
+        Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
+
+        Task<SaveReturnModel> SaveStgRate(SaveStgRateFixModel _input);
+        
     }
 }

@@ -89,5 +89,22 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("GetStgRateFixData")]
+        public async Task<IActionResult> GetStgRateFixData([FromBody] GetStgRateFixModel _input)
+        {
+            var results = await _collectionService.GetStgRateFixData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("SaveStgRate")]
+        public async Task<IActionResult> SaveStgRate([FromBody] SaveStgRateFixModel _input)
+        {
+            var results = await _collectionService.SaveStgRate(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
     }
 }

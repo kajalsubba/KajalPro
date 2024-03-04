@@ -29,5 +29,10 @@ namespace Tea.Api.Data.Repository.Collection
         Task<string> UploadSupplierChallan(SaveChallanImageModel _input);
 
         Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
+
+        Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
+
+        Task<string> SaveStgRate(SaveStgRateFixModel _input);
+
     }
 }

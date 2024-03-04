@@ -223,5 +223,41 @@ namespace Tea.Api.Data.Repository.Collection
             string Msg = await _dataHandler.SaveChangesAsyn("[TeaCollection].[SupplierApproveInsertUpdate]", oclsPairs);
             return Msg;
         }
+
+       async Task<DataSet> ICollectionRepository.GetStgRateFixData(GetStgRateFixModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@GradeId",_input.GradeId == null ? 0 : _input.GradeId),
+                new ClsParamPair("@ClientId",_input.ClientId == null ? 0 : _input.ClientId)
+     
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGRateFixData]", oclsPairs);
+            ds.Tables[0].TableName = "StgRateData";
+            return ds;
+        }
+
+       async Task<string> ICollectionRepository.SaveStgRate(SaveStgRateFixModel _input)
+        {
+            List<StgRateFixModel> _items = _input.RateData.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@RateData", dt, SqlDbType.Structured),
+
+
+    };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[STGRateFixInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
     }
 }

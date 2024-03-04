@@ -32,7 +32,14 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionService.GetSupplierDetails(SupplierFilterModel _input)
+       async Task<DataSet> ICollectionService.GetStgRateFixData(GetStgRateFixModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetStgRateFixData(_input);
+            return ds;
+        }
+
+        async  Task<DataSet> ICollectionService.GetSupplierDetails(SupplierFilterModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetSupplierDetails(_input);
@@ -67,7 +74,14 @@ namespace Tea.Api.Service.Collection
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-      async  Task<SaveReturnModel> ICollectionService.SaveSupplier(SaveSupplierModel _input)
+       async Task<SaveReturnModel> ICollectionService.SaveStgRate(SaveStgRateFixModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.SaveStgRate(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async  Task<SaveReturnModel> ICollectionService.SaveSupplier(SaveSupplierModel _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveSupplier(_input);
             string[] msgList = msg.Split(",");
