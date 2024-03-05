@@ -60,5 +60,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> CreateRole(SaveRoleModel _input);
         Task<DataSet> GetRole(GetRoleModel _input);
         Task<DataSet> GetRolePermission(RolePermission _input);
+
+        Task<string> SaveRolePermission(SaveRolePermissionModel _input);
     }
 }

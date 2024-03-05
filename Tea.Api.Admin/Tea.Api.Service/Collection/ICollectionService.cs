@@ -34,6 +34,9 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
 
         Task<SaveReturnModel> SaveStgRate(SaveStgRateFixModel _input);
-        
+
+        Task<SaveReturnModel> SaveStgSale(SaveStgSaleModel _input);
+
+
     }
 }

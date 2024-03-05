@@ -105,6 +105,12 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("SaveStgSale")]
+        public async Task<IActionResult> SaveStgSale([FromBody] SaveStgSaleModel _input)
+        {
+            var results = await _collectionService.SaveStgSale(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
 
     }
 }

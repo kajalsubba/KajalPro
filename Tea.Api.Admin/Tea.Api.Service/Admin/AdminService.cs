@@ -217,7 +217,14 @@ namespace Tea.Api.Service.Admin
 
         }
 
-       async Task<SaveReturnModel> IAdminService.SaveTenant(SaveTenantModel _input)
+      async  Task<SaveReturnModel> IAdminService.SaveRolePermission(SaveRolePermissionModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.SaveRolePermission(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IAdminService.SaveTenant(SaveTenantModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveTenant(_input);
             string[] msgList = msg.Split(",");

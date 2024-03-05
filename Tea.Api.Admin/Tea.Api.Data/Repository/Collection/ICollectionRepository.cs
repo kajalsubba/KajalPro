@@ -34,5 +34,7 @@ namespace Tea.Api.Data.Repository.Collection
 
         Task<string> SaveStgRate(SaveStgRateFixModel _input);
 
+        Task<string> SaveStgSale(SaveStgSaleModel _input);
+
     }
 }

@@ -249,14 +249,48 @@ namespace Tea.Api.Data.Repository.Collection
             SqlParameter[] parameters = new SqlParameter[] {
         ParameterCreation.CreateParameter("@RateData", dt, SqlDbType.Structured),
 
-
-    };
+            };
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
             };
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[STGRateFixInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
+
+      async  Task<string> ICollectionRepository.SaveStgSale(SaveStgSaleModel _input)
+        {
+            List<StgApproveData> _items = _input.ApproveList.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@ApproveData", dt, SqlDbType.Structured),
+
+
+    };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TotalFirstWeight", _input.TotalFirstWeight == null ? 0 : _input.TotalFirstWeight, false, "long"),
+                new ClsParamPair("@TotalWetLeaf", _input.TotalWetLeaf == null ? 0 : _input.TotalWetLeaf, false, "long"),
+                new ClsParamPair("@TotalLongLeaf", _input.TotalLongLeaf == null ? "" : _input.TotalLongLeaf, false, "long"),
+                new ClsParamPair("@TotalDeduction", _input.TotalDeduction == null ? 0 : _input.TotalDeduction, false, "long"),
+                new ClsParamPair("@TotalFinalWeight", _input.TotalFinalWeight == null ? 0 : _input.TotalFinalWeight, false, "long"),
+                new ClsParamPair("@SaleDate",Convert.ToDateTime(_input.SaleDate), true,"Datetime"),
+                new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId, false, "long"),
+                new ClsParamPair("@VehicleId", _input.VehicleId == null ? 0 : _input.VehicleId, false, "long"),
+                new ClsParamPair("@FieldCollectionWeight", _input.FieldCollectionWeight == null ? 0 : _input.FieldCollectionWeight, false, "long"),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf == null ? 0 : _input.FineLeaf, false, "long"),
+                new ClsParamPair("@ChallanWeight",_input.ChallanWeight == null ? 0 : _input.ChallanWeight, false, "long"),
+                new ClsParamPair("@Rate", _input.Rate == null ? 0 : _input.Rate, false, "long"),
+                new ClsParamPair("@Incentive", _input.Incentive == null ? 0 : _input.Incentive, false, "long"),
+                new ClsParamPair("@GrossAmount", _input.GrossAmount == null ? 0 : _input.GrossAmount, false, "long"),
+                new ClsParamPair("@Remarks",_input.Remarks ??"",false,"String"),
+                new ClsParamPair("@SaleTypeId",  _input.SaleTypeId == null ? 0 : _input.SaleTypeId, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long"),
+              
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[StgSaleInsertUpdate]", parameters, oclsPairs);
             return Msg;
         }
     }

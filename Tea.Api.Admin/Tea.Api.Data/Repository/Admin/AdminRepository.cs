@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.Admin;
+using Tea.Api.Entity.Collection;
+using Tea.Api.Entity.Common;
 
 namespace Tea.Api.Data.Repository.Admin
 {
@@ -223,6 +226,7 @@ namespace Tea.Api.Data.Repository.Admin
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[Login]", oclsPairs);
             ds.Tables[0].TableName = "LoginDetails";
+            ds.Tables[1].TableName = "PermissionDetails";
             return ds;
 
         }
@@ -413,7 +417,8 @@ namespace Tea.Api.Data.Repository.Admin
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-               new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+               new ClsParamPair("@TenantId", _input.TenantId ?? 0 ),
+               new ClsParamPair("@RoleId", _input.RoleId ?? 0 )
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetRolePermission]", oclsPairs);
@@ -432,6 +437,27 @@ namespace Tea.Api.Data.Repository.Admin
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetUser]", oclsPairs);
             ds.Tables[0].TableName = "UserDetails";
             return ds;
+        }
+
+      
+       async Task<string> IAdminRepository.SaveRolePermission(SaveRolePermissionModel _input)
+        {
+            List<PermissionList> _items = _input.PermissionLists.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@PermissionList", dt, SqlDbType.Structured),
+
+
+    };
+            List<ClsParamPair> oclsPairs = new()
+            {
+             
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long"),
+
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Admin].[RolePermissionInsertUpdate]", parameters, oclsPairs);
+            return Msg;
         }
     }
 }
