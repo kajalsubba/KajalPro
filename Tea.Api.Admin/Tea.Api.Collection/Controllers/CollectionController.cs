@@ -42,21 +42,6 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
-        [HttpPost, Route("SaveSale")]
-        public async Task<IActionResult> SaveSale([FromBody] SaveSaleModel _input)
-        {
-            var results = await _collectionService.SaveSale(_input);
-            return (results != null) ? Ok(results) : throw new Exception();
-        }
-
-        [HttpPost, Route("GetSaleDetails")]
-        public async Task<IActionResult> GetSaleDetails([FromBody] SelectSale _input)
-        {
-            var results = await _collectionService.GetSaleDetails(_input);
-            string JsonResult;
-            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
-            return (results != null) ? Ok(JsonResult) : throw new Exception();
-        }
 
         [HttpPost, Route("SaveSupplier")]
         public async Task<IActionResult> SaveSupplier([FromBody] SaveSupplierModel _input)
@@ -98,6 +83,15 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+        [HttpPost, Route("GetSupplierRateFixData")]
+        public async Task<IActionResult> GetSupplierRateFixData([FromBody] GetSupplierRateFixModel _input)
+        {
+            var results = await _collectionService.GetSupplierRateFixData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
         [HttpPost, Route("SaveStgRate")]
         public async Task<IActionResult> SaveStgRate([FromBody] SaveStgRateFixModel _input)
         {
@@ -111,6 +105,24 @@ namespace Tea.Api.Collection.Controllers
             var results = await _collectionService.SaveStgSale(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+
+        [HttpPost, Route("GetSupplierVehicle")]
+        public async Task<IActionResult> GetSupplierVehicle([FromBody] GetSupplierVehicleModel _input)
+        {
+            var results = await _collectionService.GetSupplierVehicle(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("SaveSupplierRate")]
+        public async Task<IActionResult> SaveSupplierRate([FromBody] SaveSupplierRateFixModel _input)
+        {
+            var results = await _collectionService.SaveSupplierRate(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+
 
     }
 }

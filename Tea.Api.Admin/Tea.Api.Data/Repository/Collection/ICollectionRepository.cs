@@ -33,8 +33,18 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
 
         Task<string> SaveStgRate(SaveStgRateFixModel _input);
+        Task<DataSet> GetSupplierRateFixData(GetSupplierRateFixModel _input);
+
 
         Task<string> SaveStgSale(SaveStgSaleModel _input);
+
+        Task<DataSet> GetSaleRateFixData(GetSaleRateFixModel _input);
+
+        Task<DataSet> GetSupplierVehicle(GetSupplierVehicleModel _input);
+
+        Task<string> SaveSupplierRate(SaveSupplierRateFixModel _input);
+
+        Task<string> SaveSaleRate(SaveSaleRateFixModel _input);
 
     }
 }

@@ -109,6 +109,8 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@GrossAmount", _input.GrossAmount == null ? 0 : _input.GrossAmount, false, "long"),
                 new ClsParamPair("@Remarks",_input.Remarks ??"",false,"String"),
                 new ClsParamPair("@SaleTypeId",  _input.SaleTypeId == null ? 0 : _input.SaleTypeId, false, "long"),
+                new ClsParamPair("@DirectSale",  _input.DirectSale == null ? false : _input.DirectSale, false, "bool"),
+
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
             };
@@ -291,6 +293,96 @@ namespace Tea.Api.Data.Repository.Collection
               
             };
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[StgSaleInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetSupplierRateFixData(GetSupplierRateFixModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+           
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@FactoryId",_input.FactoryId ??0),
+                new ClsParamPair("@AccountId",_input.AccountId ??0),
+                new ClsParamPair("@ClientId",_input.ClientId ??0),
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierRateFixData]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierRateData";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetSaleRateFixData(GetSaleRateFixModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@FactoryId",_input.FactoryId ??0),
+                new ClsParamPair("@AccountId",_input.AccountId ??0),
+                new ClsParamPair("@FineLeaf",_input.FineLeaf ??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetSalesRateFixData]", oclsPairs);
+            ds.Tables[0].TableName = "SaleRateData";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetSupplierVehicle(GetSupplierVehicleModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierVehicleData]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierVehicleData";
+            return ds;
+        }
+
+      async  Task<string> ICollectionRepository.SaveSupplierRate(SaveSupplierRateFixModel _input)
+        {
+            List<SupplierRateFixModel> _items = _input.RateData.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@RateData", dt, SqlDbType.Structured),
+
+            };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[SupplierRateFixInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
+
+       async Task<string> ICollectionRepository.SaveSaleRate(SaveSaleRateFixModel _input)
+        {
+            List<SalerRateFixModel> _items = _input.RateData.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@RateData", dt, SqlDbType.Structured),
+
+            };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Sales].[SaleRateFixInsertUpdate]", parameters, oclsPairs);
             return Msg;
         }
     }

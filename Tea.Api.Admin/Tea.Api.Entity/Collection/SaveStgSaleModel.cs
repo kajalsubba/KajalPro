@@ -38,4 +38,17 @@ namespace Tea.Api.Entity.Collection
         public string? Status { get; set; }
     }
 
+    public class GetSaleRateFixModel
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? FactoryId { get; set; }
+        public long? AccountId { get; set; }
+        public string? FineLeaf { get; set; }
+
+        public long? TenantId { get; set; }
+
+    }
+
+
 }

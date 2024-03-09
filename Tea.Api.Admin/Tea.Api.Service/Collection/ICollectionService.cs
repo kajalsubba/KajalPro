@@ -32,11 +32,18 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
 
         Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
+        Task<DataSet> GetSupplierRateFixData(GetSupplierRateFixModel _input);
 
         Task<SaveReturnModel> SaveStgRate(SaveStgRateFixModel _input);
 
         Task<SaveReturnModel> SaveStgSale(SaveStgSaleModel _input);
 
+        Task<DataSet> GetSaleRateFixData( GetSaleRateFixModel _input);
+
+        Task<DataSet> GetSupplierVehicle(GetSupplierVehicleModel _input);
+        Task<SaveReturnModel> SaveSupplierRate(SaveSupplierRateFixModel _input);
+
+        Task<SaveReturnModel> SaveSaleRate( SaveSaleRateFixModel _input);
 
     }
 }

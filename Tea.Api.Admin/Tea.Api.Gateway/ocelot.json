@@ -29,7 +29,7 @@
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/Collection/{everything}", // Adjustment Service
+      "DownstreamPathTemplate": "/Collection/{everything}", // Collection Service
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -37,7 +37,19 @@
           "Port": 44324
         }
       ],
-      "UpstreamPathTemplate": "/Collection/{everything}",
+      "UpstreamPathTemplate": "/Sale/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/Sale/{everything}", // Sale Service
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44324
+        }
+      ],
+      "UpstreamPathTemplate": "/Sale/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     }
   

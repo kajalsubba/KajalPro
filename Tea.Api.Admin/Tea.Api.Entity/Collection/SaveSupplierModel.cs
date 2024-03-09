@@ -59,13 +59,43 @@ namespace Tea.Api.Entity.Collection
         public int? FineLeaf { get; set; }
         public float? ChallanWeight { get; set; }
         public int? SaleTypeId { get; set; }
-        //public long? TotalFirstWeight { get; set; }
-        //public long? TotalWetLeaf { get; set; }
-        //public long? TotalLongLeaf { get; set; }
-        //public long? TotalDeduction { get; set; }
-        //public long? TotalFinalWeight { get; set; }
+  
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
     }
+
+    public class GetSupplierRateFixModel
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? FactoryId { get; set; }
+        public long? AccountId { get; set; }
+        public long? ClientId { get; set; }
+ 
+        public long? TenantId { get; set; }
+
+    }
+
+    public class GetSupplierVehicleModel
+    {
+        public string? FromDate { get; set; }
+         public long? TenantId { get; set; }
+
+    }
+
+    public class SaveSupplierRateFixModel
+    {
+        public List<SupplierRateFixModel> RateData { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+
+    }
+
+    public class SupplierRateFixModel
+    {
+        public long? CollectionId { get; set; }
+        public decimal? Rate { get; set; }
+    }
+
 
 }
