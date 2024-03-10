@@ -39,10 +39,24 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionService.GetStgRateFixData(GetStgRateFixModel _input)
+       async Task<DataSet> ICollectionService.GetStgPendingDate(GetStgPendingDateModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetStgPendingDate(_input);
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionService.GetStgRateFixData(GetStgRateFixModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetStgRateFixData(_input);
+            return ds;
+        }
+
+      async  Task<DataSet> ICollectionService.GetStgVehicleData(GetStgVehicleModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetStgVehicleData(_input);
             return ds;
         }
 

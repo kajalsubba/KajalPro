@@ -87,4 +87,16 @@ namespace Tea.Api.Entity.Collection
         public decimal? Rate { get; set; }
     }
 
+    public class GetStgVehicleModel
+    {
+        public string? FromDate { get; set; }
+        public long? TenantId { get; set; }
+
+    }
+    public class GetStgPendingDateModel
+    {
+              public long? TenantId { get; set; }
+
+    }
+
 }

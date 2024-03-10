@@ -385,5 +385,36 @@ namespace Tea.Api.Data.Repository.Collection
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Sales].[SaleRateFixInsertUpdate]", parameters, oclsPairs);
             return Msg;
         }
+
+       async Task<DataSet> ICollectionRepository.GetStgVehicleData(GetStgVehicleModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetStgVehicleData]", oclsPairs);
+            ds.Tables[0].TableName = "StgVehicleData";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetStgPendingDate(GetStgPendingDateModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetStgPendingDate]", oclsPairs);
+            ds.Tables[0].TableName = "PendingDate";
+            return ds;
+        }
     }
 }

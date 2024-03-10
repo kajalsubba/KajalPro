@@ -122,6 +122,23 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("GetStgVehicleData")]
+        public async Task<IActionResult> GetStgVehicleData([FromBody] GetStgVehicleModel _input)
+        {
+            var results = await _collectionService.GetStgVehicleData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetStgPendingDate")]
+        public async Task<IActionResult> GetStgPendingDate([FromBody] GetStgPendingDateModel _input)
+        {
+            var results = await _collectionService.GetStgPendingDate(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
 
 
     }

@@ -46,5 +46,8 @@ namespace Tea.Api.Data.Repository.Collection
 
         Task<string> SaveSaleRate(SaveSaleRateFixModel _input);
 
+        Task<DataSet> GetStgVehicleData(GetStgVehicleModel _input);
+
+        Task<DataSet> GetStgPendingDate(GetStgPendingDateModel _input);
     }
 }

@@ -19,7 +19,7 @@ namespace Tea.Api.Service.Collection
 
         Task<SaveReturnModel> SaveApproveStg(SaveApproveStg _input);
         Task<SaveReturnModel> SaveApproveSupplier(SaveApproveSupplier _input);
-        
+
 
         Task<SaveReturnModel> SaveSale(SaveSaleModel _input);
 
@@ -27,7 +27,7 @@ namespace Tea.Api.Service.Collection
 
         Task<SaveReturnModel> SaveSupplier(SaveSupplierModel _input);
 
-        Task<SaveReturnModel> UploadSupplierChallan( SaveChallanImageModel _input);
+        Task<SaveReturnModel> UploadSupplierChallan(SaveChallanImageModel _input);
 
         Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
 
@@ -38,12 +38,17 @@ namespace Tea.Api.Service.Collection
 
         Task<SaveReturnModel> SaveStgSale(SaveStgSaleModel _input);
 
-        Task<DataSet> GetSaleRateFixData( GetSaleRateFixModel _input);
+        Task<DataSet> GetSaleRateFixData(GetSaleRateFixModel _input);
 
         Task<DataSet> GetSupplierVehicle(GetSupplierVehicleModel _input);
         Task<SaveReturnModel> SaveSupplierRate(SaveSupplierRateFixModel _input);
 
-        Task<SaveReturnModel> SaveSaleRate( SaveSaleRateFixModel _input);
+        Task<SaveReturnModel> SaveSaleRate(SaveSaleRateFixModel _input);
+
+        Task<DataSet> GetStgVehicleData(GetStgVehicleModel _input);
+
+        Task<DataSet> GetStgPendingDate( GetStgPendingDateModel _input);
+
 
     }
 }
