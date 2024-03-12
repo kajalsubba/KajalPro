@@ -140,6 +140,14 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+        [HttpPost, Route("GetSupplierDefaultData")]
+        public async Task<IActionResult> GetSupplierDefaultData([FromBody] GetSupplierDefaultModel _input)
+        {
+            var results = await _collectionService.GetSupplierDefaultData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
 
     }
 }

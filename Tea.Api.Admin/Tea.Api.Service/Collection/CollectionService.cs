@@ -60,6 +60,13 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
+       async Task<DataSet> ICollectionService.GetSupplierDefaultData(GetSupplierDefaultModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSupplierDefaultData(_input);
+            return ds;
+        }
+
         async  Task<DataSet> ICollectionService.GetSupplierDetails(SupplierFilterModel _input)
         {
             DataSet ds;

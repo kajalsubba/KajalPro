@@ -416,5 +416,21 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "PendingDate";
             return ds;
         }
+
+      async  Task<DataSet> ICollectionRepository.GetSupplierDefaultData(GetSupplierDefaultModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetDefaultSupplierData]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierDefaultData";
+            return ds;
+        }
     }
 }

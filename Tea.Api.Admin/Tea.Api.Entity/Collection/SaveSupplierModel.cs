@@ -97,5 +97,12 @@ namespace Tea.Api.Entity.Collection
         public decimal? Rate { get; set; }
     }
 
+    public class GetSupplierDefaultModel
+    {
+        public long? CreatedBy { get; set; }
+        public long? TenantId { get; set; }
+
+    }
+
 
 }
