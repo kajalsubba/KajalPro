@@ -51,5 +51,7 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetStgPendingDate(GetStgPendingDateModel _input);
         Task<DataSet> GetSupplierDefaultData(GetSupplierDefaultModel _input);
 
+        Task<DataSet> GetSaleStgData(GetSaleStgxModel _input);
+
     }
 }

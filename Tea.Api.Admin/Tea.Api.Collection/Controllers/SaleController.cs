@@ -49,6 +49,14 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("GetSaleStgData")]
+        public async Task<IActionResult> GetSaleStgData([FromBody] GetSaleStgxModel _input)
+        {
+            var results = await _collectionService.GetSaleStgData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
 
     }
 }

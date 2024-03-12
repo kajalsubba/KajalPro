@@ -32,6 +32,13 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
+       async Task<DataSet> ICollectionService.GetSaleStgData(GetSaleStgxModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSaleStgData(_input);
+            return ds;
+        }
+
         async Task<DataSet> ICollectionService.GetStgPendingData(StgFilterModel _input)
         {
             DataSet ds;

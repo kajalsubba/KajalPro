@@ -277,6 +277,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@TotalLongLeaf", _input.TotalLongLeaf == null ? "" : _input.TotalLongLeaf, false, "long"),
                 new ClsParamPair("@TotalDeduction", _input.TotalDeduction == null ? 0 : _input.TotalDeduction, false, "long"),
                 new ClsParamPair("@TotalFinalWeight", _input.TotalFinalWeight == null ? 0 : _input.TotalFinalWeight, false, "long"),
+                new ClsParamPair("@SaleId",_input.SaleId??0, false,"Long"),
                 new ClsParamPair("@SaleDate",Convert.ToDateTime(_input.SaleDate), true,"Datetime"),
                 new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId, false, "long"),
                 new ClsParamPair("@VehicleId", _input.VehicleId == null ? 0 : _input.VehicleId, false, "long"),
@@ -430,6 +431,22 @@ namespace Tea.Api.Data.Repository.Collection
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetDefaultSupplierData]", oclsPairs);
             ds.Tables[0].TableName = "SupplierDefaultData";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetSaleStgData(GetSaleStgxModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                 new ClsParamPair("@ApproveId", _input.ApproveId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSaleStgData]", oclsPairs);
+            ds.Tables[0].TableName = "SaleStgData";
             return ds;
         }
     }

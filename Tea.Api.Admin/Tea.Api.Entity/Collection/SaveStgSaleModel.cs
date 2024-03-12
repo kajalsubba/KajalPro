@@ -8,6 +8,7 @@ namespace Tea.Api.Entity.Collection
 {
     public class SaveStgSaleModel
     {
+        public long? SaleId { get; set; }
         public long? TotalFirstWeight { get; set; }
         public long? TotalWetLeaf { get; set; }
         public long? TotalLongLeaf { get; set; }
@@ -49,6 +50,11 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
 
     }
+    public class GetSaleStgxModel
+    {
+        public long? TenantId { get; set; }
+        public long? ApproveId { get; set; }
 
+    }
 
 }
