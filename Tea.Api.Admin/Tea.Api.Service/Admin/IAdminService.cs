@@ -12,15 +12,15 @@ namespace Tea.Api.Service.Admin
     public interface IAdminService
     {
         Task<SaveReturnModel> SaveUser(SaveUserModel _input);
-        Task<DataSet>  GetUser( SelectUserModel _input);
+        Task<DataSet> GetUser(SelectUserModel _input);
 
         Task<DataSet> Login(LoginModel _input);
 
         Task<DataSet> ClientLogin(ClientLoginModel _input);
-        
+
         Task<SaveReturnModel> SaveCategory(SaveCategoryModel _input);
         Task<SaveReturnModel> DeleteCategory(DeleteCategoryModel _input);
-        
+
         Task<SaveReturnModel> SaveClient(SaveClientModel _input);
 
         Task<SaveReturnModel> DeleteClient(DeleteClientModel _input);
@@ -55,9 +55,11 @@ namespace Tea.Api.Service.Admin
         Task<DataSet> GetRole(GetRoleModel _input);
 
         Task<DataSet> GetRolePermission(RolePermission _input);
-        Task<SaveReturnModel> SaveRolePermission( SaveRolePermissionModel _input);
+        Task<SaveReturnModel> SaveRolePermission(SaveRolePermissionModel _input);
 
+        Task<DataSet> GetPaymentType(GetPaymentTypeModel _input);
 
+        Task<SaveReturnModel> SavePaymentType(SavePaymentTypeModel _input);
 
     }
 }

@@ -14,7 +14,7 @@ namespace Tea.Api.Admin.Controllers
 
         public AdminController(IAdminService adminService)
         {
-            _adminService=adminService;
+            _adminService = adminService;
         }
         [HttpPost, Route("SaveUser")]
         public async Task<IActionResult> SaveUser([FromBody] SaveUserModel _input)

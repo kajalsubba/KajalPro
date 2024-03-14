@@ -161,7 +161,7 @@ namespace Tea.Api.Admin.Controllers
             var results = await _adminService.SaveCompany(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
-    
+
 
 
         [HttpPost, Route("GetCompany")]
@@ -190,6 +190,23 @@ namespace Tea.Api.Admin.Controllers
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("GetPaymentType")]
+        public async Task<IActionResult> GetPaymentType([FromBody] GetPaymentTypeModel _input)
+        {
+            var results = await _adminService.GetPaymentType(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("SavePaymentType")]
+        public async Task<IActionResult> SavePaymentType([FromBody] SavePaymentTypeModel _input)
+        {
+            var results = await _adminService.SavePaymentType(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
         }
     }
 }

@@ -28,18 +28,18 @@ namespace Tea.Api.Data.Repository.Admin
             _config = config;
         }
 
-      async  Task<string> IAdminRepository.DeleteCategory(DeleteCategoryModel _input)
+        async Task<string> IAdminRepository.DeleteCategory(DeleteCategoryModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CategoryId", _input.CategoryId == null ? 0 : _input.CategoryId, false, "long"),
-              
+
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Master].[ClientCategoryDelete]", oclsPairs);
             return Msg;
         }
 
-      async  Task<string> IAdminRepository.DeleteClient(DeleteClientModel _input)
+        async Task<string> IAdminRepository.DeleteClient(DeleteClientModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -50,7 +50,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.DeleteFactory(DeleteFactoryModel _input)
+        async Task<string> IAdminRepository.DeleteFactory(DeleteFactoryModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -61,7 +61,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.DeleteFactoryAccount(DeleteAccountModel _input)
+        async Task<string> IAdminRepository.DeleteFactoryAccount(DeleteAccountModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -72,7 +72,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-        async  Task<string> IAdminRepository.DeleteGrade(DeleteGradeModel _input)
+        async Task<string> IAdminRepository.DeleteGrade(DeleteGradeModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -96,7 +96,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetClient(SelectCategoryClientModel _input)
+        async Task<DataSet> IAdminRepository.GetClient(SelectCategoryClientModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -110,7 +110,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetClientList(SelectCategoryClientModel _input)
+        async Task<DataSet> IAdminRepository.GetClientList(SelectCategoryClientModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -124,7 +124,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetCompany(GetCompanyModel _input)
+        async Task<DataSet> IAdminRepository.GetCompany(GetCompanyModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -137,7 +137,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-        async  Task<DataSet> IAdminRepository.GetFactory(CommonSelectModel _input)
+        async Task<DataSet> IAdminRepository.GetFactory(CommonSelectModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -151,7 +151,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetFactoryAccount(CommonSelectModel _input)
+        async Task<DataSet> IAdminRepository.GetFactoryAccount(CommonSelectModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -164,7 +164,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-        async  Task<DataSet> IAdminRepository.GetGrade(CommonSelectModel _input)
+        async Task<DataSet> IAdminRepository.GetGrade(CommonSelectModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -177,14 +177,14 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetSaleType()
+        async Task<DataSet> IAdminRepository.GetSaleType()
         {
             DataSet ds;
             ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetSaleType]");
             ds.Tables[0].TableName = "SaleTypes";
             return ds;
         }
-    
+
 
         async Task<DataSet> IAdminRepository.GetTenant()
         {
@@ -194,7 +194,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetTrip()
+        async Task<DataSet> IAdminRepository.GetTrip()
         {
             DataSet ds;
             ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetTrip]");
@@ -231,7 +231,7 @@ namespace Tea.Api.Data.Repository.Admin
 
         }
 
-       async Task<string> IAdminRepository.SaveCategory(SaveCategoryModel _input)
+        async Task<string> IAdminRepository.SaveCategory(SaveCategoryModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -244,7 +244,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.SaveClient(SaveClientModel _input)
+        async Task<string> IAdminRepository.SaveClient(SaveClientModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -265,11 +265,11 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.SaveCompany(SaveCompanyModel _input)
+        async Task<string> IAdminRepository.SaveCompany(SaveCompanyModel _input)
         {
-            string logoName= await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"),_input.TenantId.ToString(),_input.Image, "Logo");
+            string logoName = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.Image, "Logo");
 
-        
+
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CompanyId", _input.CompanyId == null ? 0 : _input.CompanyId, false, "long"),
@@ -303,7 +303,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.SaveFactoryAccount(SaveAccountModel _input)
+        async Task<string> IAdminRepository.SaveFactoryAccount(SaveAccountModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -331,7 +331,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-      async  Task<string> IAdminRepository.SaveTenant(SaveTenantModel _input)
+        async Task<string> IAdminRepository.SaveTenant(SaveTenantModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -341,7 +341,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@TenantEmail", _input.TenantEmail??"", false, "String"),
                 new ClsParamPair("@TenantContactNo", _input.TenantContactNo??"", false, "String"),
                 new ClsParamPair("@IsActive", _input.IsActive == null ? false : _input.IsActive, false, "bool")
-          
+
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[TenantInsertUpdate]", oclsPairs);
             return Msg;
@@ -368,7 +368,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<DataSet> IAdminRepository.GetRole(GetRoleModel _input)
+        async Task<DataSet> IAdminRepository.GetRole(GetRoleModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -379,10 +379,10 @@ namespace Tea.Api.Data.Repository.Admin
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetUserRole]", oclsPairs);
             ds.Tables[0].TableName = "RoleDetails";
             return ds;
-        
-    }
 
-       async Task<string> IAdminRepository.CreateRole(SaveRoleModel _input)
+        }
+
+        async Task<string> IAdminRepository.CreateRole(SaveRoleModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -391,13 +391,13 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@RoleDescription",  _input.RoleDescription ?? "", false, "String"),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
-        
+
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[RoleInsertUpdate]", oclsPairs);
             return Msg;
         }
 
-      async  Task<DataSet> IAdminRepository.ClientLogin(ClientLoginModel _input)
+        async Task<DataSet> IAdminRepository.ClientLogin(ClientLoginModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -412,7 +412,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetRolePermission(RolePermission _input)
+        async Task<DataSet> IAdminRepository.GetRolePermission(RolePermission _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -423,10 +423,10 @@ namespace Tea.Api.Data.Repository.Admin
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetRolePermission]", oclsPairs);
             ds.Tables[0].TableName = "RolePermission";
-            return ds; 
+            return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetUser(SelectUserModel _input)
+        async Task<DataSet> IAdminRepository.GetUser(SelectUserModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -439,8 +439,8 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      
-       async Task<string> IAdminRepository.SaveRolePermission(SaveRolePermissionModel _input)
+
+        async Task<string> IAdminRepository.SaveRolePermission(SaveRolePermissionModel _input)
         {
             List<PermissionList> _items = _input.PermissionLists.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -451,12 +451,40 @@ namespace Tea.Api.Data.Repository.Admin
     };
             List<ClsParamPair> oclsPairs = new()
             {
-             
+
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long"),
 
             };
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Admin].[RolePermissionInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
+
+        async Task<DataSet> IAdminRepository.GetPaymentType(GetPaymentTypeModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetPaymentType]", oclsPairs);
+            ds.Tables[0].TableName = "PaymentTypeDetails";
+            return ds;
+        }
+
+       async Task<string> IAdminRepository.SavePaymentType(SavePaymentTypeModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@PaymentTypeId", _input.PaymentTypeId??0 , false, "long"),
+                new ClsParamPair("@PaymentType", _input.PaymentType ?? "", false, "String"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[PaymentTypeInsertUpdate]", oclsPairs);
             return Msg;
         }
     }

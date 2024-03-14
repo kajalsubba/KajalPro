@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Data", "Tea.Api.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Entity", "Tea.Api.Entity\Tea.Api.Entity.csproj", "{00B5C8FA-A90D-4646-833A-94C7BDFF3F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Collection", "Tea.Api.Collection\Tea.Api.Collection.csproj", "{59461EE6-7441-456A-ACBD-7E08013F07DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Collection", "Tea.Api.Collection\Tea.Api.Collection.csproj", "{59461EE6-7441-456A-ACBD-7E08013F07DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Gateway", "Tea.Api.Gateway\Tea.Api.Gateway.csproj", "{368E15FA-83BA-4140-8B67-1E6423B8AEE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Gateway", "Tea.Api.Gateway\Tea.Api.Gateway.csproj", "{368E15FA-83BA-4140-8B67-1E6423B8AEE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Accounts", "..\Tea.Api.Accounts\Tea.Api.Accounts\Tea.Api.Accounts.csproj", "{083D7574-ED1D-4D68-B2C6-01236853C5FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{368E15FA-83BA-4140-8B67-1E6423B8AEE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

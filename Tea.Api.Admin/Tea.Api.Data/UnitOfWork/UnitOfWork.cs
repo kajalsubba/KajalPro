@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tea.Api.Data.DbHandler;
+using Tea.Api.Data.Repository.Accounts;
 using Tea.Api.Data.Repository.Admin;
 using Tea.Api.Data.Repository.Collection;
 
@@ -26,6 +27,9 @@ namespace Tea.Api.Data.UnitOfWork
 
         ICollectionRepository IUnitOfWork.CollectionRepository => _CollectionRepository = new CollectionRepository(_dataHandler);
 
+        IAccountsRepository? _AccountsRepository;
+        IAccountsRepository IUnitOfWork.AccountsRepository => _AccountsRepository = new AccountsRepository(_dataHandler);
+
         public void Dispose()
         {
             if (_dataHandler != null)
@@ -34,5 +38,7 @@ namespace Tea.Api.Data.UnitOfWork
 
             }
         }
+
+       
     }
 }
