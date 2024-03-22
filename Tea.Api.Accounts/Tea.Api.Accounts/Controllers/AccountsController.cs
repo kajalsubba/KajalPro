@@ -37,5 +37,39 @@ namespace Tea.Api.Accounts.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+
+        [HttpPost, Route("SavePayment")]
+        public async Task<IActionResult> SavePayment([FromBody] SavePaymentModel _input)
+        {
+            var results = await _accountsService.SavePayment(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+        [HttpPost, Route("GetPaymentData")]
+        public async Task<IActionResult> GetPaymentData([FromBody] GetPaymentModel _input)
+        {
+            var results = await _accountsService.GetPaymentData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetStgBillData")]
+        public async Task<IActionResult> GetStgBillData([FromBody] StgBillModel _input)
+        {
+            var results = await _accountsService.GetStgBillData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("SaveStgBill")]
+        public async Task<IActionResult> SaveStgBill([FromBody] SaveStgBill _input)
+        {
+            var results = await _accountsService.SaveStgBill(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
     }
 }

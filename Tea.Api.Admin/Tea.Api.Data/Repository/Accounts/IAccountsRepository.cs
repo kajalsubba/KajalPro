@@ -15,5 +15,12 @@ namespace Tea.Api.Data.Repository.Accounts
 
         Task<DataSet> GetSeasonAdvance(GetSeasonAdvanceModel _input);
 
+        Task<string> SavePayment(SavePaymentModel _input);
+        Task<DataSet> GetPaymentData(GetPaymentModel _input);
+
+        Task<DataSet> GetStgBillData(StgBillModel _input);
+
+        Task<string> SaveStgBill(SaveStgBill _input);
+
     }
 }
