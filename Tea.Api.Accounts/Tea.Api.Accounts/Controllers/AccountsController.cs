@@ -16,10 +16,10 @@ namespace Tea.Api.Accounts.Controllers
 
         public AccountsController(IAccountsService accountsService)
         {
-            _accountsService=accountsService;
+            _accountsService = accountsService;
         }
 
-        
+
 
         [HttpPost, Route("SaveSeasonAdvance")]
         public async Task<IActionResult> SaveSeasonAdvance([FromBody] SaveSeasonAdvanceModel _input)
@@ -66,6 +66,15 @@ namespace Tea.Api.Accounts.Controllers
         public async Task<IActionResult> SaveStgBill([FromBody] SaveStgBill _input)
         {
             var results = await _accountsService.SaveStgBill(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetStgBillHistory")]
+        public async Task<IActionResult> GetStgBillHistory([FromBody] GetSTGBillHistoryModel _input)
+        {
+            var results = await _accountsService.GetStgBillHistory(_input);
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();

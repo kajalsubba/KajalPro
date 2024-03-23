@@ -10,17 +10,17 @@ using Tea.Api.Entity.Common;
 
 namespace Tea.Api.Service.Accounts
 {
-    public class AccountsService: IAccountsService
+    public class AccountsService : IAccountsService
     {
 
         readonly IUnitOfWork _unitOfWork;
 
         public AccountsService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork=unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
-       async Task<DataSet> IAccountsService.GetPaymentData(GetPaymentModel _input)
+        async Task<DataSet> IAccountsService.GetPaymentData(GetPaymentModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetPaymentData(_input);
@@ -34,14 +34,21 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
-       async Task<DataSet> IAccountsService.GetStgBillData(StgBillModel _input)
+        async Task<DataSet> IAccountsService.GetStgBillData(StgBillModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetStgBillData(_input);
             return ds;
         }
 
-        async  Task<SaveReturnModel> IAccountsService.SavePayment(SavePaymentModel _input)
+        async Task<DataSet> IAccountsService.GetStgBillHistory(GetSTGBillHistoryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetStgBillHistory(_input);
+            return ds;
+        }
+
+        async Task<SaveReturnModel> IAccountsService.SavePayment(SavePaymentModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SavePayment(_input);
             string[] msgList = msg.Split(",");
@@ -55,7 +62,7 @@ namespace Tea.Api.Service.Accounts
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-       async Task<SaveReturnModel> IAccountsService.SaveStgBill(SaveStgBill _input)
+        async Task<SaveReturnModel> IAccountsService.SaveStgBill(SaveStgBill _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveStgBill(_input);
             string[] msgList = msg.Split(",");

@@ -22,5 +22,7 @@ namespace Tea.Api.Service.Accounts
         Task<DataSet> GetStgBillData( StgBillModel _input);
         Task<SaveReturnModel> SaveStgBill(SaveStgBill _input);
 
+        Task<DataSet> GetStgBillHistory(GetSTGBillHistoryModel _input);
+
     }
 }

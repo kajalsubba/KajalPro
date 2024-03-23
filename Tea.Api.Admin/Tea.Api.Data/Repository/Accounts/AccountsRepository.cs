@@ -13,7 +13,7 @@ using Tea.Api.Entity.Collection;
 namespace Tea.Api.Data.Repository.Accounts
 {
 
-    public class AccountsRepository: IAccountsRepository
+    public class AccountsRepository : IAccountsRepository
     {
 
         readonly IDataHandler _dataHandler;
@@ -23,7 +23,7 @@ namespace Tea.Api.Data.Repository.Accounts
             _dataHandler = dataHandler;
         }
 
-      async  Task<DataSet> IAccountsRepository.GetPaymentData(GetPaymentModel _input)
+        async Task<DataSet> IAccountsRepository.GetPaymentData(GetPaymentModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -60,7 +60,7 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
-       async Task<DataSet> IAccountsRepository.GetStgBillData(StgBillModel _input)
+        async Task<DataSet> IAccountsRepository.GetStgBillData(StgBillModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -77,6 +77,25 @@ namespace Tea.Api.Data.Repository.Accounts
             ds.Tables[0].TableName = "StgData";
             ds.Tables[1].TableName = "PaymentData";
             ds.Tables[2].TableName = "OutStandingData";
+            return ds;
+        }
+
+        async Task<DataSet> IAccountsRepository.GetStgBillHistory(GetSTGBillHistoryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Bill].[GetBillHistory]", oclsPairs);
+            ds.Tables[0].TableName = "BillHistory";
+
             return ds;
         }
 
@@ -114,7 +133,7 @@ namespace Tea.Api.Data.Repository.Accounts
             return Msg;
         }
 
-       async Task<string> IAccountsRepository.SaveStgBill(SaveStgBill _input)
+        async Task<string> IAccountsRepository.SaveStgBill(SaveStgBill _input)
         {
             List<StgCollectionData> _Stgitems = _input.CollectionData.ToList();
             List<StgPaymentData>? _Paymentitems = _input.PaymentData?.ToList();
@@ -143,7 +162,7 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@AmountToPay", _input.AmountToPay??0, false, "long"),
                 new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
-          
+
             };
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Bill].[StgBillInsertUpdate]", parameters, oclsPairs);
             return Msg;
