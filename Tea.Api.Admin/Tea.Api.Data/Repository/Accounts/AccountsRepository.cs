@@ -99,6 +99,25 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
+        async Task<DataSet> IAccountsRepository.GetStgSummary(StgSummaryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Summary].[GetStgSummary]", oclsPairs);
+            ds.Tables[0].TableName = "StgSummary";
+
+            return ds;
+        }
+
         async Task<string> IAccountsRepository.SavePayment(SavePaymentModel _input)
         {
             List<ClsParamPair> oclsPairs = new()

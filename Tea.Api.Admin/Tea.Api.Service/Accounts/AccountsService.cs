@@ -48,6 +48,13 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
+       async Task<DataSet> IAccountsService.GetStgSummary(StgSummaryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetStgSummary(_input);
+            return ds;
+        }
+
         async Task<SaveReturnModel> IAccountsService.SavePayment(SavePaymentModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SavePayment(_input);
