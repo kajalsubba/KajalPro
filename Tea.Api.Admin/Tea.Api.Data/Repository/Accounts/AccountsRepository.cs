@@ -128,9 +128,10 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@ClientId",_input.ClientId??0, false,"long"),
                 new ClsParamPair("@PaymentTypeId",_input.PaymentTypeId??0, false,"long"),
                 new ClsParamPair("@Amount", _input.Amount??0, false, "long"),
-                new ClsParamPair("@Narration", _input.Narration??"", false, "long"),
-                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
-                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+                new ClsParamPair("@Narration", _input.Narration??"", false, "string"),
+                new ClsParamPair("@CategoryId", _input.CategoryId??0, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Accounts].[PaymentInsertUpdate]", oclsPairs);
             return Msg;
