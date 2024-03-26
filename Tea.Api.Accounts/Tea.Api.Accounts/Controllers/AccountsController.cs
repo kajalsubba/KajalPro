@@ -87,5 +87,14 @@ namespace Tea.Api.Accounts.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetSaleSummary")]
+        public async Task<IActionResult> GetSaleSummary([FromBody] SaleSummaryModel _input)
+        {
+            var results = await _accountsService.GetSaleSummary(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

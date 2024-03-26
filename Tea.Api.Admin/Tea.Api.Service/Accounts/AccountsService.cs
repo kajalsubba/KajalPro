@@ -27,6 +27,13 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
+       async Task<DataSet> IAccountsService.GetSaleSummary(SaleSummaryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetSaleSummary(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAccountsService.GetSeasonAdvance(GetSeasonAdvanceModel _input)
         {
             DataSet ds;

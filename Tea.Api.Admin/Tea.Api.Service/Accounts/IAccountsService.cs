@@ -26,5 +26,7 @@ namespace Tea.Api.Service.Accounts
 
         Task<DataSet> GetStgSummary(StgSummaryModel _input);
 
+        Task<DataSet> GetSaleSummary(SaleSummaryModel _input);
+
     }
 }

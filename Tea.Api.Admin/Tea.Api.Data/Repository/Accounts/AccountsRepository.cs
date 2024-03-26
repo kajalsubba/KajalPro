@@ -41,6 +41,24 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
+        async Task<DataSet> IAccountsRepository.GetSaleSummary(SaleSummaryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@FactoryId", _input.FactoryId??0),
+                new ClsParamPair("@AccountId", _input.AccountId??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Summary].[GetSaleSummary]", oclsPairs);
+            ds.Tables[0].TableName = "SaleSummary";
+            return ds;
+        }
+
         async Task<DataSet> IAccountsRepository.GetSeasonAdvance(GetSeasonAdvanceModel _input)
         {
             DataSet ds;
@@ -146,8 +164,9 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@ClientCategory",_input.ClientCategory??"", false, "string"),
                 new ClsParamPair("@ClientId",_input.ClientId??0, false,"long"),
                 new ClsParamPair("@Amount", _input.Amount??0, false, "long"),
-                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
-                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+                new ClsParamPair("@CategoryId", _input.CategoryId??0, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long")
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Accounts].[SeasonAdvanceInsertUpdate]", oclsPairs);
             return Msg;
