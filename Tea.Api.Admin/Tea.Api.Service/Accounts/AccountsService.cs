@@ -62,6 +62,27 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
+      async  Task<DataSet> IAccountsService.GetSupplierBillData(SupplierBillModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetSupplierBillData(_input);
+            return ds;
+        }
+
+       async Task<DataSet> IAccountsService.GetSupplierBillHistory(GetSupplierBillHistoryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetSupplierBillHistory(_input);
+            return ds;
+        }
+
+      async  Task<DataSet> IAccountsService.GetSupplierSummary(SupplierSummaryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetSupplierSummary(_input);
+            return ds;
+        }
+
         async Task<SaveReturnModel> IAccountsService.SavePayment(SavePaymentModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SavePayment(_input);
@@ -79,6 +100,13 @@ namespace Tea.Api.Service.Accounts
         async Task<SaveReturnModel> IAccountsService.SaveStgBill(SaveStgBill _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveStgBill(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+       async Task<SaveReturnModel> IAccountsService.SaveSupplierBill(SaveSupplierBill _input)
+        {
+            string msg = await _unitOfWork.AccountsRepository.SaveSupplierBill(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }

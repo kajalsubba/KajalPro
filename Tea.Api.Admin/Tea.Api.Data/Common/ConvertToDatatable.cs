@@ -11,7 +11,7 @@ namespace Tea.Api.Data.Common
     public static class ConvertToDatatable
     {
 
-        public static DataTable ToDataTable<T>(List<T> items)
+        public static DataTable ToDataTable<T>(List<T>? items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);

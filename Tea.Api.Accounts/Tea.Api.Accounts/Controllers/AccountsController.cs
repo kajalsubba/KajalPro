@@ -96,5 +96,44 @@ namespace Tea.Api.Accounts.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetSupplierSummary")]
+        public async Task<IActionResult> GetSupplierSummary([FromBody] SupplierSummaryModel _input)
+        {
+            var results = await _accountsService.GetSupplierSummary(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("GetSupplierBillData")]
+        public async Task<IActionResult> GetSupplierBillData([FromBody] SupplierBillModel _input)
+        {
+            var results = await _accountsService.GetSupplierBillData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("SaveSupplierBill")]
+        public async Task<IActionResult> SaveSupplierBill([FromBody] SaveSupplierBill _input)
+        {
+            var results = await _accountsService.SaveSupplierBill(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSupplierBillHistory")]
+        public async Task<IActionResult> GetSupplierBillHistory([FromBody] GetSupplierBillHistoryModel _input)
+        {
+            var results = await _accountsService.GetSupplierBillHistory(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
     }
 }

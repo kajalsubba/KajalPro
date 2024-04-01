@@ -33,7 +33,8 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
                 new ClsParamPair("@ClientCategory", _input.ClientCategory ??""),
-                new ClsParamPair("@ClientId", _input.ClientId??0)
+                new ClsParamPair("@ClientId", _input.ClientId??0),
+                new ClsParamPair("@PaymentTypeId", _input.PaymentTypeId??0)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetPaymentData]", oclsPairs);
@@ -136,6 +137,64 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
+       async Task<DataSet> IAccountsRepository.GetSupplierBillData(SupplierBillModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierBillData]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierData";
+            ds.Tables[1].TableName = "PaymentData";
+            ds.Tables[2].TableName = "OutStandingData";
+            return ds;
+        }
+
+       async Task<DataSet> IAccountsRepository.GetSupplierBillHistory(GetSupplierBillHistoryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Bill].[GetSupplierHistory]", oclsPairs);
+            ds.Tables[0].TableName = "BillHistory";
+
+            return ds;
+        }
+
+      async  Task<DataSet> IAccountsRepository.GetSupplierSummary(SupplierSummaryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Summary].[GetSupplierSummary]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierSummary";
+
+            return ds;
+        }
+
         async Task<string> IAccountsRepository.SavePayment(SavePaymentModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
@@ -204,6 +263,40 @@ namespace Tea.Api.Data.Repository.Accounts
 
             };
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Bill].[StgBillInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
+
+      async  Task<string> IAccountsRepository.SaveSupplierBill(SaveSupplierBill _input)
+        {
+            List<SupplierCollectionData>? _Supplieritems = _input.CollectionData?.ToList();
+            List<SupplierPaymentData>? _Paymentitems = _input.PaymentData?.ToList();
+            DataTable dt_collection = ConvertToDatatable.ToDataTable(_Supplieritems);
+            DataTable dt_payment = ConvertToDatatable.ToDataTable(_Paymentitems);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@BillData", dt_collection, SqlDbType.Structured),
+          ParameterCreation.CreateParameter("@PaymentData", dt_payment, SqlDbType.Structured),
+            };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@BillDate",Convert.ToDateTime(_input.BillDate) , true, "Datetime"),
+                new ClsParamPair("@FromDate", Convert.ToDateTime(_input.FromDate) , true, "Datetime"),
+                new ClsParamPair("@ToDate", Convert.ToDateTime(_input.ToDate), true, "Datetime"),
+                new ClsParamPair("@ClientId", _input.ClientId??0, false, "long"),
+                new ClsParamPair("@FinalWeight", _input.FinalWeight??0, false, "long"),
+                new ClsParamPair("@TotalStgAmount", _input.TotalStgAmount??0, false, "long"),
+                new ClsParamPair("@TotalStgPayment", _input.TotalStgPayment??0, false, "long"),
+                new ClsParamPair("@PreviousBalance", _input.PreviousBalance??0, false, "long"),
+                new ClsParamPair("@StandingSeasonAdv", _input.StandingSeasonAdv??0, false, "long"),
+                new ClsParamPair("@LessCommison", _input.Commision??0, false, "long"),
+                new ClsParamPair("@GreenLeafCess", _input.GreenLeafCess??0, false, "long"),
+                new ClsParamPair("@FinalBillAmount", _input.FinalBillAmount??0, false, "long"),
+                new ClsParamPair("@LessSeasonAdv", _input.LessSeasonAdv??0, false, "long"),
+                new ClsParamPair("@AmountToPay", _input.AmountToPay??0, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
+
+            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[Bill].[SupplierBillInsertUpdate]", parameters, oclsPairs);
             return Msg;
         }
     }

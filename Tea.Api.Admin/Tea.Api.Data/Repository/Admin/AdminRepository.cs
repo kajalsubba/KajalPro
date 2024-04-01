@@ -267,7 +267,7 @@ namespace Tea.Api.Data.Repository.Admin
 
         async Task<string> IAdminRepository.SaveCompany(SaveCompanyModel _input)
         {
-            string logoName = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.Image, "Logo");
+            string logoName = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.Image, "Logo", _config.GetConnectionString("DirectoryName"));
 
 
             List<ClsParamPair> oclsPairs = new()

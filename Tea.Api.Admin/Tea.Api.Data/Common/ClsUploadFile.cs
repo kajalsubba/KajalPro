@@ -17,7 +17,7 @@ namespace Tea.Api.Data.Common
         //           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false).Build();
 
 
-        public static async Task<string> UploadFile(string? pathToSave,string? name, IFormFile? Images,string? type)
+        public static async Task<string> UploadFile(string? pathToSave,string? name, IFormFile? Images,string? type,string? DirName)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Tea.Api.Data.Common
                     }
                 }
 
-                return "http://72.167.37.70/TeaFiles/" + sentences[4]+"/" + name+"/"+ FileName;
+                return "http://72.167.37.70/"+DirName+"/" + sentences[4]+"/" + name+"/"+ FileName;
 
                // return new ReturnData() { Id = 1, message = fileName + " is uploaded successfully." };
             }

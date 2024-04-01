@@ -53,5 +53,7 @@ namespace Tea.Api.Service.Collection
 
         Task<DataSet> GetSaleStgData(GetSaleStgxModel _input);
 
+        Task<DataSet> GetNotifications(NotificationModel _input);
+
     }
 }

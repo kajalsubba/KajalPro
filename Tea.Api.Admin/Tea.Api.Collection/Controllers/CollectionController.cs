@@ -148,6 +148,13 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
-
+        [HttpPost, Route("GetNotifications")]
+        public async Task<IActionResult> GetNotifications([FromBody] NotificationModel _input)
+        {
+            var results = await _collectionService.GetNotifications(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

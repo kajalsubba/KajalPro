@@ -18,7 +18,14 @@ namespace Tea.Api.Service.Collection
             _unitOfWork = unitOfWork;
         }
 
-       async Task<DataSet> ICollectionService.GetSaleDetails(SelectSale _input)
+       async Task<DataSet> ICollectionService.GetNotifications(NotificationModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetNotifications(_input);
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionService.GetSaleDetails(SelectSale _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetSaleDetails(_input);

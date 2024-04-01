@@ -174,7 +174,7 @@ namespace Tea.Api.Data.Repository.Collection
 
        async Task<string> ICollectionRepository.UploadSupplierChallan(SaveChallanImageModel _input)
         {
-            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept"+_input.CollectionId);
+            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept"+_input.CollectionId, _config.GetConnectionString("FilePath"));
 
             List<ClsParamPair> oclsPairs = new()
             {
@@ -447,6 +447,22 @@ namespace Tea.Api.Data.Repository.Collection
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSaleStgData]", oclsPairs);
             ds.Tables[0].TableName = "SaleStgData";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetNotifications(NotificationModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Notify].[GetNotification]", oclsPairs);
+            ds.Tables[0].TableName = "NotificationData";
             return ds;
         }
     }

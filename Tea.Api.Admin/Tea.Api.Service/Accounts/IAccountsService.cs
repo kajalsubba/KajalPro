@@ -28,5 +28,11 @@ namespace Tea.Api.Service.Accounts
 
         Task<DataSet> GetSaleSummary(SaleSummaryModel _input);
 
+        Task<DataSet> GetSupplierBillData(SupplierBillModel _input);
+
+        Task<SaveReturnModel> SaveSupplierBill(SaveSupplierBill _input);
+
+        Task<DataSet> GetSupplierBillHistory(GetSupplierBillHistoryModel _input);
+        Task<DataSet> GetSupplierSummary(SupplierSummaryModel _input);
     }
 }
