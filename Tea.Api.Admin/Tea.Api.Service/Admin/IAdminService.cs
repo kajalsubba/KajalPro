@@ -61,5 +61,6 @@ namespace Tea.Api.Service.Admin
 
         Task<SaveReturnModel> SavePaymentType(SavePaymentTypeModel _input);
 
+        Task<DataTable> GetApkUpdateNotification();
     }
 }

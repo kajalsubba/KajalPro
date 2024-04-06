@@ -67,6 +67,13 @@ namespace Tea.Api.Service.Admin
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
+       async Task<DataTable> IAdminService.GetApkUpdateNotification()
+        {
+            DataTable ds;
+            ds = await _unitOfWork.AdminRepository.GetApkUpdateNotification();
+            return ds;
+        }
+
         async Task<DataSet> IAdminService.GetCategory(CommonSelectModel _input)
         {
             DataSet ds;

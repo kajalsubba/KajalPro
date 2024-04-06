@@ -487,5 +487,12 @@ namespace Tea.Api.Data.Repository.Admin
             string Msg = await _dataHandler.SaveChangesAsyn("[Master].[PaymentTypeInsertUpdate]", oclsPairs);
             return Msg;
         }
+
+       async Task<DataTable> IAdminRepository.GetApkUpdateNotification()
+        {
+            DataTable ds;
+            ds = await _dataHandler.ExecProcDataTableAsyn("[Notify].[GetUpdateVesion]");
+            return ds;
+        }
     }
 }

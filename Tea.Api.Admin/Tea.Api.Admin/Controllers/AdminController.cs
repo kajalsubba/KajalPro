@@ -101,5 +101,13 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpGet, Route("GetApkUpdateNotification")]
+        public async Task<IActionResult> GetApkUpdateNotification()
+        {
+            var results = await _adminService.GetApkUpdateNotification();
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }
