@@ -135,5 +135,13 @@ namespace Tea.Api.Accounts.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+        [HttpPost, Route("GetSmartHistory")]
+        public async Task<IActionResult> GetSmartHistory([FromBody] SmartHistoryModel _input)
+        {
+            var results = await _accountsService.GetSmartHistory(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

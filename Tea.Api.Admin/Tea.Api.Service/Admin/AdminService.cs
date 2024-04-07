@@ -18,6 +18,13 @@ namespace Tea.Api.Service.Admin
             _unitOfWork = unitOfWork;
         }
 
+       async Task<SaveReturnModel> IAdminService.ChangePassword(ChangePasswordModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.ChangePassword(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
         async Task<DataSet> IAdminService.ClientLogin(ClientLoginModel _input)
         {
             DataSet ds;

@@ -494,5 +494,20 @@ namespace Tea.Api.Data.Repository.Admin
             ds = await _dataHandler.ExecProcDataTableAsyn("[Notify].[GetUpdateVesion]");
             return ds;
         }
+
+      async  Task<string> IAdminRepository.ChangePassword(ChangePasswordModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@Username", _input.UserName??"" , false, "String"),
+                new ClsParamPair("@LoginType", _input.LoginType ?? "", false, "String"),
+                new ClsParamPair("@Password", _input.Password ?? "" ,false, "String"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+               new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[ChangePassword]", oclsPairs);
+            return Msg;
+        }
     }
 }

@@ -109,5 +109,12 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel _input)
+        {
+            var results = await _adminService.ChangePassword(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
     }
 }

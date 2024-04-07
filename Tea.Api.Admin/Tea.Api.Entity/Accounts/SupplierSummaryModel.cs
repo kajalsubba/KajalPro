@@ -13,4 +13,13 @@ namespace Tea.Api.Entity.Accounts
         public long? ClientId { get; set; }
         public long? TenantId { get; set; }
     }
+
+    public class SmartHistoryModel
+    {
+        public long? TenantId { get; set; }
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public string? CategoryName { get; set; }
+        public long? ClientId { get; set; }
+    }
 }

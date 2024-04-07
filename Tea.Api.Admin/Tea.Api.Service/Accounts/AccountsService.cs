@@ -41,6 +41,14 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
+       async Task<DataSet> IAccountsService.GetSmartHistory(SmartHistoryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetSmartHistory(_input);
+            return ds;
+        }
+    
+
         async Task<DataSet> IAccountsService.GetStgBillData(StgBillModel _input)
         {
             DataSet ds;

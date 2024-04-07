@@ -69,5 +69,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> SavePaymentType(SavePaymentTypeModel _input);
 
         Task<DataTable> GetApkUpdateNotification();
+
+        Task<string> ChangePassword(ChangePasswordModel _input);
     }
 }

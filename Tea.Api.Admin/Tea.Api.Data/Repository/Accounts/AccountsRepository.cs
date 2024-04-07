@@ -79,6 +79,27 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
+       async Task<DataSet> IAccountsRepository.GetSmartHistory(SmartHistoryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@CategoryName", _input.CategoryName??""),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Summary].[SmartHistory]", oclsPairs);
+            ds.Tables[0].TableName = "CollectionSummary";
+            ds.Tables[1].TableName = "PaymentSummary";
+            ds.Tables[2].TableName = "OutstandingSummary";
+            return ds;
+        }
+
         async Task<DataSet> IAccountsRepository.GetStgBillData(StgBillModel _input)
         {
             DataSet ds;
