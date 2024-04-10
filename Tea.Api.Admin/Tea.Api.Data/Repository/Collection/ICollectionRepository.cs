@@ -53,5 +53,7 @@ namespace Tea.Api.Data.Repository.Collection
 
         Task<DataSet> GetSaleStgData(GetSaleStgxModel _input);
         Task<DataSet> GetNotifications(NotificationModel _input);
+
+        Task<DataSet> GetSupplierMobileData(GetSupplierMobileModel _input);
     }
 }

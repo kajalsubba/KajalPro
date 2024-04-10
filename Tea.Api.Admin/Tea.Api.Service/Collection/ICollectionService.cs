@@ -55,5 +55,7 @@ namespace Tea.Api.Service.Collection
 
         Task<DataSet> GetNotifications(NotificationModel _input);
 
+        Task<DataSet> GetSupplierMobileData(GetSupplierMobileModel _input);
+
     }
 }

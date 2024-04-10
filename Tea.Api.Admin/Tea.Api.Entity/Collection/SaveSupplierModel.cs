@@ -103,6 +103,14 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
 
     }
+    public class GetSupplierMobileModel
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? ClientId { get; set; }
+        public long? TenantId { get; set; }
+
+    }
 
 
 }

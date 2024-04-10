@@ -465,5 +465,23 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "NotificationData";
             return ds;
         }
+
+       async Task<DataSet> ICollectionRepository.GetSupplierMobileData(GetSupplierMobileModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@ClientId", _input.ClientId ??0),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierMobileData]", oclsPairs);
+            ds.Tables[0].TableName = "MobileData";
+            return ds;
+        }
     }
 }

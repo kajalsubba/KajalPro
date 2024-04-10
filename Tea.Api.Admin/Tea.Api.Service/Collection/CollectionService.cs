@@ -88,7 +88,14 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionService.GetSupplierRateFixData(GetSupplierRateFixModel _input)
+      async  Task<DataSet> ICollectionService.GetSupplierMobileData(GetSupplierMobileModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSupplierMobileData(_input);
+            return ds;
+        }
+
+        async  Task<DataSet> ICollectionService.GetSupplierRateFixData(GetSupplierRateFixModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetSupplierRateFixData(_input);
