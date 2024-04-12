@@ -483,5 +483,21 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "MobileData";
             return ds;
         }
+
+       async Task<DataSet> ICollectionRepository.GetSalSupplierData(GetSaleStgxModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                 new ClsParamPair("@ApproveId", _input.ApproveId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSaleSupplierData]", oclsPairs);
+            ds.Tables[0].TableName = "SaleSupplierData";
+            return ds;
+        }
     }
 }

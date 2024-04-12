@@ -52,6 +52,8 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetSupplierDefaultData(GetSupplierDefaultModel _input);
 
         Task<DataSet> GetSaleStgData(GetSaleStgxModel _input);
+        Task<DataSet> GetSalSupplierData(GetSaleStgxModel _input);
+        
 
         Task<DataSet> GetNotifications(NotificationModel _input);
 
