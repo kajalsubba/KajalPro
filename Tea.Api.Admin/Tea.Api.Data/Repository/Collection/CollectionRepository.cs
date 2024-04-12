@@ -174,7 +174,7 @@ namespace Tea.Api.Data.Repository.Collection
 
        async Task<string> ICollectionRepository.UploadSupplierChallan(SaveChallanImageModel _input)
         {
-            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept"+_input.CollectionId, _config.GetConnectionString("FilePath"));
+            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept"+_input.CollectionId, _config.GetConnectionString("DirectoryName"));
 
             List<ClsParamPair> oclsPairs = new()
             {
