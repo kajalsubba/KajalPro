@@ -57,10 +57,19 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
-        [HttpPost, Route("GetSalSupplierData")]
-        public async Task<IActionResult> GetSalSupplierData([FromBody] GetSaleStgxModel _input)
+        [HttpPost, Route("GetSaleSupplierData")]
+        public async Task<IActionResult> GetSaleSupplierData([FromBody] GetSaleStgxModel _input)
         {
-            var results = await _collectionService.GetSalSupplierData(_input);
+            var results = await _collectionService.GetSaleSupplierData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSaleFactory")]
+        public async Task<IActionResult> GetSaleFactory([FromBody] GetSaleFactory _input)
+        {
+            var results = await _collectionService.GetSaleFactory(_input);
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();

@@ -53,4 +53,11 @@ namespace Tea.Api.Entity.Collection
         public decimal? Incentive { get; set; }
     }
 
+    public class GetSaleFactory
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? TenantId { get; set; }
+    }
+
 }

@@ -32,7 +32,14 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionService.GetSaleRateFixData(GetSaleRateFixModel _input)
+       async Task<DataSet> ICollectionService.GetSaleFactory(GetSaleFactory _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSaleFactory(_input);
+            return ds;
+        }
+
+        async  Task<DataSet> ICollectionService.GetSaleRateFixData(GetSaleRateFixModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetSaleRateFixData(_input);
@@ -46,10 +53,10 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionService.GetSalSupplierData(GetSaleStgxModel _input)
+      async  Task<DataSet> ICollectionService.GetSaleSupplierData(GetSaleStgxModel _input)
         {
             DataSet ds;
-            ds = await _unitOfWork.CollectionRepository.GetSalSupplierData(_input);
+            ds = await _unitOfWork.CollectionRepository.GetSaleSupplierData(_input);
             return ds;
         }
 
