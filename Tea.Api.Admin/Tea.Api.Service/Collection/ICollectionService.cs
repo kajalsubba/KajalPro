@@ -59,5 +59,7 @@ namespace Tea.Api.Service.Collection
 
         Task<DataSet> GetSupplierMobileData(GetSupplierMobileModel _input);
 
+        Task<DataSet> GradeReport(GradeReportModel _input);
+
     }
 }

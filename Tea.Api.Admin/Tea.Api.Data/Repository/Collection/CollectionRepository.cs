@@ -61,6 +61,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
                 new ClsParamPair("@Status",_input.Status??""),
                 new ClsParamPair("@TripId",_input.TripId == null ? 0 : _input.TripId),
+                new ClsParamPair("@ClientId",_input.ClientId ??0),
                 new ClsParamPair("@CreatedBy",_input.CreatedBy == null ? 0 : _input.CreatedBy),
             };
 
@@ -197,6 +198,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@VehicleNo",_input.VehicleNo??""),
                 new ClsParamPair("@Status",_input.Status??""),
                 new ClsParamPair("@TripId",_input.TripId == null ? 0 : _input.TripId),
+                    new ClsParamPair("@ClientId",_input.ClientId??0),
                  new ClsParamPair("@CreatedBy",_input.CreatedBy == null ? 0 : _input.CreatedBy),
             };
 
@@ -513,6 +515,23 @@ namespace Tea.Api.Data.Repository.Collection
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetSalesFactory]", oclsPairs);
             ds.Tables[0].TableName = "SaleFactory";
+            return ds;
+        }
+
+      async  Task<DataSet> ICollectionRepository.GradeReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetSTGGradeWiseFinalWeight]", oclsPairs);
+            ds.Tables[0].TableName = "GradeReport";
             return ds;
         }
     }

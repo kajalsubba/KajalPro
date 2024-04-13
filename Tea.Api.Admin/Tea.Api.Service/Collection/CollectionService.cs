@@ -123,6 +123,13 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
+       async Task<DataSet> ICollectionService.GradeReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GradeReport(_input);
+            return ds;
+        }
+
         async  Task<SaveReturnModel> ICollectionService.SaveApproveStg(SaveApproveStg _input)
         {
             string msg = await _unitOfWork.CollectionRepository.SaveApproveStg(_input);
