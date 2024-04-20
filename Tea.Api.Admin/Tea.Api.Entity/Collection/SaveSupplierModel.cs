@@ -59,7 +59,8 @@ namespace Tea.Api.Entity.Collection
         public int? FineLeaf { get; set; }
         public float? ChallanWeight { get; set; }
         public int? SaleTypeId { get; set; }
-  
+        public string? Remarks { get; set; }
+
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
     }

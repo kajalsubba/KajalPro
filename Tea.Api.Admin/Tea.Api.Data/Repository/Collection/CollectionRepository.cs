@@ -220,6 +220,8 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@FineLeaf", _input.FineLeaf == null ? 0 : _input.FineLeaf, false, "long"),
                 new ClsParamPair("@ChallanWeight", _input.ChallanWeight == null ? 0 : _input.ChallanWeight, false, "long"),
                 new ClsParamPair("@SaleTypeId", _input.SaleTypeId == null ? 0 : _input.SaleTypeId, false, "long"),
+                new ClsParamPair("@Remarks", _input.Remarks??"", false, "String"),
+
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
 
