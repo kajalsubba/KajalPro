@@ -64,5 +64,10 @@ namespace Tea.Api.Service.Admin
         Task<DataTable> GetApkUpdateNotification();
 
         Task<SaveReturnModel> ChangePassword(ChangePasswordModel _input);
+        Task<DataSet> GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input);
+
+        Task<DataSet> GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input);
+
+        Task<DataSet> GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input);
     }
 }

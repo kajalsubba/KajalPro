@@ -509,5 +509,47 @@ namespace Tea.Api.Data.Repository.Admin
             string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[ChangePassword]", oclsPairs);
             return Msg;
         }
+
+      async  Task<DataSet> IAdminRepository.GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCompanyWiseChart]", oclsPairs);
+            ds.Tables[0].TableName = "CompanyWiseChart";
+            return ds;
+        }
+
+       async Task<DataSet> IAdminRepository.GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSTGWiseChart]", oclsPairs);
+            ds.Tables[0].TableName = "StgWiseChart";
+            return ds;
+        }
+
+      async  Task<DataSet> IAdminRepository.GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSupplierWiseChart]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierWiseChart";
+            return ds;
+        }
     }
 }

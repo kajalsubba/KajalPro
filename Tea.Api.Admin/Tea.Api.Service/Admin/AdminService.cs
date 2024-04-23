@@ -102,6 +102,13 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
+       async Task<DataSet> IAdminService.GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetComapanyWiseSaleChart(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAdminService.GetCompany(GetCompanyModel _input)
         {
             DataSet ds;
@@ -158,6 +165,13 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
+       async Task<DataSet> IAdminService.GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetSTGWiseSaleChart(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAdminService.GetTenant()
         {
             DataSet ds;
@@ -171,7 +185,12 @@ namespace Tea.Api.Service.Admin
             ds = await _unitOfWork.AdminRepository.GetTrip();
             return ds;
         }
-
+        async Task<DataSet> IAdminService.GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetSupplierWiseSaleChart(_input);
+            return ds;
+        }
         async Task<DataSet> IAdminService.GetUser(SelectUserModel _input)
         {
             DataSet ds;

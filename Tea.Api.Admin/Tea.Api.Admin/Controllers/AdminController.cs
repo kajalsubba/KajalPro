@@ -116,5 +116,32 @@ namespace Tea.Api.Admin.Controllers
             var results = await _adminService.ChangePassword(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+
+        [HttpPost, Route("GetComapanyWiseSaleChart")]
+        public async Task<IActionResult> GetComapanyWiseSaleChart([FromBody] CompanyWiseSaleChartModel _input)
+        {
+            var results = await _adminService.GetComapanyWiseSaleChart(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSTGWiseSaleChart")]
+        public async Task<IActionResult> GetSTGWiseSaleChart([FromBody] CompanyWiseSaleChartModel _input)
+        {
+            var results = await _adminService.GetSTGWiseSaleChart(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSupplierWiseSaleChart")]
+        public async Task<IActionResult> GetSupplierWiseSaleChart([FromBody] CompanyWiseSaleChartModel _input)
+        {
+            var results = await _adminService.GetSupplierWiseSaleChart(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }
