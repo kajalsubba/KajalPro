@@ -13,6 +13,9 @@ namespace Tea.Api.Entity.Admin
         public string? TenantOwner { get; set; }
         public string? TenantEmail { get; set; }
         public string? TenantContactNo { get; set; }
+        public string? UserName { get; set; }
+        public string? Password { get; set; }
+
         public bool? IsActive { get; set; }
     }
 

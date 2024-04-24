@@ -340,6 +340,8 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@TenantOwner", _input.TenantOwner ??"", false, "String"),
                 new ClsParamPair("@TenantEmail", _input.TenantEmail??"", false, "String"),
                 new ClsParamPair("@TenantContactNo", _input.TenantContactNo??"", false, "String"),
+                new ClsParamPair("@UserName", _input.UserName??"", false, "String"),
+                new ClsParamPair("@Password", _input.Password??"", false, "String"),
                 new ClsParamPair("@IsActive", _input.IsActive == null ? false : _input.IsActive, false, "bool")
 
             };
