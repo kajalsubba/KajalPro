@@ -34,7 +34,8 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
                 new ClsParamPair("@ClientCategory", _input.ClientCategory ??""),
                 new ClsParamPair("@ClientId", _input.ClientId??0),
-                new ClsParamPair("@PaymentTypeId", _input.PaymentTypeId??0)
+                new ClsParamPair("@PaymentTypeId", _input.PaymentTypeId??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetPaymentData]", oclsPairs);

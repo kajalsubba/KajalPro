@@ -518,7 +518,8 @@ namespace Tea.Api.Data.Repository.Admin
             List<ClsParamPair> oclsPairs = new()
             {
 
-                new ClsParamPair("@TenantId", _input.TenantId ??0)
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCompanyWiseChart]", oclsPairs);
@@ -532,7 +533,8 @@ namespace Tea.Api.Data.Repository.Admin
             List<ClsParamPair> oclsPairs = new()
             {
 
-                new ClsParamPair("@TenantId", _input.TenantId ??0)
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSTGWiseChart]", oclsPairs);
@@ -546,7 +548,8 @@ namespace Tea.Api.Data.Repository.Admin
             List<ClsParamPair> oclsPairs = new()
             {
 
-                new ClsParamPair("@TenantId", _input.TenantId ??0)
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSupplierWiseChart]", oclsPairs);
