@@ -355,7 +355,7 @@ namespace Tea.Api.Data.Repository.Admin
             {
                 new ClsParamPair("@UserId", _input.UserId == null ? 0 : _input.UserId, false, "long"),
                 new ClsParamPair("@LoginUserName", _input.LoginUserName ?? "", false, "String"),
-                new ClsParamPair("@UserFirstName", _input.LoginUserName ??"", false, "String"),
+                new ClsParamPair("@UserFirstName", _input.UserFirstName ??"", false, "String"),
                 new ClsParamPair("@UserMiddleName", _input.UserMiddleName??"", false, "String"),
                 new ClsParamPair("@UserLastName", _input.UserLastName??"", false, "String"),
                 new ClsParamPair("@UserEmail", _input.UserEmail ??"", false, "String"),

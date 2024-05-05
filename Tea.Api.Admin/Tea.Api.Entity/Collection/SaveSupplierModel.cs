@@ -44,6 +44,7 @@ namespace Tea.Api.Entity.Collection
         public long? ClientId { get; set; }
         public int? TripId { get; set; }
 
+        public long? FactoryId { get; set; }
         public long? CreatedBy { get; set; }
     }
 
