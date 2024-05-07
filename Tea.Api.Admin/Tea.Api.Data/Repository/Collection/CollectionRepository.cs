@@ -313,8 +313,8 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@FactoryId",_input.FactoryId ??0),
                 new ClsParamPair("@AccountId",_input.AccountId ??0),
                 new ClsParamPair("@ClientId",_input.ClientId ??0),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf ??""),
                 new ClsParamPair("@TenantId", _input.TenantId ??0)
-
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierRateFixData]", oclsPairs);
