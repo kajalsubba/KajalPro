@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Collection", "Tea.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Gateway", "Tea.Api.Gateway\Tea.Api.Gateway.csproj", "{368E15FA-83BA-4140-8B67-1E6423B8AEE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Accounts", "..\Tea.Api.Accounts\Tea.Api.Accounts\Tea.Api.Accounts.csproj", "{083D7574-ED1D-4D68-B2C6-01236853C5FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tea.Api.Accounts", "..\Tea.Api.Accounts\Tea.Api.Accounts\Tea.Api.Accounts.csproj", "{083D7574-ED1D-4D68-B2C6-01236853C5FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tea.Api.Print", "Tea.Api.Print\Tea.Api.Print.csproj", "{3DC89649-A49C-406C-A43F-BD9D09B3DC98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{083D7574-ED1D-4D68-B2C6-01236853C5FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC89649-A49C-406C-A43F-BD9D09B3DC98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC89649-A49C-406C-A43F-BD9D09B3DC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC89649-A49C-406C-A43F-BD9D09B3DC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC89649-A49C-406C-A43F-BD9D09B3DC98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

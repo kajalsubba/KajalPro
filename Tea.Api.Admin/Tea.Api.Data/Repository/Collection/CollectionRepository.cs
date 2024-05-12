@@ -521,7 +521,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionRepository.GradeReport(GradeReportModel _input)
+      async  Task<DataSet> ICollectionRepository.ClientWiseGradeReport(GradeReportModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -534,6 +534,23 @@ namespace Tea.Api.Data.Repository.Collection
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetSTGGradeWiseFinalWeight]", oclsPairs);
+            ds.Tables[0].TableName = "GradeReport";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.DateWiseGradeReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetSTGDateWiseGrade]", oclsPairs);
             ds.Tables[0].TableName = "GradeReport";
             return ds;
         }

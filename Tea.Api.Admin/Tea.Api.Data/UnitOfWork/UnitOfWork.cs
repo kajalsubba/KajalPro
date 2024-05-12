@@ -7,6 +7,7 @@ using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.Repository.Accounts;
 using Tea.Api.Data.Repository.Admin;
 using Tea.Api.Data.Repository.Collection;
+using Tea.Api.Data.Repository.Print;
 
 namespace Tea.Api.Data.UnitOfWork
 {
@@ -29,6 +30,9 @@ namespace Tea.Api.Data.UnitOfWork
 
         IAccountsRepository? _AccountsRepository;
         IAccountsRepository IUnitOfWork.AccountsRepository => _AccountsRepository = new AccountsRepository(_dataHandler);
+
+        IPrintRepository? _PrintRepository;
+        IPrintRepository IUnitOfWork.PrintRepository => _PrintRepository = new PrintRepository(_dataHandler);
 
         public void Dispose()
         {

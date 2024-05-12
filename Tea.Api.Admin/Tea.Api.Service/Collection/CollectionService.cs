@@ -123,10 +123,10 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionService.GradeReport(GradeReportModel _input)
+       async Task<DataSet> ICollectionService.ClientWiseGradeReport(GradeReportModel _input)
         {
             DataSet ds;
-            ds = await _unitOfWork.CollectionRepository.GradeReport(_input);
+            ds = await _unitOfWork.CollectionRepository.ClientWiseGradeReport(_input);
             return ds;
         }
 
@@ -198,6 +198,13 @@ namespace Tea.Api.Service.Collection
             string msg = await _unitOfWork.CollectionRepository.UploadSupplierChallan(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+      async  Task<DataSet> ICollectionService.DateWiseGradeReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.DateWiseGradeReport(_input);
+            return ds;
         }
     }
 }
