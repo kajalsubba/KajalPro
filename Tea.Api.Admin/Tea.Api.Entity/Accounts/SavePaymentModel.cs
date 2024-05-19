@@ -10,6 +10,7 @@ namespace Tea.Api.Entity.Accounts
     {
         public long? PaymentId { get; set; }
         public DateTime? PaymentDate { get; set; }
+        public DateTime? BillDate { get; set; }
         public string? ClientCategory { get; set; }
         public long? ClientId { get; set; }
         public long? PaymentTypeId { get; set; }

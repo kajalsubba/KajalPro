@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using PdfSharp.Drawing;
-using PdfSharp.Fonts;
-using PdfSharp.Pdf;
+﻿
+using PdfSharpCore;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 using System.Data;
-using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.Print;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
@@ -14,16 +13,16 @@ namespace Tea.Api.Data.Repository.Print
     {
 
         readonly IDataHandler _dataHandler;
-       
+
         public PrintRepository(IDataHandler dataHandler)
         {
             _dataHandler = dataHandler;
-           
+
         }
 
         async Task<byte[]> IPrintRepository.StgBillPrint(BillPrintModel _input)
         {
-            
+
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
@@ -37,101 +36,90 @@ namespace Tea.Api.Data.Repository.Print
 
             var data = new PdfDocument();
             string htmlContent = @"<!DOCTYPE html>
-            <html lang=""en"">
-            <head>
-            <meta charset=""UTF-8"">
-            <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-            <title>Table with Borders</title>
-            <style>
-                table {
-                    border-collapse: collapse;
-                    width: 100%;
-                }
-                th, td {
-                    border: 1px solid black;
-                    padding: 8px;
-                    text-align: left;
-                }
-                th {
-                    background-color: #f2f2f2; /* Gray background color for table headers */
-                }
-            </style>
-            </head>
-            <body>
-            <table>
-              <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Age</th>
-              </tr>
-              <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <td>Jane</td>
-                <td>Smith</td>
-                <td>25</td>
-              </tr>
-              <tr>
-                <td>Bob</td>
-                <td>Johnson</td>
-                <td>40</td>
-              </tr>
-            </table>
-            </body>
-            </html>";
+<html lang=""en"">
+<head>
+<meta charset=""UTF-8"">
+<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+<title>Two Divs Side by Side</title>
+<style>
+  h1 {
+    text-align: center; /* Center align the text */
+    font-size: 14px; /* Set font size to 14px */
+    padding: 10px; /* Add padding for better spacing */
+  }
+  /* Style for left and right divs */
+  .left-div {
+    width: 30%; /* First div takes 30% of the width */
+    float: left; /* Float div to the left */
+    box-sizing: border-box; /* Include padding and border in the div's total width */
+    padding: 20px; /* Adding some padding for better readability */
+    border: 1px solid black; /* Add a solid black border */
+    height: 150px;
+  }
+  
+  .right-div {
+    width: 70%; /* Second div takes 70% of the width */
+    float: left; /* Float div to the left */
+    box-sizing: border-box; /* Include padding and border in the div's total width */
+    padding: 20px; /* Adding some padding for better readability */
+    border: 1px solid black; /* Add a solid black border */
+    font-size: 14px; /* Reduce font size */
+    height: 150px;
+  }
+</style>
+</head>
+<body>
 
-            //PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
-            //byte[]? response = null;
-            //using (MemoryStream ms = new MemoryStream())
-            //{
-            //    data.Save(ms);
-            //    response = ms.ToArray();
-          //  }
-          //  string fileName = "FeesStructure" + req.date + ".pdf";
-               DataTable firstTable = ds.Tables[0];
-            using (MemoryStream stream = new MemoryStream())
+<h1>Green Leaves Collection Statement</h1>
+
+<!-- Left Div -->
+<div class=""left-div"">
+  <p>Udai Limbu</p>
+  <p>Ketetong, Margherita, Dist. Tinsukia, Assam</p>
+  <p>Phone No. 9435138530</p>
+</div>
+
+<!-- Right Div -->
+<div class=""right-div"">
+  <table style=""width: 100%;"">
+    <tr>
+      <td style=""width: 25%;"">For the period from:</td>
+      <td style=""width: 25%;"">01-03-2024 to 31-03-2024</td>
+      <td style=""width: 25%;"">Client Id:</td>
+      <td style=""width: 25%;"">1400</td>
+    </tr>
+    <tr>
+      <td style=""width: 25%;"">Client Name:</td>
+      <td style=""width: 25%;"">Kajal Subba</td>
+      <td style=""width: 25%;"">Category:</td>
+      <td style=""width: 25%;"">STG</td>
+    </tr>
+    <tr>
+      <td style=""width: 25%;"">Address:</td>
+      <td style=""width: 25%;"">Bokakhat, Assam</td>
+      <td style=""width: 25%;"">Contact No:</td>
+      <td style=""width: 25%;"">7002500235</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>
+
+";
+            PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
+
+         
+
+            byte[]? response = null;
+            using (MemoryStream ms = new MemoryStream())
             {
-                using (PdfDocument document = new PdfDocument())
-                {
-                    foreach (DataTable table in ds.Tables)
-                    {
-                        PdfPage page = document.AddPage();
-                        XGraphics gfx = XGraphics.FromPdfPage(page);
-                        if (PdfSharp.Fonts.GlobalFontSettings.FontResolver is null)
-                        {
-                            GlobalFontSettings.FontResolver = new CustomFontResolver();
-                        }
-                        XFont font = new XFont("Arial", 10,XFontStyleEx.Regular);
-
-                        int currentY = 20;
-
-                        // Print column headers
-                        foreach (DataColumn column in table.Columns)
-                        {
-                            gfx.DrawString(column.ColumnName, font, XBrushes.Black, new XPoint(20, currentY));
-                            currentY += 20;
-                        }
-
-                        // Print data
-                        foreach (DataRow row in table.Rows)
-                        {
-                            currentY += 10;
-                            foreach (DataColumn column in table.Columns)
-                            {
-                                gfx.DrawString(row[column].ToString(), font, XBrushes.Black, new XPoint(20, currentY));
-                                currentY += 20;
-                            }
-                        }
-                    }
-
-                    document.Save(stream);
-                }
-
-            return stream.ToArray();
+                data.Save(ms);
+                response = ms.ToArray();
             }
+            // string fileName = "FeesStructure" + req.date + ".pdf";
+            return response;
         }
+ 
     }
 }

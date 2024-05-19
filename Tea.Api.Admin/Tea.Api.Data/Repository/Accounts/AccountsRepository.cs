@@ -223,6 +223,7 @@ namespace Tea.Api.Data.Repository.Accounts
             {
                 new ClsParamPair("@PaymentId", _input.PaymentId??0, false, "long"),
                 new ClsParamPair("@PaymentDate",Convert.ToDateTime(_input.PaymentDate), true, "DateTime"),
+                new ClsParamPair("@BillDate",Convert.ToDateTime(_input.BillDate), true, "DateTime"),
                 new ClsParamPair("@ClientCategory",_input.ClientCategory??"", false, "string"),
                 new ClsParamPair("@ClientId",_input.ClientId??0, false,"long"),
                 new ClsParamPair("@PaymentTypeId",_input.PaymentTypeId??0, false,"long"),
