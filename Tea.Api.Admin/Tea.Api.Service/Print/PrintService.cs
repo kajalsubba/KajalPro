@@ -22,5 +22,11 @@ namespace Tea.Api.Service.Print
             byte[] ds = await _unitOfWork.PrintRepository.StgBillPrint(_input);
             return ds;
         }
+
+       async Task<byte[]> IPrintService.SupplierBillPrint(BillPrintModel _input)
+        {
+            byte[] ds = await _unitOfWork.PrintRepository.SupplierBillPrint(_input);
+            return ds;
+        }
     }
 }

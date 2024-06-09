@@ -11,4 +11,6 @@ namespace Tea.Api.Entity.Print
         public long? TenantId { get; set; }
         public long? BillNo { get; set; }
     }
+
+   
 }

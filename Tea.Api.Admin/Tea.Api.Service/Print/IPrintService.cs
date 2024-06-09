@@ -10,5 +10,6 @@ namespace Tea.Api.Service.Print
     public interface IPrintService
     {
         Task<byte[]> StgBillPrint(BillPrintModel _input);
+        Task<byte[]> SupplierBillPrint(BillPrintModel _input);
     }
 }

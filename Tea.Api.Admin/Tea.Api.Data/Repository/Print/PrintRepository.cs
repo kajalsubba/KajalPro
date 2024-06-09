@@ -3,6 +3,7 @@ using PdfSharpCore;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using System.Data;
+using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.Print;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
@@ -33,80 +34,237 @@ namespace Tea.Api.Data.Repository.Print
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Bill].[GenerateSTGBill]", oclsPairs);
+            string? CompanyName = string.Empty;
+            string? Address = string.Empty;
+            string? ContactNo = string.Empty;
+            string? Email = string.Empty;
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                CompanyName = Convert.ToString(row["CompanyName"]);
+                Address = Convert.ToString(row["CompanyDetails"]);
+                ContactNo = Convert.ToString(row["ContactNo"]);
+                Email = Convert.ToString(row["UserEmail"]);
+            }
+
+            DataRow firstRow = ds.Tables[1].Rows[0];
+
+            
+             string? BillId = Convert.ToString(firstRow["BillId"]);
+            string? BillDate = Convert.ToString(firstRow["BillDate"]);
+            string? FromDate = Convert.ToString(firstRow["FromDate"]);
+            string? ToDate = Convert.ToString(firstRow["ToDate"]);
+            string? ClientName = Convert.ToString(firstRow["ClientName"]);
+            string? ClientId = Convert.ToString(firstRow["ClientId"]);
+            string? ClientAddress = Convert.ToString(firstRow["ClientAddress"]);
+            string? ClientContactNo = Convert.ToString(firstRow["ContactNo"]);
+
+            string? StandingSeasonAdv = Convert.ToString(firstRow["StandingSeasonAdv"]);
+            string? Incentive = Convert.ToString(firstRow["IncentiveAmount"]);
+            string? Transport = Convert.ToString(firstRow["TransportingAmount"]);
+            string? Cess = Convert.ToString(firstRow["CessAmount"]);
+            string? PrevousAmount = Convert.ToString(firstRow["PreviousBalance"]);
+            string? LessSeasonAdv = Convert.ToString(firstRow["LessSeasonAmount"]);
+            string? AmountToPay = Convert.ToString(firstRow["AmountToPay"]);
+            string? RoundAmountToPay = Convert.ToString(firstRow["RoundAmountToPay"]);
 
             var data = new PdfDocument();
-            string htmlContent = @"<!DOCTYPE html>
-<html lang=""en"">
-<head>
-<meta charset=""UTF-8"">
-<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-<title>Two Divs Side by Side</title>
-<style>
-  h1 {
-    text-align: center; /* Center align the text */
-    font-size: 14px; /* Set font size to 14px */
-    padding: 10px; /* Add padding for better spacing */
-  }
-  /* Style for left and right divs */
-  .left-div {
-    width: 30%; /* First div takes 30% of the width */
-    float: left; /* Float div to the left */
-    box-sizing: border-box; /* Include padding and border in the div's total width */
-    padding: 20px; /* Adding some padding for better readability */
-    border: 1px solid black; /* Add a solid black border */
-    height: 150px;
-  }
-  
-  .right-div {
-    width: 70%; /* Second div takes 70% of the width */
-    float: left; /* Float div to the left */
-    box-sizing: border-box; /* Include padding and border in the div's total width */
-    padding: 20px; /* Adding some padding for better readability */
-    border: 1px solid black; /* Add a solid black border */
-    font-size: 14px; /* Reduce font size */
-    height: 150px;
-  }
-</style>
-</head>
-<body>
 
-<h1>Green Leaves Collection Statement</h1>
+            string htmlContent = "<div style = 'margin: 20px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
+            //htmlContent += "<div style = 'margin-bottom: 20px; text-align: center;'>";
+            //htmlContent += "<img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROnYPD5QO8ZJvPQt8ClnJNPXduCeX89dSOxA&usqp=CAU' alt = 'School Logo' style = 'max-width: 100px; margin-bottom: 10px;' >";
+            //htmlContent += "</div>";
+            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h3> Green Leaf Supplied Statement </h3>";
+            htmlContent += "</div>";
+            htmlContent += "<p style = 'margin: 0;' >" + CompanyName + "</p>";
+            htmlContent += "<p style = 'margin: 0;' > " + Address + "</p>";
+            htmlContent += "<p style = 'margin: 0;' > " + ContactNo + " </p>";
+            htmlContent += "<p style = 'margin: 0;' > " + Email + " </p>";
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+          
+             htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Bill No :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + BillId + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Bill Date :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + BillDate + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > For the Period from :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + FromDate + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > To :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + ToDate + "</td>";
+            htmlContent += "</tr>";      
+            htmlContent += "<tr>";       
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Client Name :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + ClientName + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Client Id :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientId + "</td>";
+            htmlContent += "</tr>";      
+            htmlContent += "<tr>";       
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Adddress :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + ClientAddress + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Contact No: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientContactNo + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            htmlContent += "</div>";
+            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h6> Leaf Collection Data </h6>";
+            htmlContent += "</div>";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<thead>";
+            htmlContent += "<tr>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Date </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Grade </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Collection </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Rejected </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Final (KG) </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Rate </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
+            htmlContent += "</tr><hr/>";
+            htmlContent += "</thead>";
+            htmlContent += "<tbody>";
+            decimal TotalCollection = 0;
+            decimal TotalReject = 0;
+            decimal TotalFinal = 0;
+            decimal AvgRate = 0;
+            decimal TotalAmount = 0;
+            HashSet<string> distinctDates = new HashSet<string>();
 
-<!-- Left Div -->
-<div class=""left-div"">
-  <p>Udai Limbu</p>
-  <p>Ketetong, Margherita, Dist. Tinsukia, Assam</p>
-  <p>Phone No. 9435138530</p>
-</div>
+            if (ds.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[1].Rows)
+                {
+                    htmlContent += "<tr>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["CollectionDate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["GradeName"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["FirstWeight"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Deduction"]) + "</td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["FinalWeight"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Rate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
+                    htmlContent += "</tr>";
 
-<!-- Right Div -->
-<div class=""right-div"">
-  <table style=""width: 100%;"">
-    <tr>
-      <td style=""width: 25%;"">For the period from:</td>
-      <td style=""width: 25%;"">01-03-2024 to 31-03-2024</td>
-      <td style=""width: 25%;"">Client Id:</td>
-      <td style=""width: 25%;"">1400</td>
-    </tr>
-    <tr>
-      <td style=""width: 25%;"">Client Name:</td>
-      <td style=""width: 25%;"">Kajal Subba</td>
-      <td style=""width: 25%;"">Category:</td>
-      <td style=""width: 25%;"">STG</td>
-    </tr>
-    <tr>
-      <td style=""width: 25%;"">Address:</td>
-      <td style=""width: 25%;"">Bokakhat, Assam</td>
-      <td style=""width: 25%;"">Contact No:</td>
-      <td style=""width: 25%;"">7002500235</td>
-    </tr>
-  </table>
-</div>
+                    distinctDates.Add(Convert.ToString(row["CollectionDate"]));
 
-</body>
-</html>
+                    TotalCollection += decimal.TryParse(Convert.ToString(row["FirstWeight"]), out decimal CollectionKg) ? CollectionKg : 0;
+                    TotalReject += decimal.TryParse(Convert.ToString(row["Deduction"]), out decimal RejectKg) ? RejectKg : 0;
+                    TotalFinal += decimal.TryParse(Convert.ToString(row["FinalWeight"]), out decimal FinalKg) ? FinalKg : 0;
+                     
+                    TotalAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal Amount) ? Amount : 0;
+                    AvgRate =Math.Round ((TotalAmount / TotalFinal),2);
+                };
+                htmlContent += "</tbody>";
+                htmlContent += "<tfoot>";
+                htmlContent += "<tr>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total Days: " + distinctDates.Count + "</td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalCollection + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalReject + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalFinal + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgRate + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalAmount + " </td>";
+                htmlContent += "</tr>";
+                htmlContent += "</tfoot>";
+            }
+            htmlContent += "</table>";
 
-";
+            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h6> Payment Data </h6>";
+            htmlContent += "</div>";
+
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<thead>";
+            htmlContent += "<tr>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Pay Date </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Naration </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
+    
+            htmlContent += "</tr><hr/>";
+            htmlContent += "</thead>";
+            htmlContent += "<tbody>";
+        
+            decimal TotalPayAmount = 0;
+           
+            if (ds.Tables[2].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[2].Rows)
+                {
+                    htmlContent += "<tr>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["CollectionDate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Narration"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + " </td>";
+
+                    htmlContent += "</tr>";
+
+                    TotalPayAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal totalPay) ? totalPay : 0;
+                   
+                };
+                htmlContent += "</tbody>";
+                htmlContent += "<tfoot>";
+                htmlContent += "<tr>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd; font-weight: bold;'> Total </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd; font-weight: bold;' >" + TotalPayAmount + " </td>";
+
+                htmlContent += "</tr>";
+                htmlContent += "</tfoot>";
+            }
+            htmlContent += "</table>";
+
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > Standing Season Advance :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + StandingSeasonAdv + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Incetive :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + Incentive + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Due :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > " + PrevousAmount + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Transporting:</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + Transport + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > GI Cess :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + Cess + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Less Season Adv. :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + LessSeasonAdv + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount To be Paid: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + AmountToPay + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Round Off: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RoundAmountToPay + "</td>";
+            htmlContent += "</tr>";
+
+            htmlContent += "<tr>";
+        
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  > In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
+            htmlContent += "</tr>";
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            htmlContent += "</div>";
+
+            htmlContent += "</div>";
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
          
@@ -117,9 +275,268 @@ namespace Tea.Api.Data.Repository.Print
                 data.Save(ms);
                 response = ms.ToArray();
             }
-            // string fileName = "FeesStructure" + req.date + ".pdf";
+     
             return response;
         }
- 
+
+       async Task<byte[]> IPrintRepository.SupplierBillPrint(BillPrintModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@BillId", _input.BillNo == null ? 0 : _input.BillNo),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Bill].[GenerateSuppleirBill]", oclsPairs);
+            string? CompanyName = string.Empty;
+            string? Address = string.Empty;
+            string? ContactNo = string.Empty;
+            string? Email = string.Empty;
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                CompanyName = Convert.ToString(row["CompanyName"]);
+                Address = Convert.ToString(row["CompanyDetails"]);
+                ContactNo = Convert.ToString(row["ContactNo"]);
+                Email = Convert.ToString(row["UserEmail"]);
+            }
+
+            DataRow firstRow = ds.Tables[1].Rows[0];
+
+
+            string? BillId = Convert.ToString(firstRow["BillId"]);
+            string? BillDate = Convert.ToString(firstRow["BillDate"]);
+            string? FromDate = Convert.ToString(firstRow["FromDate"]);
+            string? ToDate = Convert.ToString(firstRow["ToDate"]);
+            string? ClientName = Convert.ToString(firstRow["ClientName"]);
+            string? ClientId = Convert.ToString(firstRow["ClientId"]);
+            string? ClientAddress = Convert.ToString(firstRow["ClientAddress"]);
+            string? ClientContactNo = Convert.ToString(firstRow["ContactNo"]);
+
+            string? StandingSeasonAdv = Convert.ToString(firstRow["StandingSeasonAdv"]);
+            string? CommisonAmount = Convert.ToString(firstRow["CommisonAmount"]);
+            //string? Transport = Convert.ToString(firstRow["TransportingAmount"]);
+            string? Cess = Convert.ToString(firstRow["CessAmount"]);
+            string? PrevousAmount = Convert.ToString(firstRow["PreviousBalance"]);
+            string? LessSeasonAdv = Convert.ToString(firstRow["LessSeasonAmount"]);
+            string? AmountToPay = Convert.ToString(firstRow["AmountToPay"]);
+            string? RoundAmountToPay = Convert.ToString(firstRow["RoundAmountToPay"]);
+
+            var data = new PdfDocument();
+
+            string htmlContent = "<div style = 'margin: 20px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
+            //htmlContent += "<div style = 'margin-bottom: 20px; text-align: center;'>";
+            //htmlContent += "<img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROnYPD5QO8ZJvPQt8ClnJNPXduCeX89dSOxA&usqp=CAU' alt = 'School Logo' style = 'max-width: 100px; margin-bottom: 10px;' >";
+            //htmlContent += "</div>";
+            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h3> Green Leaf Supplied Statement </h3>";
+            htmlContent += "</div>";
+            htmlContent += "<p style = 'margin: 0;' >" + CompanyName + "</p>";
+            htmlContent += "<p style = 'margin: 0;' > " + Address + "</p>";
+            htmlContent += "<p style = 'margin: 0;' > " + ContactNo + " </p>";
+            htmlContent += "<p style = 'margin: 0;' > " + Email + " </p>";
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Bill No :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + BillId + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Bill Date :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + BillDate + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > For the Period from :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + FromDate + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > To :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + ToDate + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Client Name :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + ClientName + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Client Id :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientId + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Adddress :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + ClientAddress + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Contact No: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientContactNo + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            htmlContent += "</div>";
+            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h6> Leaf Collection Data </h6>";
+            htmlContent += "</div>";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<thead>";
+            htmlContent += "<tr>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Date </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > VehicleNo </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Factory </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Account</th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Fine Leaf </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Challan Wgt. </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Rate </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
+            htmlContent += "</tr><hr/>";
+            htmlContent += "</thead>";
+            htmlContent += "<tbody>";
+            decimal TotalChallanWeight = 0;
+            //decimal TotalReject = 0;
+            //decimal TotalFinal = 0;
+            decimal AvgRate = 0;
+            decimal TotalAmount = 0;
+            HashSet<string> distinctDates = new HashSet<string>();
+
+            if (ds.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[1].Rows)
+                {
+                    htmlContent += "<tr>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["CollectionDate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["VehicleNo"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["FactoryName"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["AccountName"]) + "</td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["FineLeaf"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["ChallanWeight"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Rate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
+                    htmlContent += "</tr>";
+
+                    distinctDates.Add(Convert.ToString(row["CollectionDate"]));
+
+                    TotalChallanWeight += decimal.TryParse(Convert.ToString(row["ChallanWeight"]), out decimal CollectionKg) ? CollectionKg : 0;
+                    //TotalReject += decimal.TryParse(Convert.ToString(row["Deduction"]), out decimal RejectKg) ? RejectKg : 0;
+                    //TotalFinal += decimal.TryParse(Convert.ToString(row["FinalWeight"]), out decimal FinalKg) ? FinalKg : 0;
+
+                    TotalAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal Amount) ? Amount : 0;
+                    AvgRate = Math.Round((TotalAmount / TotalChallanWeight), 2);
+                };
+                htmlContent += "</tbody>";
+                htmlContent += "<tfoot>";
+                htmlContent += "<tr>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total Days: " + distinctDates.Count + "</td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalChallanWeight + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgRate + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalAmount + " </td>";
+                htmlContent += "</tr>";
+                htmlContent += "</tfoot>";
+            }
+            htmlContent += "</table>";
+
+            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h6> Payment Data </h6>";
+            htmlContent += "</div>";
+
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<thead>";
+            htmlContent += "<tr>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Pay Date </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Naration </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
+
+            htmlContent += "</tr><hr/>";
+            htmlContent += "</thead>";
+            htmlContent += "<tbody>";
+
+            decimal TotalPayAmount = 0;
+
+            if (ds.Tables[2].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[2].Rows)
+                {
+                    htmlContent += "<tr>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["CollectionDate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Narration"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + " </td>";
+
+                    htmlContent += "</tr>";
+
+                    TotalPayAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal totalPay) ? totalPay : 0;
+
+                };
+                htmlContent += "</tbody>";
+                htmlContent += "<tfoot>";
+                htmlContent += "<tr>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd; font-weight: bold;'> Total </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;' > </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd; font-weight: bold;' >" + TotalPayAmount + " </td>";
+
+                htmlContent += "</tr>";
+                htmlContent += "</tfoot>";
+            }
+            htmlContent += "</table>";
+
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > Standing Season Advance :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + StandingSeasonAdv + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Commission :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + CommisonAmount + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Due :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > " + PrevousAmount + "</td>";
+            htmlContent += "</tr>";
+            //htmlContent += "<tr>";
+            //htmlContent += "<td style = 'margin: 0; text-align: left;' > Transporting:</td>";
+            //htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + Transport + " </td>";
+            //htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
+            //htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
+            //htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > GI Cess :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + Cess + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Less Season Adv. :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + LessSeasonAdv + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount To be Paid: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + AmountToPay + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Round Off: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RoundAmountToPay + "</td>";
+            htmlContent += "</tr>";
+
+            htmlContent += "<tr>";
+
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  > In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
+            htmlContent += "</tr>";
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            htmlContent += "</div>";
+
+            htmlContent += "</div>";
+            PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
+
+
+
+            byte[]? response = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                data.Save(ms);
+                response = ms.ToArray();
+            }
+
+            return response;
+        }
     }
 }
