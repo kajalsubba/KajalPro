@@ -148,7 +148,7 @@ namespace Tea.Api.Data.Repository.Print
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
                     htmlContent += "</tr>";
 
-                    distinctDates.Add(Convert.ToString(row["CollectionDate"]));
+                    distinctDates.Add(Convert.ToString(row["CollectionDate"])??"");
 
                     TotalCollection += decimal.TryParse(Convert.ToString(row["FirstWeight"]), out decimal CollectionKg) ? CollectionKg : 0;
                     TotalReject += decimal.TryParse(Convert.ToString(row["Deduction"]), out decimal RejectKg) ? RejectKg : 0;
@@ -228,8 +228,14 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Incetive :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + Incentive + "</td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Due :</td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > " + PrevousAmount + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Less Previous Due :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + PrevousAmount + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Transporting:</td>";
@@ -238,7 +244,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > GI Cess :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >Less GI Cess :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + Cess + " </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
@@ -262,9 +268,12 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</tr>";
             htmlContent += "</tbody>";
             htmlContent += "</table>";
+
             htmlContent += "</div>";
 
             htmlContent += "</div>";
+            htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
+
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
          
@@ -488,17 +497,17 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Commission :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + CommisonAmount + "</td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Due :</td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > " + PrevousAmount + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
             htmlContent += "</tr>";
-            //htmlContent += "<tr>";
-            //htmlContent += "<td style = 'margin: 0; text-align: left;' > Transporting:</td>";
-            //htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + Transport + " </td>";
-            //htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
-            //htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
-            //htmlContent += "</tr>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > GI Cess :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Less Previous Due :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + PrevousAmount + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >Less GI Cess :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + Cess + " </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
@@ -525,6 +534,8 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</div>";
 
             htmlContent += "</div>";
+            htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
+
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
 
