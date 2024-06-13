@@ -69,7 +69,7 @@ namespace Tea.Api.Data.Repository.Print
 
             var data = new PdfDocument();
 
-            string htmlContent = "<div style = 'margin: 20px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
+            string htmlContent = "<div style = 'margin: 30px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
             //htmlContent += "<div style = 'margin-bottom: 20px; text-align: center;'>";
             //htmlContent += "<img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROnYPD5QO8ZJvPQt8ClnJNPXduCeX89dSOxA&usqp=CAU' alt = 'School Logo' style = 'max-width: 100px; margin-bottom: 10px;' >";
             //htmlContent += "</div>";
@@ -335,7 +335,7 @@ namespace Tea.Api.Data.Repository.Print
 
             var data = new PdfDocument();
 
-            string htmlContent = "<div style = 'margin: 20px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
+            string htmlContent = "<div style = 'margin: 30px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
             //htmlContent += "<div style = 'margin-bottom: 20px; text-align: center;'>";
             //htmlContent += "<img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROnYPD5QO8ZJvPQt8ClnJNPXduCeX89dSOxA&usqp=CAU' alt = 'School Logo' style = 'max-width: 100px; margin-bottom: 10px;' >";
             //htmlContent += "</div>";
@@ -416,7 +416,7 @@ namespace Tea.Api.Data.Repository.Print
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
                     htmlContent += "</tr>";
 
-                    distinctDates.Add(Convert.ToString(row["CollectionDate"]));
+                    distinctDates.Add(Convert.ToString(row["CollectionDate"])??"");
 
                     TotalChallanWeight += decimal.TryParse(Convert.ToString(row["ChallanWeight"]), out decimal CollectionKg) ? CollectionKg : 0;
                     //TotalReject += decimal.TryParse(Convert.ToString(row["Deduction"]), out decimal RejectKg) ? RejectKg : 0;
