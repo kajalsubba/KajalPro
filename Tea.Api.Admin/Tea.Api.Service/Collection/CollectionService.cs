@@ -200,10 +200,17 @@ namespace Tea.Api.Service.Collection
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-      async  Task<DataSet> ICollectionService.DateWiseGradeReport(GradeReportModel _input)
+      async Task<DataSet> ICollectionService.DateWiseGradeReport(GradeReportModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.DateWiseGradeReport(_input);
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionService.PurchaseAndSaleReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.PurchaseAndSaleReport(_input);
             return ds;
         }
     }

@@ -61,7 +61,10 @@ namespace Tea.Api.Service.Collection
 
         Task<DataSet> ClientWiseGradeReport(GradeReportModel _input);
         Task<DataSet> DateWiseGradeReport(GradeReportModel _input);
+
+        Task<DataSet> PurchaseAndSaleReport(GradeReportModel _input);
         
+
 
     }
 }

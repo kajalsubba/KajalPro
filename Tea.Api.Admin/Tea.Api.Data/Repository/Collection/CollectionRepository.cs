@@ -554,5 +554,23 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "GradeReport";
             return ds;
         }
+
+       async Task<DataSet> ICollectionRepository.PurchaseAndSaleReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetPurchaseAndSaleReport]", oclsPairs);
+            ds.Tables[0].TableName = "StgPurchase";
+            ds.Tables[1].TableName = "StgSale";
+            ds.Tables[2].TableName = "SupplierPurchase";
+            ds.Tables[3].TableName = "SupplierSale";
+            return ds;
+        }
     }
 }
