@@ -63,5 +63,7 @@ namespace Tea.Api.Data.Repository.Collection
 
         Task<DataSet> PurchaseAndSaleReport(GradeReportModel _input);
 
+        Task<DataSet> MonthWiseWeightReport(MonthWiseWeightModel _input);
+
     }
 }

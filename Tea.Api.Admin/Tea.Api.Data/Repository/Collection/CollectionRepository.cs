@@ -572,5 +572,21 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[3].TableName = "SupplierSale";
             return ds;
         }
+
+       async Task<DataSet> ICollectionRepository.MonthWiseWeightReport(MonthWiseWeightModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@Year", _input.Year ??""),
+                new ClsParamPair("@Category", _input.Category??""),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetMonthWiseWeightReport]", oclsPairs);
+            ds.Tables[0].TableName = "MonthWiseReport";
+          
+            return ds;
+        }
     }
 }
