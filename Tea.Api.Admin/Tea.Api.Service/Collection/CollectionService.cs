@@ -220,5 +220,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.MonthWiseWeightReport(_input);
             return ds;
         }
+
+      async  Task<DataSet> ICollectionService.SalePurchaseWiseReport(GradeReportModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.SalePurchaseWiseReport(_input);
+            return ds;
+        }
     }
 }

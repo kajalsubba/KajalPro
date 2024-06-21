@@ -53,5 +53,14 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("SalePurchaseWiseReport")]
+        public async Task<IActionResult> SalePurchaseWiseReport([FromBody] GradeReportModel _input)
+        {
+            var results = await _collectionService.SalePurchaseWiseReport(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }
