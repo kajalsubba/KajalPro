@@ -29,7 +29,7 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
 
-        public List<StgApproveData> ApproveList { get; set; }
+        public List<StgApproveData>? ApproveList { get; set; }
     }
 
     public class StgApproveData

@@ -34,7 +34,7 @@ namespace Tea.Api.Entity.Accounts
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
 
-        public List<StgCollectionData> CollectionData { get; set; }
+        public List<StgCollectionData>? CollectionData { get; set; }
         public List<StgPaymentData>? PaymentData { get; set; }
     }
 

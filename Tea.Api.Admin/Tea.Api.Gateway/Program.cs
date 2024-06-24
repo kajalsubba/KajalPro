@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Values;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("ocelot.json");
@@ -24,6 +25,19 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddOcelot();
+
+// Register HttpClient with default SSL certificate validation
+builder.Services.AddHttpClient("externalService", client =>
+{
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+    {
+        // Validate certificate as per your requirements
+        return sslPolicyErrors == System.Net.Security.SslPolicyErrors.None;
+    }
+});
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>

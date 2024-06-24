@@ -75,7 +75,7 @@ namespace Tea.Api.Entity.Collection
 
     public class SaveStgRateFixModel
     {
-        public List<StgRateFixModel> RateData { get; set; }
+        public List<StgRateFixModel>? RateData { get; set; }
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
 

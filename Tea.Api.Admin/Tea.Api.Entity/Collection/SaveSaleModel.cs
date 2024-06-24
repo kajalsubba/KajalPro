@@ -40,7 +40,7 @@ namespace Tea.Api.Entity.Collection
 
     public class SaveSaleRateFixModel
     {
-        public List<SalerRateFixModel> RateData { get; set; }
+        public List<SalerRateFixModel>? RateData { get; set; }
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
 
