@@ -61,7 +61,7 @@ namespace Tea.Api.Data.Common
                     }
                 }
 
-                return "http://72.167.37.70/"+DirName+"/" + sentences[4]+"/" + name+"/"+ FileName;
+                return "https://glsportals.com/" + DirName+"/" + sentences[4]+"/" + name+"/"+ FileName;
 
                // return new ReturnData() { Id = 1, message = fileName + " is uploaded successfully." };
             }
