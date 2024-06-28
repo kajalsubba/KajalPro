@@ -281,6 +281,8 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@FinalBillAmount", _input.FinalBillAmount??0, false, "long"),
                 new ClsParamPair("@LessSeasonAdv", _input.LessSeasonAdv??0, false, "long"),
                 new ClsParamPair("@AmountToPay", _input.AmountToPay??0, false, "long"),
+                new ClsParamPair("@PaidAmount", _input.PaidAmount??0, false, "long"),
+                new ClsParamPair("@OutstandingAmount", _input.OutstandingAmount??0, false, "long"),
                 new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
 

@@ -31,6 +31,8 @@ namespace Tea.Api.Entity.Accounts
         public decimal? FinalBillAmount { get; set; }
         public decimal? LessSeasonAdv { get; set; }
         public decimal? AmountToPay { get; set; }
+        public decimal? PaidAmount { get; set; }
+        public decimal? OutstandingAmount { get; set; }
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
 
