@@ -65,8 +65,12 @@ namespace Tea.Api.Data.Repository.Print
             string? PrevousAmount = Convert.ToString(firstRow["PreviousBalance"]);
             string? LessSeasonAdv = Convert.ToString(firstRow["LessSeasonAmount"]);
             string? AmountToPay = Convert.ToString(firstRow["AmountToPay"]);
-            string? RoundAmountToPay = Convert.ToString(firstRow["RoundAmountToPay"]);
+            string? RecieptAmount = Convert.ToString(firstRow["PaidAmount"]);
+            string? Deposite_PayableAmount = Convert.ToString(firstRow["OutstandingAmount"]);
+            string? Deposite_PayableLabel = Convert.ToDecimal(firstRow["OutstandingAmount"]) > 0 ? "Diposite" : "Paybale";
 
+            string? RoundAmountToPay = Convert.ToString(firstRow["RoundAmountToPay"]);
+           
             var data = new PdfDocument();
 
             string htmlContent = "<div style = 'margin: 30px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
@@ -232,7 +236,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Less Previous Due :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Due :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + PrevousAmount + "</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
             htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
@@ -257,6 +261,24 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</tr>";
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount Reciept: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RecieptAmount + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > "+ Deposite_PayableLabel + ": </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + Deposite_PayableAmount + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Reciept Amount: </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RecieptAmount + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >  </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Round Off: </td>";
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RoundAmountToPay + "</td>";
@@ -264,7 +286,7 @@ namespace Tea.Api.Data.Repository.Print
 
             htmlContent += "<tr>";
         
-            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  > In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >Reciept Amount In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
             htmlContent += "</tr>";
             htmlContent += "</tbody>";
             htmlContent += "</table>";

@@ -80,7 +80,43 @@ namespace Tea.Api.Entity.Collection
         public long? CreatedBy { get; set; }
 
     }
+    public class LateralStgSaveModel
+    {
+        public long? ApproveId { get; set; }
 
+        public DateTime? CollectionDate { get; set; }
+
+        public string? VehicleNo { get; set; }
+        public float? TotalFirstWeight { get; set; }
+        public float? TotalWetLeaf { get; set; }
+        public float? TotalLongLeaf { get; set; }
+        public float? TotalDeduction { get; set; }
+        public float? TotalFinalWeight { get; set; }
+        public int? FineLeaf { get; set; }
+        public float? ChallanWeight { get; set; }
+        public decimal? Rate  { get; set; }
+        public decimal? Incentive { get; set; }
+        public decimal? GrossAmount { get; set; }
+        public string? Remarks { get; set; }
+        public List<LateralStgList>? lateralStgLists { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
+
+    public class LateralStgList
+    {
+        public long? ClientId { get; set; }
+        public decimal? FirstWeight { get; set; }
+        public decimal? WetLeaf { get; set; }
+        public decimal? LongLeaf { get; set; }
+        public decimal? Deduction { get; set; }
+        public decimal? FinalWeight { get; set; }
+        public decimal? Rate { get; set; }
+        public int? GradeId { get; set; }
+        public string? Remarks { get; set; }
+        public int? TripId { get; set; }
+        public int? TenantId { get; set; }
+    }
     public class StgRateFixModel
     {
         public long? CollectionId { get; set; }

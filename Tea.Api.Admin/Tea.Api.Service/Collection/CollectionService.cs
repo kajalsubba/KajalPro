@@ -227,5 +227,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.SalePurchaseWiseReport(_input);
             return ds;
         }
+
+       async Task<SaveReturnModel> ICollectionService.LateralStgSave(LateralStgSaveModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.LateralStgSave(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
     }
 }

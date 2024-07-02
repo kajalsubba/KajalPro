@@ -106,6 +106,14 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+
+        [HttpPost, Route("LateralStgSave")]
+        public async Task<IActionResult> LateralStgSave([FromBody] LateralStgSaveModel _input)
+        {
+            var results = await _collectionService.LateralStgSave(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
         [HttpPost, Route("GetSupplierVehicle")]
         public async Task<IActionResult> GetSupplierVehicle([FromBody] GetSupplierVehicleModel _input)
         {

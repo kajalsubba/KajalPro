@@ -604,5 +604,37 @@ namespace Tea.Api.Data.Repository.Collection
 
             return ds;
         }
+
+       async Task<string> ICollectionRepository.LateralStgSave(LateralStgSaveModel _input)
+        {
+            List<LateralStgList> _items = _input.lateralStgLists.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+        ParameterCreation.CreateParameter("@LaterData", dt, SqlDbType.Structured),
+
+
+    };
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@ApproveId", _input.ApproveId ??0, false, "long"),
+                new ClsParamPair("@CollectionDate",Convert.ToDateTime(_input.CollectionDate), true,"Datetime"),
+                new ClsParamPair("@VehicleNo", _input.VehicleNo ??"", false, "String"),
+                new ClsParamPair("@TotalFirstWeight", _input.TotalFirstWeight??0, false, "long"),
+                new ClsParamPair("@TotalWetLeaf", _input.TotalWetLeaf ??0, false, "long"),
+                new ClsParamPair("@TotalLongLeaf", _input.TotalLongLeaf ??0, false, "long"),
+                new ClsParamPair("@TotalDeduction", _input.TotalDeduction ??0, false, "long"),
+                new ClsParamPair("@TotalFinalWeight", _input.TotalFinalWeight ??0, false, "long"),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf??0 , false, "long"),
+                new ClsParamPair("@ChallanWeight", _input.ChallanWeight ??0, false, "long"),
+                new ClsParamPair("@Rate", _input.Rate ??0, false, "long"),
+                new ClsParamPair("@Incentive", _input.Incentive ??0, false, "long"),
+                new ClsParamPair("@GrossAmount", _input.GrossAmount ??0, false, "long"),
+                new ClsParamPair("@Remarks", _input.Remarks ??"", false, "String"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
+                            };
+            string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[STGLaterInsertUpdate]", parameters, oclsPairs);
+            return Msg;
+        }
     }
 }
