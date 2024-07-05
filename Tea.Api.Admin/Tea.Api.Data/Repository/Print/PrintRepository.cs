@@ -223,23 +223,24 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
 
             htmlContent += "<tbody>";
+    
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > Standing Season Advance :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + StandingSeasonAdv + " </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >Amount To be Paid:  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + AmountToPay + "</td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Incetive :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + Incentive + "</td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount Reciept:</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  >" + RecieptAmount + " </td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Due :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Balance :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + PrevousAmount + "</td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' ></td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >"+ Deposite_PayableLabel + ":</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  >" + Deposite_PayableAmount + " </td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Transporting:</td>";
@@ -256,43 +257,43 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Less Season Adv. :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + LessSeasonAdv + " </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount To be Paid: </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + AmountToPay + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount Reciept: </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RecieptAmount + "</td>";
-            htmlContent += "</tr>";
-            htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+            htmlContent += "< tr style = 'height: 20px;' ></ tr >";
+            htmlContent += "<tr>";
+             
+            htmlContent += "<td colspan='3' style = 'margin: 0; text-align: left; font-weight: bold;'  >Reciept Amount In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > "+ Deposite_PayableLabel + ": </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + Deposite_PayableAmount + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >  </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
             htmlContent += "</tr>";
-            htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Reciept Amount: </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RecieptAmount + "</td>";
-            htmlContent += "</tr>";
-            htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >  </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Round Off: </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + RoundAmountToPay + "</td>";
-            htmlContent += "</tr>";
-
-            htmlContent += "<tr>";
+   
         
-            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >Reciept Amount In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
-            htmlContent += "</tr>";
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-
+       
             htmlContent += "</div>";
 
+           
+            htmlContent += "<br>";
+
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            htmlContent += "</tr>";
+
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+      
             htmlContent += "</div>";
             htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
 
@@ -554,6 +555,17 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</tbody>";
             htmlContent += "</table>";
             htmlContent += "</div>";
+            htmlContent += "<br>";
+
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            htmlContent += "</tr>";
+
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
 
             htmlContent += "</div>";
             htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
