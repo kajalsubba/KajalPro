@@ -34,6 +34,7 @@ namespace Tea.Api.Entity.Collection
         public string? VehicleNo { get; set; }
         public long? FactoryId { get; set; }
         public long? AccountId { get; set; }
+        public string? FineLeaf { get; set; }
         public int? SaleTypeId { get; set; }
         public long? TenantId { get; set; }
     }

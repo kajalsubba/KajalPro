@@ -39,6 +39,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@VehicleNo", _input.VehicleNo ??""),
                 new ClsParamPair("@FactoryId", _input.FactoryId == null ? 0 : _input.FactoryId),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf ??""),
                 new ClsParamPair("@AccountId", _input.AccountId == null ? 0 : _input.AccountId),
                 new ClsParamPair("@SaleTypeId", _input.SaleTypeId == null ? 0 : _input.SaleTypeId),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
