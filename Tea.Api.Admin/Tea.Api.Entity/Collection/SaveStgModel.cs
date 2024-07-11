@@ -37,6 +37,7 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
         public string? VehicleNo { get; set; }
         public string? Status { get; set; }
+        public int? GradeId { get; set; }
         public int? TripId { get; set; }
         public long? ClientId { get; set; }
         public long? CreatedBy { get; set; }
