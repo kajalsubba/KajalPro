@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tea.Api.Data.Repository.Accounts;
 using Tea.Api.Data.Repository.Admin;
 using Tea.Api.Data.Repository.Collection;
+using Tea.Api.Data.Repository.MessageBroker;
 using Tea.Api.Data.Repository.Print;
 
 namespace Tea.Api.Data.UnitOfWork
@@ -19,5 +20,7 @@ namespace Tea.Api.Data.UnitOfWork
         IAccountsRepository AccountsRepository { get; }
 
         IPrintRepository PrintRepository { get; }
+
+        IRabitMQProducer RabitMQProducer { get; }
     }
 }

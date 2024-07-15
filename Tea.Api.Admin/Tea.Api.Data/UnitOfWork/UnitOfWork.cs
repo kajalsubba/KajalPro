@@ -7,6 +7,7 @@ using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.Repository.Accounts;
 using Tea.Api.Data.Repository.Admin;
 using Tea.Api.Data.Repository.Collection;
+using Tea.Api.Data.Repository.MessageBroker;
 using Tea.Api.Data.Repository.Print;
 
 namespace Tea.Api.Data.UnitOfWork
@@ -33,6 +34,9 @@ namespace Tea.Api.Data.UnitOfWork
 
         IPrintRepository? _PrintRepository;
         IPrintRepository IUnitOfWork.PrintRepository => _PrintRepository = new PrintRepository(_dataHandler);
+
+        IRabitMQProducer? _RabitMQProducer;
+        public IRabitMQProducer RabitMQProducer => _RabitMQProducer = new RabbitMQProducer();
 
         public void Dispose()
         {

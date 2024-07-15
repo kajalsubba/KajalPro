@@ -7,13 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Tea.Api.Admin\Tea.Api.Data\Tea.Api.Data.csproj" />
-    <ProjectReference Include="..\..\Tea.Api.Admin\Tea.Api.Service\Tea.Api.Service.csproj" />
+    <ProjectReference Include="..\Tea.Api.Data\Tea.Api.Data.csproj" />
+    <ProjectReference Include="..\Tea.Api.Service\Tea.Api.Service.csproj" />
   </ItemGroup>
 
 </Project>
