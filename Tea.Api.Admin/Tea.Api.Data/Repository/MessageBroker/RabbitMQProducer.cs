@@ -24,14 +24,13 @@ namespace Tea.Api.Data.Repository.MessageBroker
         }
        async Task<string> IRabitMQProducer.SendProductMessage(SupplierMessageModel  message)
         {
+            var rabbitMqSettings = config.GetSection("RabbitMQ");
             var factory = new ConnectionFactory
             {
-                HostName = "72.167.37.70",    // Replace with your RabbitMQ server's hostname
-                Port = 5672,               // Default RabbitMQ port
-                UserName = "tea",        // RabbitMQ username
-                VirtualHost = "/",
-                Password = "TeaGarden@19",         // RabbitMQ password
-                ContinuationTimeout = new TimeSpan(10, 0, 0, 0)
+                HostName = rabbitMqSettings["HostName"],    // RabbitMQ server's hostname
+                Port = int.Parse(rabbitMqSettings["Port"]), // RabbitMQ port
+                UserName = rabbitMqSettings["UserName"],    // RabbitMQ username
+                Password = rabbitMqSettings["Password"]     // RabbitMQ password
 
             };
 
@@ -41,7 +40,8 @@ namespace Tea.Api.Data.Repository.MessageBroker
             // Create a channel
             using var channel = connection.CreateModel();
 
-           var result= DirectExchangeSupplier.Publish(channel, message);
+           var result= DirectExchangeSupplier.Publish(channel, message, rabbitMqSettings["ExchangeTypeName"],
+            rabbitMqSettings["MessageQueue"], rabbitMqSettings["Routing"]);
             return result;
 
         }

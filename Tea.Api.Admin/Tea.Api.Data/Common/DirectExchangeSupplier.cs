@@ -15,13 +15,15 @@ namespace Tea.Api.Data.Common
     public static class DirectExchangeSupplier
     {
 
-        public static string Publish(IModel channel, SupplierMessageModel message)
+        public static string Publish(IModel channel, SupplierMessageModel message,
+             string? ExchangeTypeName, string?
+            MsgQueue, string? RountingName)
         {
             var destination = MapSupplierMQ(message);
 
-            channel.ExchangeDeclare("supplier-direct-exchange", ExchangeType.Direct);
+            channel.ExchangeDeclare(ExchangeTypeName, ExchangeType.Direct);
             // Declare a queue
-            string queueName = "SupplierQueue";  // Replace with your queue name
+            string queueName = MsgQueue;  // Replace with your queue name
             channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
             var json = JsonConvert.SerializeObject(destination);
@@ -29,7 +31,7 @@ namespace Tea.Api.Data.Common
             var body = Encoding.UTF8.GetBytes(json);
             //put the data on to the product queue
             
-            channel.BasicPublish("supplier-direct-exchange", "supplier.init", null, body);
+            channel.BasicPublish(ExchangeTypeName, RountingName, null, body);
             //if (channel.WaitForConfirms(TimeSpan.FromSeconds(5)))
             //{
             return "1,Send Successfully";

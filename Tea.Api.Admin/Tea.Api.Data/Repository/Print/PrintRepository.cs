@@ -418,7 +418,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > VehicleNo </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Factory </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Account</th>";
-            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Fine Leaf </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Fine Leaf(%) </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Challan Wgt. </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Rate </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
@@ -427,7 +427,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<tbody>";
             decimal TotalChallanWeight = 0;
             decimal TotalFineLeaf = 0;
-            decimal AvgFineLeaf = 0;
+            int AvgFineLeaf = 0;
             decimal AvgRate = 0;
             decimal TotalAmount = 0;
             HashSet<string> distinctDates = new HashSet<string>();
@@ -455,16 +455,16 @@ namespace Tea.Api.Data.Repository.Print
 
                     TotalAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal Amount) ? Amount : 0;
                     AvgRate = Math.Round((TotalAmount / TotalChallanWeight), 2);
-                    AvgFineLeaf= Math.Round((TotalFineLeaf / ds.Tables[1].Rows.Count), 2);
+                    AvgFineLeaf=Convert.ToInt16(Math.Round((TotalFineLeaf / ds.Tables[1].Rows.Count), 0));
                 };
                 htmlContent += "</tbody>";
                 htmlContent += "<tfoot>";
                 htmlContent += "<tr>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total Days: " + distinctDates.Count + "</td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total: " + distinctDates.Count + "Days</td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgFineLeaf + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >Avg. " + AvgFineLeaf + "% </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalChallanWeight + " </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgRate + " </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalAmount + " </td>";

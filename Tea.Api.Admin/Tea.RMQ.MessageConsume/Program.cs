@@ -6,6 +6,7 @@ using Serilog;
 using Tea.RMQ.MessageConsume.ExchangeTypes;
 using Newtonsoft.Json;
 using Tea.RMQ.MessageConsume.Entity;
+using Microsoft.Extensions.Configuration;
 
 Log.Logger = new LoggerConfiguration()
                   .MinimumLevel.Debug()
@@ -13,28 +14,21 @@ Log.Logger = new LoggerConfiguration()
                   .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information)
                   .CreateLogger();
 
+// Build configuration
+IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
 
-//string ddd = "{{\r\n  \"ContentDisposition\": \"form-data; name=\\\"ChallanImage\\\"; filename=\\\"fligt tivkrts.pdf\\\"\",\r\n  \"ContentType\": \"application/pdf\",\r\n  \"Headers\": {\r\n    \"Content-Disposition\": [\r\n      \"form-data; name=\\\"ChallanImage\\\"; filename=\\\"fligt tivkrts.pdf\\\"\"\r\n    ],\r\n    \"Content-Type\": [\r\n      \"application/pdf\"\r\n    ]\r\n  },\r\n  \"Length\": 90071,\r\n  \"Name\": \"ChallanImage\",\r\n  \"FileName\": \"fligt tivkrts.pdf\"\r\n}}";
-//try
-//{
-//    var fileModel = JsonConvert.DeserializeObject<FileModel>(ddd);
-//    //   var fileModel = deserializedObject["ChallanImage"];
-
-//    byte[] fileContents = new byte[fileModel.Length]; // Replace with actual content
-//}
-//catch(Exception ex)
-//{
-//    throw ex;
-//}
+// Retrieve RabbitMQ settings from configuration
+var rabbitMqSettings = config.GetSection("RabbitMQ");
 
 var factory = new ConnectionFactory
 {
-    HostName = "72.167.37.70",    // Replace with your RabbitMQ server's hostname
-    Port = 5672,               // Default RabbitMQ port
-    UserName = "tea",        // RabbitMQ username
-  //  VirtualHost = "/",
-    Password = "TeaGarden@19",         // RabbitMQ password
-   // ContinuationTimeout = new TimeSpan(10, 0, 0, 0)
+    HostName = rabbitMqSettings["HostName"],    // RabbitMQ server's hostname
+    Port = int.Parse(rabbitMqSettings["Port"]), // RabbitMQ port
+    UserName = rabbitMqSettings["UserName"],    // RabbitMQ username
+    Password = rabbitMqSettings["Password"]     // RabbitMQ password
 };
 
 // Create a new connection to the RabbitMQ server
@@ -44,14 +38,15 @@ using (var connection = factory.CreateConnection())
     using (var channel = connection.CreateModel())
     {
         // Declare a queue to consume messages from
-        string queueName = "Supplier"; // Change to your queue name
+        string queueName = rabbitMqSettings["MessageQueue"]; // Change to your queue name
         channel.QueueDeclare(queue: queueName,
                              durable: false,
                              exclusive: false,
                              autoDelete: false,
                              arguments: null);
 
-        DirectExchangeConsumer.consume(channel);
+        DirectExchangeConsumer.consume(channel, rabbitMqSettings["ExchangeTypeName"],
+            rabbitMqSettings["MessageQueue"], rabbitMqSettings["Routing"]);
     }
    
 }

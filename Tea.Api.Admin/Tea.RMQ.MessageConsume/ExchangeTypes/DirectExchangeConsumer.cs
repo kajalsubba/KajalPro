@@ -1,4 +1,5 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Configuration;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Serilog;
 using System;
@@ -13,14 +14,15 @@ namespace Tea.RMQ.MessageConsume.ExchangeTypes
 {
     public static class DirectExchangeConsumer
     {
-       
-        public static void consume(IModel channel)
+      
+        public static void consume(IModel channel,string? ExchangeTypeName,string?
+            MsgQueue,string? RountingName)
         {
-            channel.ExchangeDeclare("supplier-direct-exchange", ExchangeType.Direct);
+            channel.ExchangeDeclare(ExchangeTypeName, ExchangeType.Direct);
             // Create a consumer instance
 
-            channel.QueueDeclare(queue: "SupplierQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
-            channel.QueueBind("SupplierQueue", "supplier-direct-exchange", "supplier.init");
+            channel.QueueDeclare(queue: MsgQueue, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            channel.QueueBind(MsgQueue, ExchangeTypeName, RountingName);
             var consumer = new EventingBasicConsumer(channel);
 
 
@@ -41,7 +43,7 @@ namespace Tea.RMQ.MessageConsume.ExchangeTypes
             };
 
             // Start consuming messages from the specified queue
-            channel.BasicConsume(queue: "SupplierQueue",
+            channel.BasicConsume(queue: MsgQueue,
                                  autoAck: true, // Set to false if you want to manually acknowledge messages
                                  consumer: consumer);
 
