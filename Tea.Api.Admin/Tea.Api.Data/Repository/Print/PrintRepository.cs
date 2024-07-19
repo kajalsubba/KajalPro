@@ -5,6 +5,7 @@ using PdfSharpCore.Pdf;
 using System.Data;
 using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
+using Tea.Api.Data.WhatsApp;
 using Tea.Api.Entity.Print;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
 
@@ -12,12 +13,15 @@ namespace Tea.Api.Data.Repository.Print
 {
     public class PrintRepository : IPrintRepository
     {
+        readonly WhatsAppService _whatsAppService;
+
 
         readonly IDataHandler _dataHandler;
 
         public PrintRepository(IDataHandler dataHandler)
         {
             _dataHandler = dataHandler;
+            _whatsAppService = new WhatsAppService();
 
         }
 
@@ -606,6 +610,11 @@ namespace Tea.Api.Data.Repository.Print
             }
 
             return response;
+        }
+
+      async Task<string> IPrintRepository.WhatsAppMessage(WhatsAppModel message)
+        {
+           return await _whatsAppService.SendWhatsAppMessageAsync(message.ToPhoneNumber, message.Message);
         }
     }
 }

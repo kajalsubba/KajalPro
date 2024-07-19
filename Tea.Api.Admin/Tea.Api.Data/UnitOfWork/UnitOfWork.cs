@@ -9,6 +9,7 @@ using Tea.Api.Data.Repository.Admin;
 using Tea.Api.Data.Repository.Collection;
 using Tea.Api.Data.Repository.MessageBroker;
 using Tea.Api.Data.Repository.Print;
+using Tea.Api.Data.WhatsApp;
 
 namespace Tea.Api.Data.UnitOfWork
 {

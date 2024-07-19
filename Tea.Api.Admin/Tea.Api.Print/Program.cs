@@ -4,6 +4,7 @@ using Tea.Api.Data.MiddleWare;
 using Tea.Api.Data.Repository.Collection;
 using Tea.Api.Data.Repository.Print;
 using Tea.Api.Data.UnitOfWork;
+using Tea.Api.Data.WhatsApp;
 using Tea.Api.Service.Print;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,8 @@ builder.Services.AddScoped<IDataHandler, DataHandler>();
 builder.Services.AddScoped<IPrintService, PrintService>();
 builder.Services.AddScoped<IPrintRepository, PrintRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<WhatsAppService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

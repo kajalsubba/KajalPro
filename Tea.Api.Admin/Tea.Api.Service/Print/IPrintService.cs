@@ -11,5 +11,7 @@ namespace Tea.Api.Service.Print
     {
         Task<byte[]> StgBillPrint(BillPrintModel _input);
         Task<byte[]> SupplierBillPrint(BillPrintModel _input);
+
+        Task<string> WhatsAppMessage(WhatsAppModel message);
     }
 }

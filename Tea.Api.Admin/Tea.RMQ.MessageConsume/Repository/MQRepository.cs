@@ -41,7 +41,7 @@ namespace Tea.RMQ.MessageConsume.Repository
 
             if (fileContents.Length > 0)
             {
-                Log.Information(message);
+               // Log.Information(message);
                 List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),
@@ -63,7 +63,6 @@ namespace Tea.RMQ.MessageConsume.Repository
 
                 IDBHandler _dBHandler = new DBHandlers();
                 string Msg = await _dBHandler.SaveChangesAsyn("[TeaCollection].[SupplierMQInsertUpdate]", oclsPairs);
-                // string Msg = "1,kkk";
                 Log.Information("Data Save :" + Msg);
                 string[] msgList = Msg.Split(",");
                 long AutoCollectionId = Convert.ToInt32(msgList[0]);

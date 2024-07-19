@@ -28,5 +28,11 @@ namespace Tea.Api.Service.Print
             byte[] ds = await _unitOfWork.PrintRepository.SupplierBillPrint(_input);
             return ds;
         }
+
+       async Task<string> IPrintService.WhatsAppMessage(WhatsAppModel message)
+        {
+            return await _unitOfWork.PrintRepository.WhatsAppMessage(message);
+
+        }
     }
 }
