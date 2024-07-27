@@ -619,6 +619,7 @@ namespace Tea.Api.Data.Repository.Collection
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@ApproveId", _input.ApproveId ??0, false, "long"),
+                new ClsParamPair("@SaleId", _input.SaleId ??0, false, "long"),
                 new ClsParamPair("@CollectionDate",Convert.ToDateTime(_input.CollectionDate), true,"Datetime"),
                 new ClsParamPair("@VehicleNo", _input.VehicleNo ??"", false, "String"),
                 new ClsParamPair("@TotalFirstWeight", _input.TotalFirstWeight??0, false, "long"),

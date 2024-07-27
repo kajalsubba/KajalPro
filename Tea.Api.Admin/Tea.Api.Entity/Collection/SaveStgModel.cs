@@ -83,6 +83,7 @@ namespace Tea.Api.Entity.Collection
     }
     public class LateralStgSaveModel
     {
+        public long? SaleId { get; set; }
         public long? ApproveId { get; set; }
 
         public DateTime? CollectionDate { get; set; }
