@@ -1,16 +1,22 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
+using Tea.Api.Data.JWT;
 using Tea.Api.Entity.Admin;
 using Tea.Api.Entity.Collection;
 using Tea.Api.Entity.Common;
+using Twilio.Jwt.AccessToken;
+using Twilio.TwiML.Voice;
 
 namespace Tea.Api.Data.Repository.Admin
 {
@@ -477,7 +483,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<string> IAdminRepository.SavePaymentType(SavePaymentTypeModel _input)
+        async Task<string> IAdminRepository.SavePaymentType(SavePaymentTypeModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -491,14 +497,14 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<DataTable> IAdminRepository.GetApkUpdateNotification()
+        async Task<DataTable> IAdminRepository.GetApkUpdateNotification()
         {
             DataTable ds;
             ds = await _dataHandler.ExecProcDataTableAsyn("[Notify].[GetUpdateVesion]");
             return ds;
         }
 
-      async  Task<string> IAdminRepository.ChangePassword(ChangePasswordModel _input)
+        async Task<string> IAdminRepository.ChangePassword(ChangePasswordModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -513,7 +519,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-      async  Task<DataSet> IAdminRepository.GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input)
+        async Task<DataSet> IAdminRepository.GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -528,7 +534,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminRepository.GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input)
+        async Task<DataSet> IAdminRepository.GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -543,7 +549,7 @@ namespace Tea.Api.Data.Repository.Admin
             return ds;
         }
 
-      async  Task<DataSet> IAdminRepository.GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input)
+        async Task<DataSet> IAdminRepository.GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -557,5 +563,60 @@ namespace Tea.Api.Data.Repository.Admin
             ds.Tables[0].TableName = "SupplierWiseChart";
             return ds;
         }
+
+        async Task<string> IAdminRepository.UpdateClientPassword(PasswordUpdateClientModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@ClientId", _input.ClientId??0, false, "long"),
+                new ClsParamPair("@Password", _input.Password ??"", false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long"),
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[ClientChangePassword]", oclsPairs);
+            return Msg;
+        }
+
+        async Task<JwtReturnModel> IAdminRepository.AuthenticationLogin(LoginModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                  new ClsParamPair("@LoginUserName", _input.UserName ??""),
+                new ClsParamPair("@Password", _input.Password ??"")
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[Login]", oclsPairs);
+            ds.Tables[0].TableName = "LoginDetails";
+            ds.Tables[1].TableName = "PermissionDetails";
+
+
+            if (ds.Tables[0].Rows.Count < 0)
+            {
+                return null;
+            }
+            else
+            {
+                //var userRoles = await _userManager.GetRolesAsync(user);
+
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, _input.UserName??""),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+                var tokenOptions = JwtExtensions.GetToken(authClaims);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                return (new JwtReturnModel
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(tokenOptions),
+                    expiration = tokenOptions.ValidTo
+                });
+            }
+
+        }
+
     }
 }
+
+
+

@@ -621,6 +621,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@ApproveId", _input.ApproveId ??0, false, "long"),
                 new ClsParamPair("@SaleId", _input.SaleId ??0, false, "long"),
                 new ClsParamPair("@CollectionDate",Convert.ToDateTime(_input.CollectionDate), true,"Datetime"),
+                new ClsParamPair("@AccountId",_input.AccountId??0, false,"long"),
                 new ClsParamPair("@VehicleNo", _input.VehicleNo ??"", false, "String"),
                 new ClsParamPair("@TotalFirstWeight", _input.TotalFirstWeight??0, false, "long"),
                 new ClsParamPair("@TotalWetLeaf", _input.TotalWetLeaf ??0, false, "long"),

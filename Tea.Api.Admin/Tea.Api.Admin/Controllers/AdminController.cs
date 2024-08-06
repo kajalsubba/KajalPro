@@ -40,6 +40,7 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+
         [HttpPost, Route("SaveTenant")]
         public async Task<IActionResult> SaveTenant([FromBody] SaveTenantModel _input)
         {

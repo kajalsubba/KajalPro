@@ -28,4 +28,12 @@ namespace Tea.Api.Entity.Admin
     {
         public long? ClientId { get; set; }
     }
+
+    public class PasswordUpdateClientModel
+    {
+        public long? ClientId { get; set; }
+        public string? Password { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
 }

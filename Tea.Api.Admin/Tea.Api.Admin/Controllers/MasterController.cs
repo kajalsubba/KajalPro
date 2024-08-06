@@ -47,6 +47,13 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+        [HttpPost, Route("UpdateClientPassword")]
+        public async Task<IActionResult> UpdateClientPassword([FromBody] PasswordUpdateClientModel _input)
+        {
+            var results = await _adminService.UpdateClientPassword(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
         [HttpPost, Route("DeleteClient")]
         public async Task<IActionResult> DeleteClient([FromBody] DeleteClientModel _input)
         {

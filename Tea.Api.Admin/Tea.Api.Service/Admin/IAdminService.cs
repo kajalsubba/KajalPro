@@ -15,6 +15,7 @@ namespace Tea.Api.Service.Admin
         Task<DataSet> GetUser(SelectUserModel _input);
 
         Task<DataSet> Login(LoginModel _input);
+        Task<JwtReturnModel> AuthenticationLogin(LoginModel _input);
 
         Task<DataSet> ClientLogin(ClientLoginModel _input);
 
@@ -22,7 +23,7 @@ namespace Tea.Api.Service.Admin
         Task<SaveReturnModel> DeleteCategory(DeleteCategoryModel _input);
 
         Task<SaveReturnModel> SaveClient(SaveClientModel _input);
-
+        Task<SaveReturnModel> UpdateClientPassword(PasswordUpdateClientModel _input);
         Task<SaveReturnModel> DeleteClient(DeleteClientModel _input);
         Task<SaveReturnModel> SaveGrade(SaveGradeModel _input);
         Task<SaveReturnModel> DeleteGrade(DeleteGradeModel _input);

@@ -285,5 +285,19 @@ namespace Tea.Api.Service.Admin
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
 
         }
+
+       async Task<SaveReturnModel> IAdminService.UpdateClientPassword(PasswordUpdateClientModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.UpdateClientPassword(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+       async Task<JwtReturnModel> IAdminService.AuthenticationLogin(LoginModel _input)
+        {
+           
+            return await _unitOfWork.AdminRepository.AuthenticationLogin(_input);
+            
+        }
     }
 }

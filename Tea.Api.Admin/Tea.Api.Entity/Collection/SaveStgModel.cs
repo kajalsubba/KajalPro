@@ -86,6 +86,8 @@ namespace Tea.Api.Entity.Collection
         public long? SaleId { get; set; }
         public long? ApproveId { get; set; }
 
+        public long? AccountId { get; set; }
+
         public DateTime? CollectionDate { get; set; }
 
         public string? VehicleNo { get; set; }
