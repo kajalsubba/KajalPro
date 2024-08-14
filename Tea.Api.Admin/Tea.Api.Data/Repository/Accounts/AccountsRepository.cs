@@ -23,6 +23,19 @@ namespace Tea.Api.Data.Repository.Accounts
             _dataHandler = dataHandler;
         }
 
+       async Task<DataSet> IAccountsRepository.GetNarration(NarrationModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetNarration]", oclsPairs);
+            ds.Tables[0].TableName = "Narration";
+            return ds;
+        }
+
         async Task<DataSet> IAccountsRepository.GetPaymentData(GetPaymentModel _input)
         {
             DataSet ds;
@@ -246,6 +259,7 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@ClientCategory",_input.ClientCategory??"", false, "string"),
                 new ClsParamPair("@ClientId",_input.ClientId??0, false,"long"),
                 new ClsParamPair("@Amount", _input.Amount??0, false, "long"),
+                new ClsParamPair("@Narration", _input.Narration??"", false, "string"),
                 new ClsParamPair("@CategoryId", _input.CategoryId??0, false, "long"),
                 new ClsParamPair("@TenantId", _input.TenantId??0, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long")

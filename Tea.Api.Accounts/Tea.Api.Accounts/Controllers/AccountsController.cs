@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Tea.Api.Entity.Accounts;
 using Tea.Api.Entity.Admin;
@@ -10,6 +11,8 @@ namespace Tea.Api.Accounts.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("AllowSpecificOrigins")]
+
     public class AccountsController : ControllerBase
     {
         readonly IAccountsService _accountsService;
@@ -139,6 +142,15 @@ namespace Tea.Api.Accounts.Controllers
         public async Task<IActionResult> GetSmartHistory([FromBody] SmartHistoryModel _input)
         {
             var results = await _accountsService.GetSmartHistory(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetNarration")]
+        public async Task<IActionResult> GetNarration([FromBody] NarrationModel _input)
+        {
+            var results = await _accountsService.GetNarration(_input);
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();

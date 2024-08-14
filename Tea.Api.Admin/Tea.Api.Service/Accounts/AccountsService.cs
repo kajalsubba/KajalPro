@@ -20,6 +20,13 @@ namespace Tea.Api.Service.Accounts
             _unitOfWork = unitOfWork;
         }
 
+       async Task<DataSet> IAccountsService.GetNarration(NarrationModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetNarration(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAccountsService.GetPaymentData(GetPaymentModel _input)
         {
             DataSet ds;

@@ -41,7 +41,7 @@ namespace Tea.RMQ.MessageConsume.Repository
 
             if (fileContents.Length > 0)
             {
-               // Log.Information(message);
+             
                 List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),

@@ -36,5 +36,7 @@ namespace Tea.Api.Data.Repository.Accounts
         Task<DataSet> GetSupplierSummary(SupplierSummaryModel _input);
 
         Task<DataSet> GetSmartHistory(SmartHistoryModel _input);
+
+        Task<DataSet> GetNarration(NarrationModel _input);
     }
 }
