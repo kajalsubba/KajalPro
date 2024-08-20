@@ -234,5 +234,19 @@ namespace Tea.Api.Service.Collection
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
+
+      async  Task<SaveReturnModel> ICollectionService.VehicleLockSaveMobile(VehicleLockModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.VehicleLockSaveMobile(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+      async Task<DataSet> ICollectionService.GetVehicleLockDetails(GetVehicleLockModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetVehicleLockDetails(_input);
+            return ds;
+        }
     }
 }

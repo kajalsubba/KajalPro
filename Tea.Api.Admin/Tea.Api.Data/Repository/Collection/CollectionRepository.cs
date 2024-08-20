@@ -640,5 +640,39 @@ namespace Tea.Api.Data.Repository.Collection
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[STGLaterInsertUpdate]", parameters, oclsPairs);
             return Msg;
         }
+
+       async Task<string> ICollectionRepository.VehicleLockSaveMobile(VehicleLockModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@VehicleNo", _input.VehicleNo ??"", false, "string"),
+                new ClsParamPair("@TripId", _input.TripId ??0,false,"long"),
+                new ClsParamPair("@LockDate",Convert.ToDateTime(_input.LockDate), true,"Datetime"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Mobile].[VehicleLockInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetVehicleLockDetails(GetVehicleLockModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@VehicleNo", _input.VehicleNo ??""),
+                new ClsParamPair("@TripId", _input.TripId ??0),
+                new ClsParamPair("@LockDate", _input.LockDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetVehicleLock]", oclsPairs);
+            ds.Tables[0].TableName = "LockDetails";
+            return ds;
+        }
     }
 }

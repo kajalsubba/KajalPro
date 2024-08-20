@@ -173,5 +173,23 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("VehicleLockSaveMobile")]
+        public async Task<IActionResult> VehicleLockSaveMobile([FromBody] VehicleLockModel _input)
+        {
+            var results = await _collectionService.VehicleLockSaveMobile(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetVehicleLockDetails")]
+        public async Task<IActionResult> GetVehicleLockDetails([FromBody] GetVehicleLockModel _input)
+        {
+            var results = await _collectionService.GetVehicleLockDetails(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

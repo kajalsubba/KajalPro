@@ -58,10 +58,10 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetNotifications(NotificationModel _input);
 
         Task<DataSet> GetSupplierMobileData(GetSupplierMobileModel _input);
-
+        Task<SaveReturnModel> VehicleLockSaveMobile(VehicleLockModel _input);
         Task<DataSet> ClientWiseGradeReport(GradeReportModel _input);
         Task<DataSet> DateWiseGradeReport(GradeReportModel _input);
-
+        Task<DataSet> GetVehicleLockDetails(GetVehicleLockModel _input);
         Task<DataSet> PurchaseAndSaleReport(GradeReportModel _input);
 
         Task<DataSet> MonthWiseWeightReport( MonthWiseWeightModel _input);

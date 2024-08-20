@@ -58,13 +58,13 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetSaleSupplierData(GetSaleStgxModel _input);
         Task<DataSet> GetSupplierMobileData(GetSupplierMobileModel _input);
         Task<DataSet> GetSaleFactory(GetSaleFactory _input);
-
+        Task<string> VehicleLockSaveMobile(VehicleLockModel _input);
         Task<DataSet> ClientWiseGradeReport(GradeReportModel _input);
 
         Task<DataSet> DateWiseGradeReport(GradeReportModel _input);
 
         Task<DataSet> PurchaseAndSaleReport(GradeReportModel _input);
-
+        Task<DataSet> GetVehicleLockDetails(GetVehicleLockModel _input);
         Task<DataSet> MonthWiseWeightReport(MonthWiseWeightModel _input);
 
         Task<DataSet> SalePurchaseWiseReport(GradeReportModel _input);
