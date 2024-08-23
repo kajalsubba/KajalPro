@@ -23,5 +23,13 @@ namespace Tea.Api.Messaging.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
+
+        [HttpPost, Route("ProduceStgList")]
+        public async Task<IActionResult> ProduceStgList([FromBody] MobileSTGList _msg)
+        {
+            var results = await _messageBrokerService.ProduceStgList(_msg);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
     }
 }

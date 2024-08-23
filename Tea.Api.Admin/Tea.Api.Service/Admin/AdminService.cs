@@ -102,10 +102,10 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input)
+       async Task<DataSet> IAdminService.GetCompanyWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
-            ds = await _unitOfWork.AdminRepository.GetComapanyWiseSaleChart(_input);
+            ds = await _unitOfWork.AdminRepository.GetCompanyWiseSaleChart(_input);
             return ds;
         }
 
@@ -298,6 +298,13 @@ namespace Tea.Api.Service.Admin
            
             return await _unitOfWork.AdminRepository.AuthenticationLogin(_input);
             
+        }
+
+      async  Task<SaveReturnModel> IAdminService.ChangeUserPassword(ChangeUserPasswordModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.ChangeUserPassword(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
     }
 }

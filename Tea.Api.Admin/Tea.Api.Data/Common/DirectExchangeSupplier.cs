@@ -36,11 +36,27 @@ namespace Tea.Api.Data.Common
             //{
             return "1,Send Successfully";
         }
-        //else
-        //{
-        //    return "0,Send Failed";
-        //}
-        // }
+
+        public static string PublishStg(IModel channel, MobileSTGList message,
+            string? ExchangeTypeName, string?
+           MsgQueue, string? RountingName)
+        {
+            var destination = message;
+
+            channel.ExchangeDeclare(ExchangeTypeName, ExchangeType.Direct);
+            // Declare a queue
+            string queueName = MsgQueue;  // Replace with your queue name
+            channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+            var json = JsonConvert.SerializeObject(destination);
+
+            var body = Encoding.UTF8.GetBytes(json);
+            //put the data on to the product queue
+
+            channel.BasicPublish(ExchangeTypeName, RountingName, null, body);
+          
+            return "1,Send Successfully";
+        }
 
 
         public static SupplierMQModel MapSupplierMQ(SupplierMessageModel source)

@@ -674,5 +674,22 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "LockDetails";
             return ds;
         }
+
+       async Task<DataSet> ICollectionRepository.GetLockedVehicleList(LockVehicleListModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@LockDate", _input.LockDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetTransferVehicleList]", oclsPairs);
+            ds.Tables[0].TableName = "LockDetails";
+            return ds;
+        }
     }
 }

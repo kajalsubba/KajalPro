@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.MessageBroker;
+using Twilio.TwiML.Messaging;
 
 namespace Tea.Api.Data.Repository.MessageBroker
 {
@@ -44,6 +45,29 @@ namespace Tea.Api.Data.Repository.MessageBroker
             rabbitMqSettings["MessageQueue"], rabbitMqSettings["Routing"]);
             return result;
 
+        }
+
+       async Task<string> IRabitMQProducer.ProduceStgList(MobileSTGList message)
+        {
+            var rabbitMqSettings = config.GetSection("RabbitMQ");
+            var factory = new ConnectionFactory
+            {
+                HostName = rabbitMqSettings["HostName"],    // RabbitMQ server's hostname
+                Port = int.Parse(rabbitMqSettings["Port"]), // RabbitMQ port
+                UserName = rabbitMqSettings["UserName"],    // RabbitMQ username
+                Password = rabbitMqSettings["Password"]     // RabbitMQ password
+
+            };
+
+            // Create a connection to the RabbitMQ server
+            using var connection = factory.CreateConnection();
+
+            // Create a channel
+            using var channel = connection.CreateModel();
+
+            var result = DirectExchangeSupplier.PublishStg(channel, message, rabbitMqSettings["ExchangeTypeName"],
+             rabbitMqSettings["MessageQueue"], rabbitMqSettings["Routing"]);
+            return result;
         }
     }
 }

@@ -5,10 +5,13 @@ using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Tea.RMQ.MessageConsume.Common;
 using Tea.RMQ.MessageConsume.DBHandler;
 using Tea.RMQ.MessageConsume.Entity;
 using Tea.RMQ.MessageConsume.FileUpload;
@@ -106,6 +109,34 @@ namespace Tea.RMQ.MessageConsume.Repository
                 Log.Information("Challan is not uploaded");
                 return "0,Challan is not uploaded.!";
             }
+        }
+
+       async Task<string> IMQRepository.SaveStg(string message)
+        {
+            Log.Information("Mobile STG data is prepared");
+            Log.Information("STG Data :"+ message);
+            STGModelList _input = JsonConvert.DeserializeObject<STGModelList>(message)!;
+
+            List<STGSaveModel> _items = _input.StgListData.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+            ParameterCreation.CreateParameter("@StgData", dt, SqlDbType.Structured),
+
+                };
+            List<ClsParamPair> oclsPairs = new()
+                {
+                    new ClsParamPair("@Source", _input.Source??"", false, "string"),
+                    new ClsParamPair("@StgSendComment", _input.ServerComment??"", false, "string"),
+                    new ClsParamPair("@VehicleNo", _input.VehicleNo??"", false, "string"),
+                    new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                    new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
+                
+            };
+            IDBHandler _dBHandler = new DBHandlers();
+            string Msg = await _dBHandler.ExecuteUserTypeTableAsyn("[Mobile].[STGInsertByMobile]", parameters, oclsPairs);
+            Log.Information(Msg);
+
+            return Msg;
         }
     }
 }

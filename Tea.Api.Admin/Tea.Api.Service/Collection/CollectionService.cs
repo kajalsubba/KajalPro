@@ -248,5 +248,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.GetVehicleLockDetails(_input);
             return ds;
         }
+
+       async Task<DataSet> ICollectionService.GetLockedVehicleList(LockVehicleListModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetLockedVehicleList(_input);
+            return ds;
+        }
     }
 }

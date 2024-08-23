@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Serilog;
@@ -34,12 +35,24 @@ namespace Tea.RMQ.MessageConsume.ExchangeTypes
                 var message = Encoding.UTF8.GetString(body);
 
                 // Process the message
+                dynamic _data = JsonConvert.DeserializeObject<dynamic>(message)!;
+               if(_data.Category!=null)
+                {
+                    if (_data.Category == "STG")
+                    {
+                      //  Console.WriteLine(_data.Category);
+                        IMQRepository objConsume = new MQRepository();
+                        var result = objConsume.SaveStg(message);
+                    }
+                }
+                else
+                {
+                    IMQRepository objConsume = new MQRepository();
+                    var result = objConsume.SaveSupplier(message);
+                }
 
-                IMQRepository objConsume = new MQRepository() ;
-                var result = objConsume.SaveSupplier(message);
-               // Console.WriteLine(result);
 
-              //  Log.Information("Consumer Data :" + result);
+
             };
 
             // Start consuming messages from the specified queue
@@ -49,7 +62,7 @@ namespace Tea.RMQ.MessageConsume.ExchangeTypes
 
             // Keep the application running to continue receiving messages
            // Console.WriteLine("start consuming");
-            Log.Information("start consuming");
+            Log.Information("start consuming for DEV");
          
             Console.ReadLine();
         }

@@ -519,7 +519,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-        async Task<DataSet> IAdminRepository.GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input)
+        async Task<DataSet> IAdminRepository.GetCompanyWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -615,6 +615,18 @@ namespace Tea.Api.Data.Repository.Admin
 
         }
 
+      async  Task<string> IAdminRepository.ChangeUserPassword(ChangeUserPasswordModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@UserId", _input.UserId??0, false, "long"),
+                new ClsParamPair("@Password", _input.Password ??"", false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long"),
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[UserChangePassword]", oclsPairs);
+            return Msg;
+        }
     }
 }
 

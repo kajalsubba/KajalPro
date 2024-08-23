@@ -10,5 +10,7 @@ namespace Tea.RMQ.MessageConsume.Repository
     public interface IMQRepository
     {
         Task<string> SaveSupplier(string message);
+
+        Task<string> SaveStg(string message);
     }
 }

@@ -16,4 +16,14 @@ namespace Tea.Api.Entity.Admin
 
         public long? CreatedBy { get; set; }
     }
+
+    public class ChangeUserPasswordModel
+    {
+        public long? UserId { get; set; }
+
+        public string? Password { get; set; }
+        public long? TenantId { get; set; }
+
+        public long? CreatedBy { get; set; }
+    }
 }

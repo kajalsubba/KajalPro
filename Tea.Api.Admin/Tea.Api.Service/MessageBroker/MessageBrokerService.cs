@@ -16,7 +16,15 @@ namespace Tea.Api.Service.MessageBroker
         {
             _unitOfWork=unitOfWork;
         }
-      async Task<SaveReturnModel> IMessageBrokerService.ProduceSupplier(SupplierMessageModel _msg)
+
+       async Task<SaveReturnModel> IMessageBrokerService.ProduceStgList(MobileSTGList _msg)
+        {
+            string msg = await _unitOfWork.RabitMQProducer.ProduceStgList(_msg);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IMessageBrokerService.ProduceSupplier(SupplierMessageModel _msg)
         {
             string msg =await _unitOfWork.RabitMQProducer.SendProductMessage(_msg);
             string[] msgList = msg.Split(",");

@@ -98,5 +98,84 @@ namespace Tea.RMQ.MessageConsume.DBHandler
             }
 
         }
+
+        async Task<string> IDBHandler.ExecuteUserTypeTableAsyn(string sProcName, SqlParameter[] parameters, List<ClsParamPair> Param)
+        {
+            SqlTransaction trans;
+            SqlConnection sSqlConnection = this.SqlServerConnection;
+            try
+            {
+                await sSqlConnection.OpenAsync();
+                trans = sSqlConnection.BeginTransaction();
+                SqlCommand sSqlCommand = new(sProcName, sSqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Transaction = trans
+                };
+
+                foreach (ClsParamPair oclsPair in Param)
+                {
+                    if (oclsPair.IsInteger == true)
+                    {
+                        sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, oclsPair.ParmValueInt));
+                    }
+                    else if (oclsPair.IsdateDateUpdate == true)
+                    {
+                        sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, oclsPair.ParmValuedate));
+                    }
+                    else if (oclsPair.Isbool == true)
+                    {
+                        sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, oclsPair.ParmValueBool));
+                    }
+                    else if (oclsPair.IsTimespan == true)
+                    {
+                        if (oclsPair.ParmValueTimespan == null)
+                        {
+                            sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, DBNull.Value));
+                        }
+                        else
+                        {
+                            sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, oclsPair.ParmValueTimespan));
+                        }
+                    }
+                    else if (oclsPair.Isvarbinary == true)
+                    {
+                        if (oclsPair.ParmValueByte == null)
+                        {
+                            sSqlCommand.Parameters.AddWithValue(oclsPair.ParmName, SqlBinary.Null);
+                        }
+                        else
+                        {
+                            sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, oclsPair.ParmValueByte));
+                        }
+                    }
+                    else
+                    {
+                        sSqlCommand.Parameters.Add(new SqlParameter(oclsPair.ParmName, oclsPair.ParmValue));
+                    }
+                }
+                foreach (var parameter in parameters)
+                {
+                    sSqlCommand.Parameters.Add(parameter);
+                }
+                sSqlCommand.Parameters.Add("msg", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+                await sSqlCommand.ExecuteNonQueryAsync();
+                trans.Commit();
+                string? ResultMsg = Convert.ToString(sSqlCommand.Parameters["msg"].Value.ToString());
+                return ResultMsg ?? "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                await sSqlConnection.CloseAsync();
+                SqlConnection.ClearPool(sSqlConnection);
+                await sSqlConnection.DisposeAsync();
+            }
+
+        }
+
     }
 }

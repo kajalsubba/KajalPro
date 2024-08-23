@@ -118,10 +118,10 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
-        [HttpPost, Route("GetComapanyWiseSaleChart")]
-        public async Task<IActionResult> GetComapanyWiseSaleChart([FromBody] CompanyWiseSaleChartModel _input)
+        [HttpPost, Route("GetCompanyWiseSaleChart")]
+        public async Task<IActionResult> GetCompanyWiseSaleChart([FromBody] CompanyWiseSaleChartModel _input)
         {
-            var results = await _adminService.GetComapanyWiseSaleChart(_input);
+            var results = await _adminService.GetCompanyWiseSaleChart(_input);
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
@@ -143,6 +143,14 @@ namespace Tea.Api.Admin.Controllers
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("ChangeUserPassword")]
+        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangeUserPasswordModel _input)
+        {
+            var results = await _adminService.ChangeUserPassword(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
         }
     }
 }

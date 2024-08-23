@@ -73,9 +73,12 @@ namespace Tea.Api.Data.Repository.Admin
 
         Task<string> ChangePassword(ChangePasswordModel _input);
 
-        Task<DataSet> GetComapanyWiseSaleChart(CompanyWiseSaleChartModel _input);
+        Task<DataSet> GetCompanyWiseSaleChart(CompanyWiseSaleChartModel _input);
         Task<DataSet> GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input);
 
         Task<DataSet> GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input);
+
+        Task<string> ChangeUserPassword(ChangeUserPasswordModel _input);
+
     }
 }

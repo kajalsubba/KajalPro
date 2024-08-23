@@ -23,4 +23,12 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
     }
+
+    public class LockVehicleListModel
+    {
+
+        public string? LockDate { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
 }
