@@ -58,6 +58,27 @@ namespace Tea.Api.Data.Common
             return "1,Send Successfully";
         }
 
+        public static string PublishStgTransferData(IModel channel, TransferStgDataList message,
+           string? ExchangeTypeName, string?
+          MsgQueue, string? RountingName)
+        {
+            var destination = message;
+
+            channel.ExchangeDeclare(ExchangeTypeName, ExchangeType.Direct);
+            // Declare a queue
+            string queueName = MsgQueue;  // Replace with your queue name
+            channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+            var json = JsonConvert.SerializeObject(destination);
+
+            var body = Encoding.UTF8.GetBytes(json);
+            //put the data on to the product queue
+
+            channel.BasicPublish(ExchangeTypeName, RountingName, null, body);
+
+            return "1,Send Successfully";
+        }
+
 
         public static SupplierMQModel MapSupplierMQ(SupplierMessageModel source)
         {

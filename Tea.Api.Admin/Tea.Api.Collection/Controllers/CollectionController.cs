@@ -35,6 +35,16 @@ namespace Tea.Api.Collection.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+        [HttpPost, Route("GetStgBagData")]
+        public async Task<IActionResult> GetStgBagData([FromBody] StgBagDataModel _input)
+        {
+            var results = await _collectionService.GetStgBagData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
         [HttpPost, Route("SaveApproveStg")]
         public async Task<IActionResult> SaveApproveStg([FromBody] SaveApproveStg _input)
         {
@@ -199,6 +209,23 @@ namespace Tea.Api.Collection.Controllers
             string JsonResult;
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("GetTransferStgData")]
+        public async Task<IActionResult> GetTransferStgData([FromBody] GetStgTransferModel _input)
+        {
+            var results = await _collectionService.GetTransferStgData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("UpdateTransferStatus")]
+        public async Task<IActionResult> UpdateTransferStatus([FromBody] GetStgTransferModel _input)
+        {
+            var results = await _collectionService.UpdateTransferStatus(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
         }
     }
 }

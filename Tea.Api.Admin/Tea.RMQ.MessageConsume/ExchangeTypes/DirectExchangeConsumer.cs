@@ -44,6 +44,11 @@ namespace Tea.RMQ.MessageConsume.ExchangeTypes
                         IMQRepository objConsume = new MQRepository();
                         var result = objConsume.SaveStg(message);
                     }
+                    else if (_data.Category == "Transfer")
+                    {
+                        IMQRepository objConsume = new MQRepository();
+                        var result = objConsume.TransferStg(message);
+                    }
                 }
                 else
                 {

@@ -43,6 +43,13 @@ namespace Tea.Api.Entity.Collection
         public long? CreatedBy { get; set; }
     }
 
+    public class StgBagDataModel
+    {
+        public long? TenantId { get; set; }
+        public long? CollectionId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
+
     public class SaveApproveStg
     {
         public long? TotalFirstWeight { get; set; }
@@ -135,8 +142,17 @@ namespace Tea.Api.Entity.Collection
     }
     public class GetStgPendingDateModel
     {
-              public long? TenantId { get; set; }
+      public long? TenantId { get; set; }
 
+    }
+
+    public class GetStgTransferModel
+    {
+        public string? VehicleNo { get; set; }
+        public int? TripId { get; set; }
+        public string? CollectionDate { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
     }
 
 }

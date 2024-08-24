@@ -138,5 +138,33 @@ namespace Tea.RMQ.MessageConsume.Repository
 
             return Msg;
         }
+
+       async Task<string> IMQRepository.TransferStg(string message)
+        {
+            Log.Information("Mobile Transfer data is prepared");
+            Log.Information("STG Transfer Data :" + message);
+            ConsumeTransferStgList _input = JsonConvert.DeserializeObject<ConsumeTransferStgList>(message)!;
+
+            List<ConsumeStgTransferModel> _items = _input.StgTransferData.ToList();
+            DataTable dt = ConvertToDatatable.ToDataTable(_items);
+            SqlParameter[] parameters = new SqlParameter[] {
+            ParameterCreation.CreateParameter("@StgTransferData", dt, SqlDbType.Structured),
+
+                };
+            List<ClsParamPair> oclsPairs = new()
+                {
+                    new ClsParamPair("@VehicleNo", _input.VehicleNo??"", false, "string"),
+                    new ClsParamPair("@VehicleToNo", _input.VehicleTo??"", false, "string"),
+                    new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                    new ClsParamPair("@TransferBy", _input.TransferBy??0,false, "long"),
+                    new ClsParamPair("@TransferTo", _input.TransferTo??0, false,"string"),
+
+            };
+            IDBHandler _dBHandler = new DBHandlers();
+            string Msg = await _dBHandler.ExecuteUserTypeTableAsyn("[Mobile].[STGTransferByMobile]", parameters, oclsPairs);
+            Log.Information(Msg);
+
+            return Msg;
+        }
     }
 }

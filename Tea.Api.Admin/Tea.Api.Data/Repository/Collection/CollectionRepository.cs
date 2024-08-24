@@ -691,5 +691,53 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "LockDetails";
             return ds;
         }
+
+       async Task<DataSet> ICollectionRepository.GetStgBagData(StgBagDataModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CollectionId", _input.CollectionId ??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0),
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGBagData]", oclsPairs);
+            ds.Tables[0].TableName = "BagDetails";
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionRepository.GetTransferStgData(GetStgTransferModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@VehicleNo", _input.VehicleNo ??""),
+                new ClsParamPair("@TripId", _input.TripId??0),
+                new ClsParamPair("@CollectionDate", _input.CollectionDate ??""),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetStgTransferData]", oclsPairs);
+            ds.Tables[0].TableName = "TransferData";
+
+            return ds;
+        }
+
+       async Task<string> ICollectionRepository.UpdateTransferStatus(GetStgTransferModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@VehicleNo", _input.VehicleNo ??""),
+                new ClsParamPair("@TripId", _input.TripId??0),
+                new ClsParamPair("@CollectionDate", _input.CollectionDate ??""),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0),
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Mobile].[STGTransferUpdate]", oclsPairs);
+            return Msg;
+        }
     }
 }

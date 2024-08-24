@@ -14,5 +14,7 @@ namespace Tea.Api.Data.Repository.MessageBroker
 
         Task<string> ProduceStgList(MobileSTGList message);
 
+        Task<string> TransferSTGData(TransferStgDataList _input);
+
     }
 }

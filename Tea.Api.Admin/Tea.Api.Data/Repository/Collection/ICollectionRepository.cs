@@ -15,7 +15,7 @@ namespace Tea.Api.Data.Repository.Collection
         Task<string> SaveSTG(SaveStgModel _input);
 
         Task<DataSet> GetStgPendingData(StgFilterModel _input);
-
+        Task<DataSet> GetStgBagData(StgBagDataModel _input);
         Task<string> SaveApproveStg(SaveApproveStg _input);
 
         Task<string> SaveApproveSupplier(SaveApproveSupplier _input);
@@ -67,6 +67,9 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetVehicleLockDetails(GetVehicleLockModel _input);
         Task<DataSet> MonthWiseWeightReport(MonthWiseWeightModel _input);
         Task<DataSet> GetLockedVehicleList(LockVehicleListModel _input);
+        Task<DataSet> GetTransferStgData(GetStgTransferModel _input);
         Task<DataSet> SalePurchaseWiseReport(GradeReportModel _input);
+
+        Task<string> UpdateTransferStatus(GetStgTransferModel _input);
     }
 }

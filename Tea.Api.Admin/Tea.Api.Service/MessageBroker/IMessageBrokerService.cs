@@ -14,5 +14,7 @@ namespace Tea.Api.Service.MessageBroker
         Task<SaveReturnModel> ProduceSupplier(SupplierMessageModel _msg);
 
         Task<SaveReturnModel> ProduceStgList(MobileSTGList _msg);
+
+        Task<SaveReturnModel> TransferSTGData(TransferStgDataList _input);
     }
 }

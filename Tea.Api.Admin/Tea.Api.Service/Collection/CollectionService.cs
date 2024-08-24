@@ -255,5 +255,26 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.GetLockedVehicleList(_input);
             return ds;
         }
+
+       async Task<DataSet> ICollectionService.GetStgBagData(StgBagDataModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetStgBagData(_input);
+            return ds;
+        }
+
+       async Task<DataSet> ICollectionService.GetTransferStgData(GetStgTransferModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetTransferStgData(_input);
+            return ds;
+        }
+
+       async Task<SaveReturnModel> ICollectionService.UpdateTransferStatus(GetStgTransferModel _input)
+        {
+            string msg = await _unitOfWork.CollectionRepository.UpdateTransferStatus(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
     }
 }

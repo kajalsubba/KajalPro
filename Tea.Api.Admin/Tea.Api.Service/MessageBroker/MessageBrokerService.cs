@@ -30,5 +30,12 @@ namespace Tea.Api.Service.MessageBroker
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
+
+      async  Task<SaveReturnModel> IMessageBrokerService.TransferSTGData(TransferStgDataList _input)
+        {
+            string msg = await _unitOfWork.RabitMQProducer.TransferSTGData(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
     }
 }

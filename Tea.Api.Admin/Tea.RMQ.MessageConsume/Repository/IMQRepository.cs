@@ -12,5 +12,7 @@ namespace Tea.RMQ.MessageConsume.Repository
         Task<string> SaveSupplier(string message);
 
         Task<string> SaveStg(string message);
+
+        Task<string> TransferStg(string message);
     }
 }

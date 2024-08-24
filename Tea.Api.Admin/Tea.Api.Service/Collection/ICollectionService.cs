@@ -17,6 +17,8 @@ namespace Tea.Api.Service.Collection
 
         Task<DataSet> GetStgPendingData(StgFilterModel _input);
 
+        Task<DataSet> GetStgBagData(StgBagDataModel _input);
+
         Task<SaveReturnModel> SaveApproveStg(SaveApproveStg _input);
         Task<SaveReturnModel> SaveApproveSupplier(SaveApproveSupplier _input);
 
@@ -44,7 +46,6 @@ namespace Tea.Api.Service.Collection
         Task<SaveReturnModel> SaveSupplierRate(SaveSupplierRateFixModel _input);
 
         Task<SaveReturnModel> SaveSaleRate(SaveSaleRateFixModel _input);
-
         Task<DataSet> GetStgVehicleData(GetStgVehicleModel _input);
 
         Task<DataSet> GetStgPendingDate( GetStgPendingDateModel _input);
@@ -65,7 +66,9 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> PurchaseAndSaleReport(GradeReportModel _input);
         Task<DataSet> GetLockedVehicleList(LockVehicleListModel _input);
         Task<DataSet> MonthWiseWeightReport( MonthWiseWeightModel _input);
-
+        Task<DataSet> GetTransferStgData(GetStgTransferModel _input);
+        Task<SaveReturnModel> UpdateTransferStatus(GetStgTransferModel _input);
+        
         Task<DataSet> SalePurchaseWiseReport(GradeReportModel _input);
 
     }
