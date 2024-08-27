@@ -19,8 +19,9 @@ namespace Tea.RMQ.MessageConsume.Entity
         public decimal? Rate { get; set; }
         public int? GradeId { get; set; }
         public string? Remarks { get; set; }
-
         public string? BagList { get; set; }
+      
+
     }
     public class ConsumeTransferStgList
     {
@@ -28,7 +29,6 @@ namespace Tea.RMQ.MessageConsume.Entity
         public long? TransferBy { get; set; }
         public long? TransferTo { get; set; }
         public string? VehicleNo { get; set; }
-
         public string? VehicleTo { get; set; }
         public string? Category { get; set; } = "Transfer";
         public List<ConsumeStgTransferModel>? StgTransferData { get; set; }

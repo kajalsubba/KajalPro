@@ -227,5 +227,14 @@ namespace Tea.Api.Collection.Controllers
             var results = await _collectionService.UpdateTransferStatus(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+
+        [HttpPost, Route("GetMobileStgData")]
+        public async Task<IActionResult> GetMobileStgData([FromBody] GetStgHistoryModel _input)
+        {
+            var results = await _collectionService.GetMobileStgData(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

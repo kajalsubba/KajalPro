@@ -71,5 +71,8 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> SalePurchaseWiseReport(GradeReportModel _input);
 
         Task<string> UpdateTransferStatus(GetStgTransferModel _input);
+
+        Task<DataSet> GetMobileStgData(GetStgHistoryModel _input);
+
     }
 }

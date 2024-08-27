@@ -22,6 +22,10 @@ namespace Tea.Api.Entity.MessageBroker
         public string? Remarks { get; set; }
 
         public string? BagList { get; set; }
+
+        public string? CollectionType { get; set; }
+        public long? VehicleFrom { get; set; }
+        public long? TransferFrom { get; set; }
     }
     public class TransferStgDataList
     {

@@ -70,6 +70,8 @@ namespace Tea.Api.Service.Collection
         Task<SaveReturnModel> UpdateTransferStatus(GetStgTransferModel _input);
         
         Task<DataSet> SalePurchaseWiseReport(GradeReportModel _input);
+        Task<DataSet> GetMobileStgData(GetStgHistoryModel _input);
+
 
     }
 }

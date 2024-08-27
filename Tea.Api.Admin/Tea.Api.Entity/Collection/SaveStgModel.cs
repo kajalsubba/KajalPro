@@ -155,4 +155,13 @@ namespace Tea.Api.Entity.Collection
         public long? CreatedBy { get; set; }
     }
 
+    public class GetStgHistoryModel
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? TenantId { get; set; }
+        public long? ClientId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
+
 }

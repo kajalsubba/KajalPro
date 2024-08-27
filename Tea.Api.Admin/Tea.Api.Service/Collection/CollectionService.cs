@@ -276,5 +276,12 @@ namespace Tea.Api.Service.Collection
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
+
+       async Task<DataSet> ICollectionService.GetMobileStgData(GetStgHistoryModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetMobileStgData(_input);
+            return ds;
+        }
     }
 }

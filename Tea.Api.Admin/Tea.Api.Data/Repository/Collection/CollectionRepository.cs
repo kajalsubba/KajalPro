@@ -739,5 +739,23 @@ namespace Tea.Api.Data.Repository.Collection
             string Msg = await _dataHandler.SaveChangesAsyn("[Mobile].[STGTransferUpdate]", oclsPairs);
             return Msg;
         }
+
+      async  Task<DataSet> ICollectionRepository.GetMobileStgData(GetStgHistoryModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@ClientId", _input.ClientId ??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate??""),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetSTGHistory]", oclsPairs);
+            ds.Tables[0].TableName = "STGDetails";
+
+            return ds;
+        }
     }
 }
