@@ -113,8 +113,8 @@ namespace Tea.RMQ.MessageConsume.Repository
 
        async Task<string> IMQRepository.SaveStg(string message)
         {
-            Log.Information("Mobile STG data is prepared");
-            Log.Information("STG Data :"+ message);
+            Log.Information("Mobile STG Save data is prepared");
+          //  Log.Information("STG Data :"+ message);
             STGModelList _input = JsonConvert.DeserializeObject<STGModelList>(message)!;
 
             List<STGSaveModel> _items = _input.StgListData.ToList();
@@ -142,7 +142,7 @@ namespace Tea.RMQ.MessageConsume.Repository
        async Task<string> IMQRepository.TransferStg(string message)
         {
             Log.Information("Mobile Transfer data is prepared");
-            Log.Information("STG Transfer Data :" + message);
+           // Log.Information("STG Transfer Data :" + message);
             ConsumeTransferStgList _input = JsonConvert.DeserializeObject<ConsumeTransferStgList>(message)!;
 
             List<ConsumeStgTransferModel> _items = _input.StgTransferData.ToList();

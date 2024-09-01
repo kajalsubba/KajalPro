@@ -142,6 +142,12 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+        [HttpPost, Route("SaveVehicle")]
+        public async Task<IActionResult> SaveVehicle([FromBody] SaveVehicleModel _input)
+        {
+            var results = await _adminService.SaveVehicle(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
         [HttpPost, Route("GetVehicle")]
         public async Task<IActionResult> GetVehicle([FromBody] CommonSelectModel _input)
         {

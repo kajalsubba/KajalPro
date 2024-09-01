@@ -46,6 +46,7 @@ namespace Tea.Api.Data.Repository.Admin
 
 
         Task<DataSet> GetClientList(SelectCategoryClientModel _input);
+        Task<string> SaveVehicle(SaveVehicleModel _input);
 
         Task<string> SaveCompany(SaveCompanyModel _input);
 

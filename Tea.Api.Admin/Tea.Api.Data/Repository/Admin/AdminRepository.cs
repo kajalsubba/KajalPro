@@ -627,6 +627,20 @@ namespace Tea.Api.Data.Repository.Admin
             string Msg = await _dataHandler.SaveChangesAsyn("[Admin].[UserChangePassword]", oclsPairs);
             return Msg;
         }
+
+       async Task<string> IAdminRepository.SaveVehicle(SaveVehicleModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@VehicleNo", _input.VehicleNo??"", false, "string"),
+                new ClsParamPair("@VehicleDetails", _input.VehicleDetails??"", false, "string"),
+                new ClsParamPair("@TenantId", _input.TenantId??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[VehicleInsertUpdate]", oclsPairs);
+            return Msg;
+        }
     }
 }
 

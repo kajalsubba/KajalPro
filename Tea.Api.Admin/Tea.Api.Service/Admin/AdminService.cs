@@ -300,9 +300,16 @@ namespace Tea.Api.Service.Admin
             
         }
 
-      async  Task<SaveReturnModel> IAdminService.ChangeUserPassword(ChangeUserPasswordModel _input)
+      async Task<SaveReturnModel> IAdminService.ChangeUserPassword(ChangeUserPasswordModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.ChangeUserPassword(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+       async Task<SaveReturnModel> IAdminService.SaveVehicle(SaveVehicleModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.SaveVehicle(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
