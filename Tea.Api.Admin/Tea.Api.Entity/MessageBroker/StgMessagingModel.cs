@@ -24,6 +24,8 @@ namespace Tea.Api.Entity.MessageBroker
         public string? CollectionType { get; set; }
         public long? VehicleFrom { get; set; }
         public long? TransferFrom { get; set; }
+        public DateTime? FinishTimeInApp { get; set; }
+        public DateTime? UpdateTimeInApp { get; set; }
     }
 
     public class MobileSTGList
