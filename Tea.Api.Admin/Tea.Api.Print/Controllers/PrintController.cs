@@ -28,5 +28,12 @@ namespace Tea.Api.Print.Controllers
             byte[] pdfBytes = await _printService.SupplierBillPrint(_input);
             return File(pdfBytes, "application/pdf", "BillNo" + _input.BillNo + ".pdf");
         }
+        [HttpPost, Route("SalePrint")]
+        public async Task<IActionResult> SalePrint([FromBody] PrintSaleModel _input)
+        {
+            byte[] pdfBytes = await _printService.SalePrint(_input);
+            return File(pdfBytes, "application/pdf", "SaleStatement" + _input.TenantId + ".pdf");
+        }
+
     }
 }

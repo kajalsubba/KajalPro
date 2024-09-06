@@ -17,6 +17,13 @@ namespace Tea.Api.Service.Print
         {
             _unitOfWork = unitOfWork;
         }
+
+       async Task<byte[]> IPrintService.SalePrint(PrintSaleModel _input)
+        {
+            byte[] ds = await _unitOfWork.PrintRepository.SalePrint(_input);
+            return ds;
+        }
+
         async Task<byte[]> IPrintService.StgBillPrint(BillPrintModel _input)
         {
             byte[] ds = await _unitOfWork.PrintRepository.StgBillPrint(_input);

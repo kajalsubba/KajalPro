@@ -3,11 +3,15 @@ using PdfSharpCore;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using System.Data;
+using System.Globalization;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.WhatsApp;
 using Tea.Api.Entity.Print;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
+using Twilio.Base;
 
 namespace Tea.Api.Data.Repository.Print
 {
@@ -23,6 +27,194 @@ namespace Tea.Api.Data.Repository.Print
             _dataHandler = dataHandler;
             _whatsAppService = new WhatsAppService();
 
+        }
+
+        async Task<byte[]> IPrintRepository.SalePrint(PrintSaleModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> clsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate??""),
+                new ClsParamPair("@VehicleNo", _input.VehicleNo??""),
+                new ClsParamPair("@FactoryId", _input.FactoryId??0),
+                new ClsParamPair("@AccountId", _input.AccountId??0),
+                new ClsParamPair("@SaleTypeId", _input.SaleTypeId??0),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetSalesData]", clsPairs);
+
+            DateTime fromDate =Convert.ToDateTime(_input.FromDate);
+            DateTime toDate = Convert.ToDateTime(_input.ToDate);
+            string? factoryName = string.Empty;
+            string? address = string.Empty;
+            string? supplierName = string.Empty;
+
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                factoryName = Convert.ToString(row["FactoryName"]);
+                address = Convert.ToString(row["FactoryAddress"]);
+                supplierName = Convert.ToString(row["AccountName"]);
+              
+            }
+            var data = new PdfDocument();
+
+            string htmlContent = "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            htmlContent += "<h3> Green Leaves Sale Statement </h3>";
+            htmlContent += "</div>";
+            htmlContent += "<div style = 'margin-top: 5px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
+
+            htmlContent += "<div style = 'margin-top: 10px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > For the Period From :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + fromDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture) + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > To :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + toDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture) + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Factory:</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + factoryName + "</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Address :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + address + "</td>";
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Supplier Name :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + supplierName + " </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
+            htmlContent += "</tr>";
+
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            htmlContent += "</div>";
+       
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<thead>";
+            htmlContent += "<tr>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Date </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Vehicle No </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Fine(%) </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Challan Wgt. </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Rate</th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Inc.Amount </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Final Amount </th>";
+
+            htmlContent += "</tr><hr/>";
+            htmlContent += "</thead>";
+            htmlContent += "<tbody>";
+          
+            int VehicleCount = 0;
+            int FineAvg = 0;
+            decimal TotalFine = 0;
+            decimal TotalChallan = 0;
+            decimal AvgRate = 0;
+            decimal TotalAmount = 0;
+            decimal TotalIncAmount = 0;
+            decimal TotalFinalAmount = 0;
+
+            DateTime utcNow = DateTime.UtcNow;
+            TimeZoneInfo istZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            DateTime istTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, istZone);
+            string ReportTime = istTime.ToString("dd-MM-yyyy HH:mm:ss");
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    htmlContent += "<tr>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["SaleDate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["VehicleNo"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: center; ' > " + Convert.ToString(row["FineLeaf"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: center; ' > " + Convert.ToString(row["ChallanWeight"]) + "</td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Rate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["GrossAmount"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["IncentiveAmount"]) + "</td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["FinalAmount"]) + "</td>";
+
+                    htmlContent += "</tr>";
+
+                    VehicleCount++;
+                    TotalFine += decimal.TryParse(Convert.ToString(row["FineLeaf"]), out decimal FineLeaf) ? FineLeaf : 0;
+                    TotalChallan += decimal.TryParse(Convert.ToString(row["ChallanWeight"]), out decimal ChallanKg) ? ChallanKg : 0;
+                    TotalIncAmount += decimal.TryParse(Convert.ToString(row["IncentiveAmount"]), out decimal IncAmt) ? IncAmt : 0;
+                    TotalAmount += decimal.TryParse(Convert.ToString(row["GrossAmount"]), out decimal Amount) ? Amount : 0;
+                    TotalFinalAmount += decimal.TryParse(Convert.ToString(row["FinalAmount"]), out decimal FinalAmtKg) ? FinalAmtKg : 0;
+                    AvgRate = Math.Round((TotalFinalAmount / TotalChallan), 2);
+                    FineAvg = Convert.ToInt32(Math.Round((TotalFine / VehicleCount), 0));
+                };
+                htmlContent += "</tbody>";
+                htmlContent += "<tfoot>";
+                htmlContent += "<tr>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total</td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + VehicleCount + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + FineAvg + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalChallan + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgRate + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalAmount + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalIncAmount + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalFinalAmount + " </td>";
+
+                htmlContent += "</tr>";
+                htmlContent += "</tfoot>";
+            }
+            htmlContent += "</table>";
+           
+
+            htmlContent += "<br>";
+
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<tbody>";
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            htmlContent += "</tr>";
+
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            //htmlContent += "<footer>";
+            //htmlContent += "<p> Report Generate on :" + ReportTime + "<br>";
+            //htmlContent += "</footer>";
+            htmlContent += "</div>";
+
+             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
+
+            PdfPage page = data.AddPage();
+
+            page.Size = PageSize.A4;
+            double pageHeight = page.Height - 40; // Leaving margin
+
+            int currentPage = 0;
+            XFont pageNumberFont = new XFont("Arial", 8, XFontStyle.Regular);
+
+            foreach (PdfPage pages in data.Pages)
+            {
+                ++currentPage;
+                using (var gfx = XGraphics.FromPdfPage(pages))
+                {
+                    gfx.DrawString($"Page {currentPage}", pageNumberFont, XBrushes.Black, new XRect(20, pageHeight + 10, page.Width - 40, 20), XStringFormats.CenterRight);
+                    gfx.DrawString($"Report Generate on : {ReportTime}", pageNumberFont, XBrushes.Black, new XRect(20, pageHeight + 10, page.Width - 40, 20), XStringFormats.CenterLeft);
+
+                }
+            }
+
+
+            byte[]? response = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                data.Save(ms);
+                response = ms.ToArray();
+            }
+
+            return response;
         }
 
         async Task<byte[]> IPrintRepository.StgBillPrint(BillPrintModel _input)
@@ -52,8 +244,8 @@ namespace Tea.Api.Data.Repository.Print
 
             DataRow firstRow = ds.Tables[1].Rows[0];
 
-            
-             string? BillId = Convert.ToString(firstRow["BillId"]);
+
+            string? BillId = Convert.ToString(firstRow["BillId"]);
             string? BillDate = Convert.ToString(firstRow["BillDate"]);
             string? FromDate = Convert.ToString(firstRow["FromDate"]);
             string? ToDate = Convert.ToString(firstRow["ToDate"]);
@@ -74,7 +266,7 @@ namespace Tea.Api.Data.Repository.Print
             string? Deposite_PayableLabel = Convert.ToDecimal(firstRow["OutstandingAmount"]) > 0 ? "Diposite" : "Paybale";
 
             string? RoundAmountToPay = Convert.ToString(firstRow["RoundAmountToPay"]);
-           
+
             var data = new PdfDocument();
 
             string htmlContent = "<div style = 'margin: 30px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
@@ -90,8 +282,8 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<p style = 'margin: 0;' > " + Email + " </p>";
             htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
-          
-             htmlContent += "<tbody>";
+
+            htmlContent += "<tbody>";
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Bill No :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + BillId + "</td>";
@@ -103,14 +295,14 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > " + FromDate + "</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > To :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;'  > " + ToDate + "</td>";
-            htmlContent += "</tr>";      
-            htmlContent += "<tr>";       
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Client Name :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + ClientName + " </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Client Id :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientId + "</td>";
-            htmlContent += "</tr>";      
-            htmlContent += "<tr>";       
+            htmlContent += "</tr>";
+            htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Adddress :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + ClientAddress + " </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Contact No: </td>";
@@ -156,14 +348,14 @@ namespace Tea.Api.Data.Repository.Print
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
                     htmlContent += "</tr>";
 
-                    distinctDates.Add(Convert.ToString(row["CollectionDate"])??"");
+                    distinctDates.Add(Convert.ToString(row["CollectionDate"]) ?? "");
 
                     TotalCollection += decimal.TryParse(Convert.ToString(row["FirstWeight"]), out decimal CollectionKg) ? CollectionKg : 0;
                     TotalReject += decimal.TryParse(Convert.ToString(row["Deduction"]), out decimal RejectKg) ? RejectKg : 0;
                     TotalFinal += decimal.TryParse(Convert.ToString(row["FinalWeight"]), out decimal FinalKg) ? FinalKg : 0;
-                     
+
                     TotalAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal Amount) ? Amount : 0;
-                    AvgRate =Math.Round ((TotalAmount / TotalFinal),2);
+                    AvgRate = Math.Round((TotalAmount / TotalFinal), 2);
                 };
                 htmlContent += "</tbody>";
                 htmlContent += "<tfoot>";
@@ -190,13 +382,13 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Pay Date </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Naration </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
-    
+
             htmlContent += "</tr><hr/>";
             htmlContent += "</thead>";
             htmlContent += "<tbody>";
-        
+
             decimal TotalPayAmount = 0;
-           
+
             if (ds.Tables[2].Rows.Count > 0)
             {
                 foreach (DataRow row in ds.Tables[2].Rows)
@@ -209,7 +401,7 @@ namespace Tea.Api.Data.Repository.Print
                     htmlContent += "</tr>";
 
                     TotalPayAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal totalPay) ? totalPay : 0;
-                   
+
                 };
                 htmlContent += "</tbody>";
                 htmlContent += "<tfoot>";
@@ -227,7 +419,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
 
             htmlContent += "<tbody>";
-    
+
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' > Standing Season Advance :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;' > " + StandingSeasonAdv + " </td>";
@@ -246,7 +438,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Previous Balance :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;' > " + PrevousAmount + "</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' >"+ Deposite_PayableLabel + ":</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >" + Deposite_PayableLabel + ":</td>";
             htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  >" + Deposite_PayableAmount + " </td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
@@ -279,21 +471,21 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</tr>";
             htmlContent += "< tr style = 'height: 20px;' ></ tr >";
             htmlContent += "<tr>";
-             
+
             htmlContent += "<td colspan='4' style = 'margin: 0; text-align: left; font-weight: bold;'  >Reciept Amount In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' >  </td>";
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
             htmlContent += "</tr>";
-   
-        
+
+
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-       
+
             htmlContent += "</div>";
 
-           
+
             htmlContent += "<br>";
 
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
@@ -305,13 +497,13 @@ namespace Tea.Api.Data.Repository.Print
 
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-      
+
             htmlContent += "</div>";
             htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
 
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
-         
+
 
             byte[]? response = null;
             using (MemoryStream ms = new MemoryStream())
@@ -319,11 +511,11 @@ namespace Tea.Api.Data.Repository.Print
                 data.Save(ms);
                 response = ms.ToArray();
             }
-     
+
             return response;
         }
 
-       async Task<byte[]> IPrintRepository.SupplierBillPrint(BillPrintModel _input)
+        async Task<byte[]> IPrintRepository.SupplierBillPrint(BillPrintModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -451,7 +643,7 @@ namespace Tea.Api.Data.Repository.Print
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
                     htmlContent += "</tr>";
 
-                    distinctDates.Add(Convert.ToString(row["CollectionDate"])??"");
+                    distinctDates.Add(Convert.ToString(row["CollectionDate"]) ?? "");
 
                     TotalChallanWeight += decimal.TryParse(Convert.ToString(row["ChallanWeight"]), out decimal CollectionKg) ? CollectionKg : 0;
                     TotalFineLeaf += decimal.TryParse(Convert.ToString(row["FineLeaf"]), out decimal FineLeaf) ? FineLeaf : 0;
@@ -459,7 +651,7 @@ namespace Tea.Api.Data.Repository.Print
 
                     TotalAmount += decimal.TryParse(Convert.ToString(row["Amount"]), out decimal Amount) ? Amount : 0;
                     AvgRate = Math.Round((TotalAmount / TotalChallanWeight), 2);
-                    AvgFineLeaf=Convert.ToInt16(Math.Round((TotalFineLeaf / ds.Tables[1].Rows.Count), 0));
+                    AvgFineLeaf = Convert.ToInt16(Math.Round((TotalFineLeaf / ds.Tables[1].Rows.Count), 0));
                 };
                 htmlContent += "</tbody>";
                 htmlContent += "<tfoot>";
@@ -612,9 +804,9 @@ namespace Tea.Api.Data.Repository.Print
             return response;
         }
 
-      async Task<string> IPrintRepository.WhatsAppMessage(WhatsAppModel message)
+        async Task<string> IPrintRepository.WhatsAppMessage(WhatsAppModel message)
         {
-           return await _whatsAppService.SendWhatsAppMessageAsync(message.ToPhoneNumber, message.Message);
+            return await _whatsAppService.SendWhatsAppMessageAsync(message.ToPhoneNumber, message.Message);
         }
     }
 }
