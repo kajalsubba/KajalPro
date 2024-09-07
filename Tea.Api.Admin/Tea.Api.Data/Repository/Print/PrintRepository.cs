@@ -69,7 +69,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</div>";
             htmlContent += "<div style = 'margin-top: 5px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
 
-            htmlContent += "<div style = 'margin-top: 10px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<div style = 'margin-top: 10px auto; heigth:120px; max-width: 100px; padding: 17px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
 
             htmlContent += "<tbody>";
@@ -174,34 +174,45 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
             htmlContent += "<tbody>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            htmlContent += "<td  style = 'margin: 0; text-align: left;font-size:12px;'  >Final Amount In word -" + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(TotalFinalAmount)) + " Only </td>";
             htmlContent += "</tr>";
 
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-            //htmlContent += "<footer>";
-            //htmlContent += "<p> Report Generate on :" + ReportTime + "<br>";
-            //htmlContent += "</footer>";
+   
             htmlContent += "</div>";
+            htmlContent += "<footer>";
+            //htmlContent += "<p> Declaration: In the green leaf provided by me/us, I/we confirm that only PPFs (Plant Protection Formulations) recommended in the Plant Protection Code have been used. No chemicals or pesticides banned in India have been employed. Should it be found that any banned pesticides or chemicals, or their residues, exceed the prescribed limits, the Tea Board is authorized to take appropriate action against me/us.<br>";
+            htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            htmlContent += "<tbody>";
 
-             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
+            htmlContent += "<tr>";
+            htmlContent += "<td style = 'margin: 5; text-align: left;font-weight: bold;font-size:10px;' >Check & Verified </td>";
+            htmlContent += "<td style = 'margin: 5; text-align: right; font-weight: bold;font-size:10px;'  >Signature</td>";
+            htmlContent += "</tr>";
 
-            PdfPage page = data.AddPage();
+            htmlContent += "</tbody>";
+            htmlContent += "</table>";
+            htmlContent += "</footer>";
 
-            page.Size = PageSize.A4;
-            double pageHeight = page.Height - 40; // Leaving margin
+            PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
+            //PdfPage page = data.AddPage();
+
+            //page.Size = PageSize.A4;
+            //double pageHeight = page.Height - 40; // Leaving margin
+            
             int currentPage = 0;
-            XFont pageNumberFont = new XFont("Arial", 8, XFontStyle.Regular);
-
+            XFont pageNumberFont = new XFont("Arial", 6, XFontStyle.Regular);
+            int PageHi = 802;
+            int pagewith = 595;
             foreach (PdfPage pages in data.Pages)
             {
                 ++currentPage;
                 using (var gfx = XGraphics.FromPdfPage(pages))
                 {
-                    gfx.DrawString($"Page {currentPage}", pageNumberFont, XBrushes.Black, new XRect(20, pageHeight + 10, page.Width - 40, 20), XStringFormats.CenterRight);
-                    gfx.DrawString($"Report Generate on : {ReportTime}", pageNumberFont, XBrushes.Black, new XRect(20, pageHeight + 10, page.Width - 40, 20), XStringFormats.CenterLeft);
+                    gfx.DrawString($"Page {currentPage} of {data.PageCount}", pageNumberFont, XBrushes.Black, new XRect(20, PageHi + 10, pagewith - 40, 20), XStringFormats.CenterRight);
+                    gfx.DrawString($"Report Generate on : {ReportTime}", pageNumberFont, XBrushes.Black, new XRect(20, PageHi + 10, pagewith - 40, 20), XStringFormats.CenterLeft);
 
                 }
             }
