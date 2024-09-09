@@ -174,7 +174,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
             htmlContent += "<tbody>";
             htmlContent += "<tr>";
-            htmlContent += "<td  style = 'margin: 0; text-align: left;font-size:12px;'  >Final Amount In word -" + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(TotalFinalAmount)) + " Only </td>";
+            htmlContent += "<td  style = 'margin: 0; text-align: left;font-size:12px;'  >Final Round Amount In word-" + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(TotalFinalAmount)) + " Only </td>";
             htmlContent += "</tr>";
 
             htmlContent += "</tbody>";
@@ -280,18 +280,15 @@ namespace Tea.Api.Data.Repository.Print
 
             var data = new PdfDocument();
 
-            string htmlContent = "<div style = 'margin: 30px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
-            //htmlContent += "<div style = 'margin-bottom: 20px; text-align: center;'>";
-            //htmlContent += "<img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROnYPD5QO8ZJvPQt8ClnJNPXduCeX89dSOxA&usqp=CAU' alt = 'School Logo' style = 'max-width: 100px; margin-bottom: 10px;' >";
-            //htmlContent += "</div>";
-            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            string htmlContent = "<div style = 'text-align: center; margin-bottom: 8px;'>";
             htmlContent += "<h3> Green Leaf Supplied Statement </h3>";
             htmlContent += "</div>";
+            htmlContent += "<div style = 'margin-top: 5px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
             htmlContent += "<p style = 'margin: 0;' >" + CompanyName + "</p>";
             htmlContent += "<p style = 'margin: 0;' > " + Address + "</p>";
             htmlContent += "<p style = 'margin: 0;' > " + ContactNo + " </p>";
             htmlContent += "<p style = 'margin: 0;' > " + Email + " </p>";
-            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 17px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
 
             htmlContent += "<tbody>";
@@ -330,10 +327,10 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<tr>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Date </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Grade </th>";
-            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Collection </th>";
-            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Rejected </th>";
-            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Final (KG) </th>";
-            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Rate </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Collection </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Rejected </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: center; border-bottom: 1px solid #ddd;' > Final (KG) </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Rate </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
             htmlContent += "</tr><hr/>";
             htmlContent += "</thead>";
@@ -349,13 +346,15 @@ namespace Tea.Api.Data.Repository.Print
             {
                 foreach (DataRow row in ds.Tables[1].Rows)
                 {
+                    //decimal FirstWgt= Convert.ToDecimal(row["FirstWeight"]);
+                   
                     htmlContent += "<tr>";
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["CollectionDate"]) + " </td>";
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["GradeName"]) + " </td>";
-                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["FirstWeight"]) + " </td>";
-                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Deduction"]) + "</td>";
-                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["FinalWeight"]) + " </td>";
-                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["Rate"]) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: center; ' > " + (int)Math.Round(Convert.ToDecimal(row["FirstWeight"])) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: center; ' > " + Convert.ToString(row["Deduction"]) + "</td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: center; ' > " + (int)Math.Round(Convert.ToDecimal(row["FinalWeight"])) + " </td>";
+                    htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Rate"]) + " </td>";
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: right; ' > " + Convert.ToString(row["Amount"]) + "</td>";
                     htmlContent += "</tr>";
 
@@ -373,15 +372,16 @@ namespace Tea.Api.Data.Repository.Print
                 htmlContent += "<tr>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total Days: " + distinctDates.Count + "</td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalCollection + " </td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalReject + " </td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalFinal + " </td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgRate + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + (int)Math.Round(TotalCollection) + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + (int)Math.Round(TotalReject) + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: center; border-top: 1px solid #ddd;font-weight: bold;' >" + (int)Math.Round(TotalFinal) + " </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + AvgRate + " </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: right; border-top: 1px solid #ddd;font-weight: bold;' >" + TotalAmount + " </td>";
                 htmlContent += "</tr>";
                 htmlContent += "</tfoot>";
             }
             htmlContent += "</table>";
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 17px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
 
             htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
             htmlContent += "<h6> Payment Data </h6>";
@@ -391,7 +391,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<thead>";
             htmlContent += "<tr>";
             htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Pay Date </th>";
-            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Naration </th>";
+            htmlContent += "<th style = 'padding: 4px; text-align: left; border-bottom: 1px solid #ddd;' > Narration </th>";
             htmlContent += "<th style = 'padding: 4px; text-align: right; border-bottom: 1px solid #ddd;' > Amount </th>";
 
             htmlContent += "</tr><hr/>";
@@ -425,10 +425,11 @@ namespace Tea.Api.Data.Repository.Print
                 htmlContent += "</tfoot>";
             }
             htmlContent += "</table>";
+            htmlContent += "</div>";
 
             htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
-
+         
             htmlContent += "<tbody>";
 
             htmlContent += "<tr>";
@@ -439,10 +440,10 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >" + AmountToPay + "</td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Incetive :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Incentive :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;' > " + Incentive + "</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount Reciept:</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Amount Receipt:</td>";
             htmlContent += "<td style = 'margin: 0; text-align: right;font-weight: bold;'  >" + RecieptAmount + " </td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
@@ -483,38 +484,51 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "< tr style = 'height: 20px;' ></ tr >";
             htmlContent += "<tr>";
 
-            htmlContent += "<td colspan='4' style = 'margin: 0; text-align: left; font-weight: bold;'  >Reciept Amount In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
+            htmlContent += "<td colspan='4' style = 'margin: 0; text-align: left; font-weight: bold;'  >Receipt Amount In word " + NumberToWordConvertor.ConvertToWords(Convert.ToInt64(RoundAmountToPay)) + " Only </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; ' >  </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' >  </td>";
             htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  ></td>";
             htmlContent += "</tr>";
 
-
             htmlContent += "</tbody>";
-            htmlContent += "</table>";
 
             htmlContent += "</div>";
-
-
-            htmlContent += "<br>";
-
+            htmlContent += "<footer>";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
             htmlContent += "<tbody>";
+
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            htmlContent += "<td style = 'margin: 5; text-align: left;font-weight: bold;font-size:10px;' >Check & Verified </td>";
+            htmlContent += "<td style = 'margin: 5; text-align: right; font-weight: bold;font-size:10px;'  >Receipt Signature</td>";
             htmlContent += "</tr>";
 
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-
-            htmlContent += "</div>";
-            htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
+            htmlContent += "</footer>";
 
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
 
+            DateTime utcNow = DateTime.UtcNow;
+            TimeZoneInfo istZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            DateTime istTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, istZone);
+            string ReportTime = istTime.ToString("dd-MM-yyyy HH:mm:ss");
+
+            int currentPage = 0;
+            XFont pageNumberFont = new XFont("Arial", 6, XFontStyle.Regular);
+            int PageHi = 802;
+            int pagewith = 595;
+            foreach (PdfPage pages in data.Pages)
+            {
+                ++currentPage;
+                using (var gfx = XGraphics.FromPdfPage(pages))
+                {
+                    gfx.DrawString($"Page {currentPage} of {data.PageCount}", pageNumberFont, XBrushes.Black, new XRect(20, PageHi + 10, pagewith - 40, 20), XStringFormats.CenterRight);
+                    gfx.DrawString($"Report Generate on : {ReportTime}", pageNumberFont, XBrushes.Black, new XRect(20, PageHi + 10, pagewith - 40, 20), XStringFormats.CenterLeft);
+
+                }
+            }
 
             byte[]? response = null;
             using (MemoryStream ms = new MemoryStream())
@@ -572,19 +586,17 @@ namespace Tea.Api.Data.Repository.Print
             string? RoundAmountToPay = Convert.ToString(firstRow["RoundAmountToPay"]);
 
             var data = new PdfDocument();
-
-            string htmlContent = "<div style = 'margin: 30px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
-            //htmlContent += "<div style = 'margin-bottom: 20px; text-align: center;'>";
-            //htmlContent += "<img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROnYPD5QO8ZJvPQt8ClnJNPXduCeX89dSOxA&usqp=CAU' alt = 'School Logo' style = 'max-width: 100px; margin-bottom: 10px;' >";
-            //htmlContent += "</div>";
-            htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
+            string htmlContent = "<div style = 'text-align: center; margin-bottom: 8px;'>";
             htmlContent += "<h3> Green Leaf Supplied Statement </h3>";
             htmlContent += "</div>";
+            htmlContent += "<div style = 'margin-top: 5px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
+           
             htmlContent += "<p style = 'margin: 0;' >" + CompanyName + "</p>";
             htmlContent += "<p style = 'margin: 0;' > " + Address + "</p>";
             htmlContent += "<p style = 'margin: 0;' > " + ContactNo + " </p>";
             htmlContent += "<p style = 'margin: 0;' > " + Email + " </p>";
-            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
+
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 23px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
 
             htmlContent += "<tbody>";
@@ -607,7 +619,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientId + "</td>";
             htmlContent += "</tr>";
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > Adddress :</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' > Address :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' > " + ClientAddress + " </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Contact No: </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + ClientContactNo + "</td>";
@@ -667,8 +679,8 @@ namespace Tea.Api.Data.Repository.Print
                 htmlContent += "</tbody>";
                 htmlContent += "<tfoot>";
                 htmlContent += "<tr>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total: " + distinctDates.Count + "Days</td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
+                htmlContent += "<td colspan='2' style = 'padding: 8px; text-align: left;  border-top: 1px solid #ddd;font-weight: bold;'> Total: " + distinctDates.Count + "Days</td>";
+                //htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' > </td>";
                 htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;font-weight: bold;' >Avg. " + AvgFineLeaf + "% </td>";
@@ -679,6 +691,7 @@ namespace Tea.Api.Data.Repository.Print
                 htmlContent += "</tfoot>";
             }
             htmlContent += "</table>";
+            htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 17px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
 
             htmlContent += "<div style = 'text-align: center; margin-bottom: 8px;'>";
             htmlContent += "<h6> Payment Data </h6>";
@@ -722,6 +735,7 @@ namespace Tea.Api.Data.Repository.Print
                 htmlContent += "</tfoot>";
             }
             htmlContent += "</table>";
+            htmlContent += "</div>";
 
             htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
@@ -788,22 +802,53 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</div>";
             htmlContent += "<br>";
 
+            //htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
+            //htmlContent += "<tbody>";
+            //htmlContent += "<tr>";
+            //htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
+            //htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            //htmlContent += "</tr>";
+
+            //htmlContent += "</tbody>";
+            //htmlContent += "</table>";
+
+            htmlContent += "</div>";
+            htmlContent += "<footer>";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
             htmlContent += "<tbody>";
+
             htmlContent += "<tr>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;font-weight: bold;' >Check & Verified </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: right; font-weight: bold;'  >Recived Signature</td>";
+            htmlContent += "<td style = 'margin: 5; text-align: left;font-weight: bold;font-size:10px;' >Check & Verified </td>";
+            htmlContent += "<td style = 'margin: 5; text-align: right; font-weight: bold;font-size:10px;'  >Receipt Signature</td>";
             htmlContent += "</tr>";
 
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-
-            htmlContent += "</div>";
-            htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
+            htmlContent += "</footer>";
+            //htmlContent += "<h7> Report Genearate on :" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</h7>";
 
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
 
+            DateTime utcNow = DateTime.UtcNow;
+            TimeZoneInfo istZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            DateTime istTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, istZone);
+            string ReportTime = istTime.ToString("dd-MM-yyyy HH:mm:ss");
+
+            int currentPage = 0;
+            XFont pageNumberFont = new XFont("Arial", 6, XFontStyle.Regular);
+            int PageHi = 802;
+            int pagewith = 595;
+            foreach (PdfPage pages in data.Pages)
+            {
+                ++currentPage;
+                using (var gfx = XGraphics.FromPdfPage(pages))
+                {
+                    gfx.DrawString($"Page {currentPage} of {data.PageCount}", pageNumberFont, XBrushes.Black, new XRect(20, PageHi + 10, pagewith - 40, 20), XStringFormats.CenterRight);
+                    gfx.DrawString($"Report Generate on : {ReportTime}", pageNumberFont, XBrushes.Black, new XRect(20, PageHi + 10, pagewith - 40, 20), XStringFormats.CenterLeft);
+
+                }
+            }
 
             byte[]? response = null;
             using (MemoryStream ms = new MemoryStream())
