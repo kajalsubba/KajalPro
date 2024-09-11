@@ -53,14 +53,14 @@ namespace Tea.Api.Data.Repository.Print
             string? factoryName = string.Empty;
             string? address = string.Empty;
             string? supplierName = string.Empty;
-
+            string? bioMatrixNo = string.Empty;
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 factoryName = Convert.ToString(row["FactoryName"]);
                 address = Convert.ToString(row["FactoryAddress"]);
                 supplierName = Convert.ToString(row["AccountName"]);
-              
+                bioMatrixNo = Convert.ToString(row["BioMatrixNo"]);
             }
             var data = new PdfDocument();
 
@@ -88,8 +88,8 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<tr>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Supplier Name :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + supplierName + " </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left;' > </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  ></td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left;' >Bio-Matric No : </td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >"+ bioMatrixNo +"</td>";
             htmlContent += "</tr>";
 
             htmlContent += "</tbody>";

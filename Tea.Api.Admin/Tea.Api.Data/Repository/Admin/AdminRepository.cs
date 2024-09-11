@@ -261,6 +261,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@ClientAddress", _input.ClientAddress??"", false, "String"),
                 new ClsParamPair("@ContactNo", _input.ContactNo ??"", false, "String"),
                 new ClsParamPair("@WhatsAppNo", _input.WhatsAppNo ??"", false, "String"),
+                new ClsParamPair("@BioMatrixNo", _input.BioMatrixNo ??"", false, "String"),
                 new ClsParamPair("@EmailId", _input.EmailId ??"", false, "String"),
                 new ClsParamPair("@Password", _input.Password ??"", false, "String"),
                 new ClsParamPair("@CategoryID",  _input.CategoryID== null ? 0 : _input.CategoryID, false, "long"),
@@ -318,6 +319,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@AccountName", _input.AccountName ?? "", false, "String"),
                 new ClsParamPair("@FactoryId", _input.FactoryId == null ? 0 : _input.FactoryId, false, "long"),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@BioMatrixNo", _input.BioMatrixNo??"", false, "long"),
                 new ClsParamPair("@IsActive", _input.IsActive == null ? false : _input.IsActive, false, "bool"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
             };

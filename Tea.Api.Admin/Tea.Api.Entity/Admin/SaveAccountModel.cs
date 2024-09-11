@@ -12,6 +12,8 @@ namespace Tea.Api.Entity.Admin
         public string? AccountName { get; set; }
         public long? FactoryId { get; set; }
         public long? TenantId { get; set; }
+
+        public string? BioMatrixNo { get; set; }
         public bool? IsActive { get; set; }
         public long? CreatedBy { get; set; }
     }
