@@ -50,4 +50,11 @@ namespace Tea.Api.Entity.MessageBroker
         public byte[]? ChallanImageByte { get; set; }
     }
 
+    public class SignalRNotify
+    {
+        public bool? Message { get; set; }
+        public long? TenantId { get; set; }
+
+    }
+
 }

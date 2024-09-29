@@ -67,7 +67,7 @@ namespace Tea.RMQ.MessageConsume.ExchangeTypes
 
             // Keep the application running to continue receiving messages
            // Console.WriteLine("start consuming");
-            Log.Information("start consuming for DEV");
+            Log.Information("start consuming for PROD");
          
             Console.ReadLine();
         }

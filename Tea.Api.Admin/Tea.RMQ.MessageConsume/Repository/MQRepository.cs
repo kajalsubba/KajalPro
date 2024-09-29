@@ -126,9 +126,12 @@ namespace Tea.RMQ.MessageConsume.Repository
             List<ClsParamPair> oclsPairs = new()
                 {
                     new ClsParamPair("@Source", _input.Source??"", false, "string"),
-                    new ClsParamPair("@StgSendComment", _input.ServerComment??"", false, "string"),
-                    new ClsParamPair("@VehicleNo", _input.VehicleNo??"", false, "string"),
                     new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                    new ClsParamPair("@VehicleNo", _input.VehicleNo??"", false, "string"),
+                    new ClsParamPair("@StgSendComment", _input.ServerComment??"", false, "string"),
+                    new ClsParamPair("@AccountId", _input.AccountId??0, false, "long"),
+                    new ClsParamPair("@FineLeaf", _input.FineLeaf??0, false, "long"),
+                    new ClsParamPair("@ChallanWeight", _input.ChallanWeight??0, false, "long"),
                     new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long")
                 
             };

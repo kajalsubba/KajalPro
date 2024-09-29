@@ -24,7 +24,13 @@ namespace Tea.Api.Entity.Admin
         public long? CreatedBy { get; set; }
  
     }
+    public class GenerateQRModel
+    {
+        public long? ClientId { get; set; }
+        public string? ClientName { get; set; }
+        public long? TenantId { get; set; }
 
+    }
     public class DeleteClientModel
     {
         public long? ClientId { get; set; }

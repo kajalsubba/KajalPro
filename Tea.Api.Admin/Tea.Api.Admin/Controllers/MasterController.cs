@@ -221,5 +221,7 @@ namespace Tea.Api.Admin.Controllers
             var results = await _adminService.SavePaymentType(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+  
+
     }
 }

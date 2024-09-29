@@ -34,6 +34,9 @@ namespace Tea.RMQ.MessageConsume.Entity
         public long? CreatedBy { get; set; }
 
         public string? ServerComment { get; set; }
+        public int? AccountId { get; set; }
+        public int? ChallanWeight { get; set; }
+        public int? FineLeaf { get; set; }
         public string? VehicleNo { get; set; }
         public string? Source { get; set; } = "Mobile";
         public string? Category { get; set; } = "STG";

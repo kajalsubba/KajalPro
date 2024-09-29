@@ -32,6 +32,9 @@ namespace Tea.Api.Entity.MessageBroker
     {
         public long? TenantId { get; set; }
         public string? ServerComment { get; set; }
+        public int? AccountId { get; set; }
+        public int? ChallanWeight { get; set; }
+        public int? FineLeaf { get; set; }
         public long? CreatedBy { get; set; }
         public string? VehicleNo { get; set; }
      
