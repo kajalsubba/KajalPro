@@ -12,4 +12,11 @@ namespace Tea.Api.Entity.Collection
         public string? ToDate { get; set; }
         public long? TenantId { get; set; }
     }
+
+    public class SeasonAdvReportModel
+    {
+        public long? TenantId { get; set; }
+        public string? Category { get; set; }
+
+    }
 }

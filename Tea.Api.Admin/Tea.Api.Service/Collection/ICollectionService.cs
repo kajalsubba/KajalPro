@@ -48,14 +48,14 @@ namespace Tea.Api.Service.Collection
         Task<SaveReturnModel> SaveSaleRate(SaveSaleRateFixModel _input);
         Task<DataSet> GetStgVehicleData(GetStgVehicleModel _input);
 
-        Task<DataSet> GetStgPendingDate( GetStgPendingDateModel _input);
+        Task<DataSet> GetStgPendingDate(GetStgPendingDateModel _input);
 
         Task<DataSet> GetSupplierDefaultData(GetSupplierDefaultModel _input);
 
         Task<DataSet> GetSaleStgData(GetSaleStgxModel _input);
         Task<DataSet> GetSaleSupplierData(GetSaleStgxModel _input);
 
-        Task<DataSet> GetSaleFactory( GetSaleFactory _input);
+        Task<DataSet> GetSaleFactory(GetSaleFactory _input);
         Task<DataSet> GetNotifications(NotificationModel _input);
 
         Task<DataSet> GetSupplierMobileData(GetSupplierMobileModel _input);
@@ -65,13 +65,13 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetVehicleLockDetails(GetVehicleLockModel _input);
         Task<DataSet> PurchaseAndSaleReport(GradeReportModel _input);
         Task<DataSet> GetLockedVehicleList(LockVehicleListModel _input);
-        Task<DataSet> MonthWiseWeightReport( MonthWiseWeightModel _input);
+        Task<DataSet> MonthWiseWeightReport(MonthWiseWeightModel _input);
         Task<DataSet> GetTransferStgData(GetStgTransferModel _input);
         Task<SaveReturnModel> UpdateTransferStatus(GetStgTransferModel _input);
-        
+
         Task<DataSet> SalePurchaseWiseReport(GradeReportModel _input);
         Task<DataSet> GetMobileStgData(GetStgHistoryModel _input);
 
-
+        Task<DataSet> GetSeasonAdvanceReport(SeasonAdvReportModel _input);
     }
 }

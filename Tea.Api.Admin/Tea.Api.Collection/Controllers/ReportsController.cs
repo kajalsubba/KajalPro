@@ -62,5 +62,14 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetSeasonAdvanceReport")]
+        public async Task<IActionResult> GetSeasonAdvanceReport([FromBody] SeasonAdvReportModel _input)
+        {
+            var results = await _collectionService.GetSeasonAdvanceReport(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

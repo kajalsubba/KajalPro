@@ -29,12 +29,12 @@ namespace Tea.Api.Data.Repository.Collection
             _config = config;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSaleDetails(SelectSale _input)
+        async Task<DataSet> ICollectionRepository.GetSaleDetails(SelectSale _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-             
+
                 new ClsParamPair("@FromDate", _input.FromDate ??""),
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@VehicleNo", _input.VehicleNo ??""),
@@ -72,7 +72,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<string> ICollectionRepository.SaveApproveStg(SaveApproveStg _input)
+        async Task<string> ICollectionRepository.SaveApproveStg(SaveApproveStg _input)
         {
             List<ApproveStgMapping> _items = _input.ApproveList.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -95,7 +95,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-      async  Task<string> ICollectionRepository.SaveSale(SaveSaleModel _input)
+        async Task<string> ICollectionRepository.SaveSale(SaveSaleModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -147,10 +147,10 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-     async   Task<string> ICollectionRepository.SaveSupplier(SaveSupplierModel _input)
+        async Task<string> ICollectionRepository.SaveSupplier(SaveSupplierModel _input)
         {
 
-         //   string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept");
+            //   string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept");
 
             List<ClsParamPair> oclsPairs = new()
             {
@@ -175,21 +175,21 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-       async Task<string> ICollectionRepository.UploadSupplierChallan(SaveChallanImageModel _input)
+        async Task<string> ICollectionRepository.UploadSupplierChallan(SaveChallanImageModel _input)
         {
-            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept"+_input.CollectionId, _config.GetConnectionString("DirectoryName"));
+            string ChallanPath = await ClsUploadFile.UploadFile(_config.GetConnectionString("FilePath"), _input.TenantId.ToString(), _input.ChallanImage, "ChallanReciept" + _input.CollectionId, _config.GetConnectionString("DirectoryName"));
 
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),
                 new ClsParamPair("@ChallanReceiptCopy",ChallanPath ??"",false,"String")
-             
+
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[TeaCollection].[SupplierChallanUpdate]", oclsPairs);
             return Msg;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSupplierDetails(SupplierFilterModel _input)
+        async Task<DataSet> ICollectionRepository.GetSupplierDetails(SupplierFilterModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -210,9 +210,9 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<string> ICollectionRepository.SaveApproveSupplier(SaveApproveSupplier _input)
+        async Task<string> ICollectionRepository.SaveApproveSupplier(SaveApproveSupplier _input)
         {
-            
+
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@CollectionId", _input.CollectionId == null ? 0 : _input.CollectionId, false, "long"),
@@ -233,7 +233,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-       async Task<DataSet> ICollectionRepository.GetStgRateFixData(GetStgRateFixModel _input)
+        async Task<DataSet> ICollectionRepository.GetStgRateFixData(GetStgRateFixModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -243,7 +243,7 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@GradeId",_input.GradeId == null ? 0 : _input.GradeId),
                 new ClsParamPair("@ClientId",_input.ClientId == null ? 0 : _input.ClientId)
-     
+
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGRateFixData]", oclsPairs);
@@ -251,7 +251,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<string> ICollectionRepository.SaveStgRate(SaveStgRateFixModel _input)
+        async Task<string> ICollectionRepository.SaveStgRate(SaveStgRateFixModel _input)
         {
             List<StgRateFixModel> _items = _input.RateData.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -268,7 +268,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-      async  Task<string> ICollectionRepository.SaveStgSale(SaveStgSaleModel _input)
+        async Task<string> ICollectionRepository.SaveStgSale(SaveStgSaleModel _input)
         {
             List<StgApproveData> _items = _input.ApproveList.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -298,18 +298,18 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@SaleTypeId",  _input.SaleTypeId == null ? 0 : _input.SaleTypeId, false, "long"),
                 new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
                 new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long"),
-              
+
             };
             string Msg = await _dataHandler.ExecuteUserTypeTableAsyn("[TeaCollection].[StgSaleInsertUpdate]", parameters, oclsPairs);
             return Msg;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSupplierRateFixData(GetSupplierRateFixModel _input)
+        async Task<DataSet> ICollectionRepository.GetSupplierRateFixData(GetSupplierRateFixModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
-           
+
                 new ClsParamPair("@FromDate", _input.FromDate ??""),
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@FactoryId",_input.FactoryId ??0),
@@ -324,7 +324,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSaleRateFixData(GetSaleRateFixModel _input)
+        async Task<DataSet> ICollectionRepository.GetSaleRateFixData(GetSaleRateFixModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -344,7 +344,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSupplierVehicle(GetSupplierVehicleModel _input)
+        async Task<DataSet> ICollectionRepository.GetSupplierVehicle(GetSupplierVehicleModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -360,7 +360,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-      async  Task<string> ICollectionRepository.SaveSupplierRate(SaveSupplierRateFixModel _input)
+        async Task<string> ICollectionRepository.SaveSupplierRate(SaveSupplierRateFixModel _input)
         {
             List<SupplierRateFixModel> _items = _input.RateData.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -377,7 +377,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-       async Task<string> ICollectionRepository.SaveSaleRate(SaveSaleRateFixModel _input)
+        async Task<string> ICollectionRepository.SaveSaleRate(SaveSaleRateFixModel _input)
         {
             List<SalerRateFixModel> _items = _input.RateData.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -394,7 +394,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-       async Task<DataSet> ICollectionRepository.GetStgVehicleData(GetStgVehicleModel _input)
+        async Task<DataSet> ICollectionRepository.GetStgVehicleData(GetStgVehicleModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -410,7 +410,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetStgPendingDate(GetStgPendingDateModel _input)
+        async Task<DataSet> ICollectionRepository.GetStgPendingDate(GetStgPendingDateModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -425,7 +425,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionRepository.GetSupplierDefaultData(GetSupplierDefaultModel _input)
+        async Task<DataSet> ICollectionRepository.GetSupplierDefaultData(GetSupplierDefaultModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -441,7 +441,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSaleStgData(GetSaleStgxModel _input)
+        async Task<DataSet> ICollectionRepository.GetSaleStgData(GetSaleStgxModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -457,14 +457,14 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetNotifications(NotificationModel _input)
+        async Task<DataSet> ICollectionRepository.GetNotifications(NotificationModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
             {
 
                 new ClsParamPair("@TenantId", _input.TenantId ??0),
-                
+
 
             };
 
@@ -473,7 +473,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSupplierMobileData(GetSupplierMobileModel _input)
+        async Task<DataSet> ICollectionRepository.GetSupplierMobileData(GetSupplierMobileModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -491,7 +491,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSaleSupplierData(GetSaleStgxModel _input)
+        async Task<DataSet> ICollectionRepository.GetSaleSupplierData(GetSaleStgxModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -507,7 +507,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetSaleFactory(GetSaleFactory _input)
+        async Task<DataSet> ICollectionRepository.GetSaleFactory(GetSaleFactory _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -523,7 +523,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-      async  Task<DataSet> ICollectionRepository.ClientWiseGradeReport(GradeReportModel _input)
+        async Task<DataSet> ICollectionRepository.ClientWiseGradeReport(GradeReportModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -540,7 +540,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.DateWiseGradeReport(GradeReportModel _input)
+        async Task<DataSet> ICollectionRepository.DateWiseGradeReport(GradeReportModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -557,7 +557,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.PurchaseAndSaleReport(GradeReportModel _input)
+        async Task<DataSet> ICollectionRepository.PurchaseAndSaleReport(GradeReportModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -575,7 +575,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.MonthWiseWeightReport(MonthWiseWeightModel _input)
+        async Task<DataSet> ICollectionRepository.MonthWiseWeightReport(MonthWiseWeightModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -587,11 +587,11 @@ namespace Tea.Api.Data.Repository.Collection
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetMonthWiseWeightReport]", oclsPairs);
             ds.Tables[0].TableName = "MonthWiseReport";
-          
+
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.SalePurchaseWiseReport(GradeReportModel _input)
+        async Task<DataSet> ICollectionRepository.SalePurchaseWiseReport(GradeReportModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -607,7 +607,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<string> ICollectionRepository.LateralStgSave(LateralStgSaveModel _input)
+        async Task<string> ICollectionRepository.LateralStgSave(LateralStgSaveModel _input)
         {
             List<LateralStgList> _items = _input.lateralStgLists.ToList();
             DataTable dt = ConvertToDatatable.ToDataTable(_items);
@@ -641,7 +641,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-       async Task<string> ICollectionRepository.VehicleLockSaveMobile(VehicleLockModel _input)
+        async Task<string> ICollectionRepository.VehicleLockSaveMobile(VehicleLockModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -656,7 +656,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-       async Task<DataSet> ICollectionRepository.GetVehicleLockDetails(GetVehicleLockModel _input)
+        async Task<DataSet> ICollectionRepository.GetVehicleLockDetails(GetVehicleLockModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -675,7 +675,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetLockedVehicleList(LockVehicleListModel _input)
+        async Task<DataSet> ICollectionRepository.GetLockedVehicleList(LockVehicleListModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -692,7 +692,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetStgBagData(StgBagDataModel _input)
+        async Task<DataSet> ICollectionRepository.GetStgBagData(StgBagDataModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -708,7 +708,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionRepository.GetTransferStgData(GetStgTransferModel _input)
+        async Task<DataSet> ICollectionRepository.GetTransferStgData(GetStgTransferModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -726,7 +726,7 @@ namespace Tea.Api.Data.Repository.Collection
             return ds;
         }
 
-       async Task<string> ICollectionRepository.UpdateTransferStatus(GetStgTransferModel _input)
+        async Task<string> ICollectionRepository.UpdateTransferStatus(GetStgTransferModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -740,7 +740,7 @@ namespace Tea.Api.Data.Repository.Collection
             return Msg;
         }
 
-      async  Task<DataSet> ICollectionRepository.GetMobileStgData(GetStgHistoryModel _input)
+        async Task<DataSet> ICollectionRepository.GetMobileStgData(GetStgHistoryModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -755,6 +755,21 @@ namespace Tea.Api.Data.Repository.Collection
             ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetSTGHistory]", oclsPairs);
             ds.Tables[0].TableName = "STGDetails";
 
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetSeasonAdvanceReport(SeasonAdvReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@Category", _input.Category??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetSeasonAdvance]", oclsPairs);
+            ds.Tables[0].TableName = "GetAdvance";
             return ds;
         }
     }

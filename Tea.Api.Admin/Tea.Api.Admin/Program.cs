@@ -53,12 +53,23 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tea.Api.Admin", Version = "v1" });
 });
 
-builder.Services.AddCors(policyBuilder =>
-    policyBuilder.AddDefaultPolicy(policy =>
-        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
-);
+//builder.Services.AddCors(policyBuilder =>
+//    policyBuilder.AddDefaultPolicy(policy =>
+//        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+//);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins("https://www.glsportals.com") // Replace with your frontend URL
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // If you need credentials (e.g., cookies)
+        });
+});
 var app = builder.Build();
-app.UseCors();
+app.UseCors("AllowSpecificOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()|| app.Environment.IsProduction())

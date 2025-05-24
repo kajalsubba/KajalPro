@@ -74,5 +74,7 @@ namespace Tea.Api.Data.Repository.Collection
 
         Task<DataSet> GetMobileStgData(GetStgHistoryModel _input);
 
+        Task<DataSet> GetSeasonAdvanceReport(SeasonAdvReportModel _input);
+
     }
 }
