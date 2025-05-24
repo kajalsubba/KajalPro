@@ -152,5 +152,14 @@ namespace Tea.Api.Admin.Controllers
             var results = await _adminService.ChangeUserPassword(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+
+        [HttpPost, Route("CheckRenewDate")]
+        public async Task<IActionResult> CheckRenewDate([FromBody] RenewTenantModel _input)
+        {
+            var results = await _adminService.CheckRenewDate(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

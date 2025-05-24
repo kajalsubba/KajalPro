@@ -26,4 +26,10 @@ namespace Tea.Api.Entity.Admin
 
         public long? CreatedBy { get; set; }
     }
+
+    public class SelectTenantModel
+    {
+        public long? TenantId { get; set; }
+
+    }
 }

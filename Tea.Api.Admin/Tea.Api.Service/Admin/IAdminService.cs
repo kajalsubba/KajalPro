@@ -66,13 +66,14 @@ namespace Tea.Api.Service.Admin
 
         Task<SaveReturnModel> ChangePassword(ChangePasswordModel _input);
         Task<DataSet> GetCompanyWiseSaleChart(CompanyWiseSaleChartModel _input);
-        
+
         Task<DataSet> GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input);
 
         Task<DataSet> GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input);
 
         Task<SaveReturnModel> ChangeUserPassword(ChangeUserPasswordModel _input);
-      //  Task<DataSet> GenerateClientQRCode(GenerateQRModel _input);
+
+        Task<DataSet> CheckRenewDate(RenewTenantModel _input);
 
     }
 }

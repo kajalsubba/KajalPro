@@ -617,7 +617,7 @@ namespace Tea.Api.Data.Repository.Admin
 
         }
 
-      async  Task<string> IAdminRepository.ChangeUserPassword(ChangeUserPasswordModel _input)
+        async Task<string> IAdminRepository.ChangeUserPassword(ChangeUserPasswordModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -630,7 +630,7 @@ namespace Tea.Api.Data.Repository.Admin
             return Msg;
         }
 
-       async Task<string> IAdminRepository.SaveVehicle(SaveVehicleModel _input)
+        async Task<string> IAdminRepository.SaveVehicle(SaveVehicleModel _input)
         {
             List<ClsParamPair> oclsPairs = new()
             {
@@ -642,6 +642,20 @@ namespace Tea.Api.Data.Repository.Admin
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Master].[VehicleInsertUpdate]", oclsPairs);
             return Msg;
+        }
+
+        async Task<DataSet> IAdminRepository.CheckRenewDate(RenewTenantModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCheckRenewDate]", oclsPairs);
+            ds.Tables[0].TableName = "RenewInfo";
+            return ds;
         }
     }
 }

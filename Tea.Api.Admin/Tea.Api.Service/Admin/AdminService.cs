@@ -18,7 +18,7 @@ namespace Tea.Api.Service.Admin
             _unitOfWork = unitOfWork;
         }
 
-       async Task<SaveReturnModel> IAdminService.ChangePassword(ChangePasswordModel _input)
+        async Task<SaveReturnModel> IAdminService.ChangePassword(ChangePasswordModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.ChangePassword(_input);
             string[] msgList = msg.Split(",");
@@ -74,7 +74,7 @@ namespace Tea.Api.Service.Admin
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-       async Task<DataTable> IAdminService.GetApkUpdateNotification()
+        async Task<DataTable> IAdminService.GetApkUpdateNotification()
         {
             DataTable ds;
             ds = await _unitOfWork.AdminRepository.GetApkUpdateNotification();
@@ -102,7 +102,7 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetCompanyWiseSaleChart(CompanyWiseSaleChartModel _input)
+        async Task<DataSet> IAdminService.GetCompanyWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetCompanyWiseSaleChart(_input);
@@ -165,7 +165,7 @@ namespace Tea.Api.Service.Admin
             return ds;
         }
 
-       async Task<DataSet> IAdminService.GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input)
+        async Task<DataSet> IAdminService.GetSTGWiseSaleChart(CompanyWiseSaleChartModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetSTGWiseSaleChart(_input);
@@ -257,7 +257,7 @@ namespace Tea.Api.Service.Admin
 
         }
 
-       async Task<SaveReturnModel> IAdminService.SavePaymentType(SavePaymentTypeModel _input)
+        async Task<SaveReturnModel> IAdminService.SavePaymentType(SavePaymentTypeModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SavePaymentType(_input);
             string[] msgList = msg.Split(",");
@@ -286,32 +286,40 @@ namespace Tea.Api.Service.Admin
 
         }
 
-       async Task<SaveReturnModel> IAdminService.UpdateClientPassword(PasswordUpdateClientModel _input)
+        async Task<SaveReturnModel> IAdminService.UpdateClientPassword(PasswordUpdateClientModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.UpdateClientPassword(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-       async Task<JwtReturnModel> IAdminService.AuthenticationLogin(LoginModel _input)
+        async Task<JwtReturnModel> IAdminService.AuthenticationLogin(LoginModel _input)
         {
-           
+
             return await _unitOfWork.AdminRepository.AuthenticationLogin(_input);
-            
+
         }
 
-      async Task<SaveReturnModel> IAdminService.ChangeUserPassword(ChangeUserPasswordModel _input)
+        async Task<SaveReturnModel> IAdminService.ChangeUserPassword(ChangeUserPasswordModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.ChangeUserPassword(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-       async Task<SaveReturnModel> IAdminService.SaveVehicle(SaveVehicleModel _input)
+        async Task<SaveReturnModel> IAdminService.SaveVehicle(SaveVehicleModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveVehicle(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<DataSet> IAdminService.CheckRenewDate(RenewTenantModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.CheckRenewDate(_input);
+            return ds;
+
         }
     }
 }

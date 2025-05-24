@@ -80,6 +80,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> GetSupplierWiseSaleChart(CompanyWiseSaleChartModel _input);
 
         Task<string> ChangeUserPassword(ChangeUserPasswordModel _input);
+        Task<DataSet> CheckRenewDate(RenewTenantModel _input);
 
     }
 }

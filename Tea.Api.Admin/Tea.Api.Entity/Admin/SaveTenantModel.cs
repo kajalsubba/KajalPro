@@ -19,8 +19,9 @@ namespace Tea.Api.Entity.Admin
         public bool? IsActive { get; set; }
     }
 
-    public class SelectTenantModel
+    public class RenewTenantModel
     {
+        public long? TenantId { get; set; }
 
     }
 }
