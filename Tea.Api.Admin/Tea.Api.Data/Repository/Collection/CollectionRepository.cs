@@ -772,5 +772,20 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "GetAdvance";
             return ds;
         }
+
+        async Task<DataSet> ICollectionRepository.GetFieldBalanceReport(SeasonAdvReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@Category", _input.Category??""),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetFieldBalanceReport]", oclsPairs);
+            ds.Tables[0].TableName = "FieldBalance";
+            return ds;
+        }
     }
 }

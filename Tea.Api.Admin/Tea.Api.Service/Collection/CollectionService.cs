@@ -290,5 +290,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.GetSeasonAdvanceReport(_input);
             return ds;
         }
+
+       async Task<DataSet> ICollectionService.GetFieldBalanceReport(SeasonAdvReportModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetFieldBalanceReport(_input);
+            return ds;
+        }
     }
 }
