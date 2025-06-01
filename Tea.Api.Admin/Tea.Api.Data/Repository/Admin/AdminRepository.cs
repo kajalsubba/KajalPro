@@ -533,6 +533,7 @@ namespace Tea.Api.Data.Repository.Admin
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCompanyWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "CompanyWiseChart";
+            ds.Tables[1].TableName = "YearWiseChart";
             return ds;
         }
 
