@@ -38,5 +38,10 @@ namespace Tea.Api.Data.Repository.Accounts
         Task<DataSet> GetSmartHistory(SmartHistoryModel _input);
 
         Task<DataSet> GetNarration(NarrationModel _input);
+
+        Task<string> SaveUserWallet(WalletModel _input);
+        Task<DataSet> GetWalletHistory(WalletHistModel _input);
+
+        Task<DataSet> GetWalletBalanace(WalletBalanceModel _input);
     }
 }

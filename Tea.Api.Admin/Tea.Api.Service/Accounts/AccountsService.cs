@@ -20,7 +20,7 @@ namespace Tea.Api.Service.Accounts
             _unitOfWork = unitOfWork;
         }
 
-       async Task<DataSet> IAccountsService.GetNarration(NarrationModel _input)
+        async Task<DataSet> IAccountsService.GetNarration(NarrationModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetNarration(_input);
@@ -34,7 +34,7 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
-       async Task<DataSet> IAccountsService.GetSaleSummary(SaleSummaryModel _input)
+        async Task<DataSet> IAccountsService.GetSaleSummary(SaleSummaryModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetSaleSummary(_input);
@@ -48,13 +48,13 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
-       async Task<DataSet> IAccountsService.GetSmartHistory(SmartHistoryModel _input)
+        async Task<DataSet> IAccountsService.GetSmartHistory(SmartHistoryModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetSmartHistory(_input);
             return ds;
         }
-    
+
 
         async Task<DataSet> IAccountsService.GetStgBillData(StgBillModel _input)
         {
@@ -70,31 +70,45 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
-       async Task<DataSet> IAccountsService.GetStgSummary(StgSummaryModel _input)
+        async Task<DataSet> IAccountsService.GetStgSummary(StgSummaryModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetStgSummary(_input);
             return ds;
         }
 
-      async  Task<DataSet> IAccountsService.GetSupplierBillData(SupplierBillModel _input)
+        async Task<DataSet> IAccountsService.GetSupplierBillData(SupplierBillModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetSupplierBillData(_input);
             return ds;
         }
 
-       async Task<DataSet> IAccountsService.GetSupplierBillHistory(GetSupplierBillHistoryModel _input)
+        async Task<DataSet> IAccountsService.GetSupplierBillHistory(GetSupplierBillHistoryModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetSupplierBillHistory(_input);
             return ds;
         }
 
-      async  Task<DataSet> IAccountsService.GetSupplierSummary(SupplierSummaryModel _input)
+        async Task<DataSet> IAccountsService.GetSupplierSummary(SupplierSummaryModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.AccountsRepository.GetSupplierSummary(_input);
+            return ds;
+        }
+
+        async Task<DataSet> IAccountsService.GetWalletBalanace(WalletBalanceModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetWalletBalanace(_input);
+            return ds;
+        }
+
+        async Task<DataSet> IAccountsService.GetWalletHistory(WalletHistModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetWalletHistory(_input);
             return ds;
         }
 
@@ -119,9 +133,16 @@ namespace Tea.Api.Service.Accounts
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }
 
-       async Task<SaveReturnModel> IAccountsService.SaveSupplierBill(SaveSupplierBill _input)
+        async Task<SaveReturnModel> IAccountsService.SaveSupplierBill(SaveSupplierBill _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveSupplierBill(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IAccountsService.SaveUserWallet(WalletModel _input)
+        {
+            string msg = await _unitOfWork.AccountsRepository.SaveUserWallet(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }

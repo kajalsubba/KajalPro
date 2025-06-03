@@ -19,6 +19,8 @@ namespace Tea.Api.Entity.Accounts
         public int? CategoryId { get; set; }
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
+        public string? PaymentSource { get; set; }
+        
     }
 
     public class GetPaymentModel
