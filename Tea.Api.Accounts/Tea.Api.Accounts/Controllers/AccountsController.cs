@@ -184,6 +184,14 @@ namespace Tea.Api.Accounts.Controllers
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
 
+        [HttpPost, Route("GetWalletStatement")]
+        public async Task<IActionResult> GetWalletStatement([FromBody] WalletHistModel _input)
+        {
+            var results = await _accountsService.GetWalletStatement(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
         #endregion
     }
 }

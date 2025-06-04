@@ -42,6 +42,8 @@ namespace Tea.Api.Data.Repository.Accounts
         Task<string> SaveUserWallet(WalletModel _input);
         Task<DataSet> GetWalletHistory(WalletHistModel _input);
 
+        Task<DataSet> GetWalletStatement(WalletHistModel _input);
+
         Task<DataSet> GetWalletBalanace(WalletBalanceModel _input);
     }
 }

@@ -112,6 +112,13 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
+        async Task<DataSet> IAccountsService.GetWalletStatement(WalletHistModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetWalletStatement(_input);
+            return ds;
+        }
+
         async Task<SaveReturnModel> IAccountsService.SavePayment(SavePaymentModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SavePayment(_input);

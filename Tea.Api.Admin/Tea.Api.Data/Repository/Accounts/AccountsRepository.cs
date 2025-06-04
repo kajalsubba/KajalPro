@@ -230,7 +230,7 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
-       async Task<DataSet> IAccountsRepository.GetWalletBalanace(WalletBalanceModel _input)
+        async Task<DataSet> IAccountsRepository.GetWalletBalanace(WalletBalanceModel _input)
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
@@ -259,6 +259,24 @@ namespace Tea.Api.Data.Repository.Accounts
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetWalletHistoryData]", oclsPairs);
             ds.Tables[0].TableName = "WalletHistory";
+            return ds;
+        }
+
+        async Task<DataSet> IAccountsRepository.GetWalletStatement(WalletHistModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@UserId", _input.UserId??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetWalletStatement]", oclsPairs);
+            ds.Tables[0].TableName = "WalletStatement";
             return ds;
         }
 
@@ -378,6 +396,7 @@ namespace Tea.Api.Data.Repository.Accounts
             List<ClsParamPair> oclsPairs = new()
             {
                 new ClsParamPair("@WalletId", _input.WalletId??0, false, "long"),
+                new ClsParamPair("@TransactionDate",Convert.ToDateTime(_input.PaymentDate), true, "DateTime"),
                 new ClsParamPair("@Amount",_input.Amount??0, false, "long"),
                 new ClsParamPair("@UserId",_input.UserId??0, false, "long"),
                 new ClsParamPair("@Narration",_input.Narration??"", false, "String"),

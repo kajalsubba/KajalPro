@@ -10,6 +10,7 @@ namespace Tea.Api.Entity.Accounts
     {
         public long? WalletId { get; set; }
         public long? UserId { get; set; }
+        public DateTime? PaymentDate { get; set; }
         public decimal? Amount { get; set; } // Use decimal for currency
         public string? Narration { get; set; }
         public long? TenantId { get; set; }
