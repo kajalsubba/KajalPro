@@ -56,6 +56,24 @@ namespace Tea.Api.Data.Repository.Accounts
             return ds;
         }
 
+        async Task<DataSet> IAccountsRepository.GetPettyCashBoook(WalletHistModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@UserId", _input.UserId??0),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetPettyCashBooktHistoryData]", oclsPairs);
+            ds.Tables[0].TableName = "CashBookData";
+            return ds;
+        }
+
         async Task<DataSet> IAccountsRepository.GetSaleSummary(SaleSummaryModel _input)
         {
             DataSet ds;
@@ -299,6 +317,23 @@ namespace Tea.Api.Data.Repository.Accounts
 
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Accounts].[PaymentInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+        async Task<string> IAccountsRepository.SavePettyCashBook(PettyCashBookModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CashBookId", _input.CashBookId??0, false, "long"),
+                new ClsParamPair("@TransactionDate",Convert.ToDateTime(_input.PaymentDate), true, "DateTime"),
+                new ClsParamPair("@PaymentTypeId",_input.PaymentTypeId??0, false,"long"),
+                new ClsParamPair("@Amount", _input.Amount??0, false, "long"),
+                new ClsParamPair("@UserId", _input.UserId ??0, false, "long"),
+                new ClsParamPair("@Narration", _input.Narration??"", false, "string"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long"),
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Accounts].[PettyCashBookInsertUpdate]", oclsPairs);
             return Msg;
         }
 

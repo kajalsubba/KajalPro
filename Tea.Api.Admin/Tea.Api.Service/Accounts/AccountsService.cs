@@ -34,6 +34,13 @@ namespace Tea.Api.Service.Accounts
             return ds;
         }
 
+        async Task<DataSet> IAccountsService.GetPettyCashBoook(WalletHistModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetPettyCashBoook(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAccountsService.GetSaleSummary(SaleSummaryModel _input)
         {
             DataSet ds;
@@ -122,6 +129,13 @@ namespace Tea.Api.Service.Accounts
         async Task<SaveReturnModel> IAccountsService.SavePayment(SavePaymentModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SavePayment(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<SaveReturnModel> IAccountsService.SavePettyCashBook(PettyCashBookModel _input)
+        {
+            string msg = await _unitOfWork.AccountsRepository.SavePettyCashBook(_input);
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
         }

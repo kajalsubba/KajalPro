@@ -31,4 +31,16 @@ namespace Tea.Api.Entity.Accounts
         public long? TenantId { get; set; }
         public long? UserId { get; set; }
     }
+
+    public class PettyCashBookModel
+    {
+        public long? CashBookId { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public long? PaymentTypeId { get; set; }
+        public decimal? Amount { get; set; }
+        public long? UserId { get; set; }
+        public string? Narration { get; set; }
+        public long? TenantId { get; set; }
+        public long? CreatedBy { get; set; }
+    }
 }

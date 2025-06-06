@@ -192,6 +192,25 @@ namespace Tea.Api.Accounts.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("SavePettyCashBook")]
+        public async Task<IActionResult> SavePettyCashBook([FromBody] PettyCashBookModel _input)
+        {
+            var results = await _accountsService.SavePettyCashBook(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetPettyCashBoook")]
+        public async Task<IActionResult> GetPettyCashBoook([FromBody] WalletHistModel _input)
+        {
+            var results = await _accountsService.GetPettyCashBoook(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
         #endregion
     }
 }

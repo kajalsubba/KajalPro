@@ -17,9 +17,9 @@ namespace Tea.Api.Service.Accounts
         Task<DataSet> GetSeasonAdvance(GetSeasonAdvanceModel _input);
 
         Task<SaveReturnModel> SavePayment(SavePaymentModel _input);
-        Task<DataSet> GetPaymentData( GetPaymentModel _input);
+        Task<DataSet> GetPaymentData(GetPaymentModel _input);
 
-        Task<DataSet> GetStgBillData( StgBillModel _input);
+        Task<DataSet> GetStgBillData(StgBillModel _input);
         Task<SaveReturnModel> SaveStgBill(SaveStgBill _input);
 
         Task<DataSet> GetStgBillHistory(GetSTGBillHistoryModel _input);
@@ -43,8 +43,12 @@ namespace Tea.Api.Service.Accounts
 
         Task<DataSet> GetWalletHistory(WalletHistModel _input);
         Task<DataSet> GetWalletStatement(WalletHistModel _input);
-        
 
-        Task<DataSet> GetWalletBalanace( WalletBalanceModel _input);
+
+        Task<DataSet> GetWalletBalanace(WalletBalanceModel _input);
+
+        Task<SaveReturnModel> SavePettyCashBook(PettyCashBookModel _input);
+
+        Task<DataSet> GetPettyCashBoook(WalletHistModel _input);
     }
 }
