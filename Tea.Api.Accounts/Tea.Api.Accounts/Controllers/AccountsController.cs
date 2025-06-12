@@ -39,6 +39,15 @@ namespace Tea.Api.Accounts.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+        [HttpPost, Route("GetEntrySeasonAdvance")]
+        public async Task<IActionResult> GetEntrySeasonAdvance([FromBody] GetSeasonAdvanceModel _input)
+        {
+            var results = await _accountsService.GetEntrySeasonAdvance(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
 
 
         [HttpPost, Route("SavePayment")]

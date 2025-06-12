@@ -20,6 +20,13 @@ namespace Tea.Api.Service.Accounts
             _unitOfWork = unitOfWork;
         }
 
+        async Task<DataSet> IAccountsService.GetEntrySeasonAdvance(GetSeasonAdvanceModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AccountsRepository.GetEntrySeasonAdvance(_input);
+            return ds;
+        }
+
         async Task<DataSet> IAccountsService.GetNarration(NarrationModel _input)
         {
             DataSet ds;

@@ -23,6 +23,25 @@ namespace Tea.Api.Data.Repository.Accounts
             _dataHandler = dataHandler;
         }
 
+        async Task<DataSet> IAccountsRepository.GetEntrySeasonAdvance(GetSeasonAdvanceModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@ClientCategory", _input.ClientCategory ??""),
+                new ClsParamPair("@ClientId", _input.ClientId??0)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetSeasonAdvanceEntryData]", oclsPairs);
+            ds.Tables[0].TableName = "SeasonDetails";
+            return ds;
+        }
+
         async Task<DataSet> IAccountsRepository.GetNarration(NarrationModel _input)
         {
             DataSet ds;

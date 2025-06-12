@@ -16,6 +16,8 @@ namespace Tea.Api.Service.Accounts
 
         Task<DataSet> GetSeasonAdvance(GetSeasonAdvanceModel _input);
 
+        Task<DataSet> GetEntrySeasonAdvance(GetSeasonAdvanceModel _input);
+        
         Task<SaveReturnModel> SavePayment(SavePaymentModel _input);
         Task<DataSet> GetPaymentData(GetPaymentModel _input);
 
