@@ -16,6 +16,8 @@ namespace Tea.Api.Entity.Accounts
 
         public string? RecoveryType { get; set; }
         public decimal? Amount { get; set; }
+
+        public decimal? FieldBalance { get; set; }
         public string? Narration { get; set; } = string.Empty;
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }

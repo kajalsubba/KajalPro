@@ -386,6 +386,7 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@ClientCategory",_input.ClientCategory??"", false,"string"),
                 new ClsParamPair("@CategoryId",_input.CategoryId??0, false,"long"),
                 new ClsParamPair("@RecoveryType", _input.RecoveryType??"", false, "long"),
+                new ClsParamPair("@FieldBalance", _input.FieldBalance??0, false, "long"),
                 new ClsParamPair("@Amount", _input.Amount??0, false, "long"),
                 new ClsParamPair("@Narration", _input.Narration??"", false, "string"),
                 new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
