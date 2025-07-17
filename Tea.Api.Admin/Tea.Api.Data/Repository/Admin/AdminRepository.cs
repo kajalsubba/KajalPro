@@ -658,6 +658,22 @@ namespace Tea.Api.Data.Repository.Admin
             ds.Tables[0].TableName = "RenewInfo";
             return ds;
         }
+
+        async Task<DataSet> IAdminRepository.GetClientCollActivityChart(ClientActivityChartModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetSTGGapClientDetails]", oclsPairs);
+            ds.Tables[0].TableName = "STGClient";
+            ds.Tables[1].TableName = "SupplierClient";
+
+            return ds;
+        }
     }
 }
 

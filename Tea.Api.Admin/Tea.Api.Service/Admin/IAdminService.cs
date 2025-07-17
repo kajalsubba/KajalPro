@@ -75,5 +75,7 @@ namespace Tea.Api.Service.Admin
 
         Task<DataSet> CheckRenewDate(RenewTenantModel _input);
 
+        Task<DataSet> GetClientCollActivityChart(ClientActivityChartModel _input);
+
     }
 }

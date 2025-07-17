@@ -161,5 +161,14 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetClientCollActivityChart")]
+        public async Task<IActionResult> GetClientCollActivityChart([FromBody] ClientActivityChartModel _input)
+        {
+            var results = await _adminService.GetClientCollActivityChart(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

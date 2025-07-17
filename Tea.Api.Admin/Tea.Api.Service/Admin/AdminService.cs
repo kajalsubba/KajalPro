@@ -321,5 +321,12 @@ namespace Tea.Api.Service.Admin
             return ds;
 
         }
+
+        async Task<DataSet> IAdminService.GetClientCollActivityChart(ClientActivityChartModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetClientCollActivityChart(_input);
+            return ds;
+        }
     }
 }

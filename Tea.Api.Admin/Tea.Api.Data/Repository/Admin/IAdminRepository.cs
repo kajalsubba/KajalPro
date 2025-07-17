@@ -82,5 +82,8 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> ChangeUserPassword(ChangeUserPasswordModel _input);
         Task<DataSet> CheckRenewDate(RenewTenantModel _input);
 
+        Task<DataSet> GetClientCollActivityChart(ClientActivityChartModel _input);
+
+
     }
 }

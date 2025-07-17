@@ -13,4 +13,10 @@ namespace Tea.Api.Entity.Admin
 
 
     }
+    public class ClientActivityChartModel
+    {
+        public long? TenantId { get; set; }
+
+
+    }
 }
