@@ -24,7 +24,7 @@ namespace Tea.Api.Entity.Collection
         public bool? DirectSale { get; set; } = false;
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
-  
+
     }
 
     public class SelectSale
@@ -59,6 +59,13 @@ namespace Tea.Api.Entity.Collection
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
         public long? TenantId { get; set; }
+    }
+    public class GetSaleRateFixFactory
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? TenantId { get; set; }
+        public Boolean? IsClientView { get; set; }
     }
 
 }

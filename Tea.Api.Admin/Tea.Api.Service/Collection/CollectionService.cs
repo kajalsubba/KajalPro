@@ -291,10 +291,17 @@ namespace Tea.Api.Service.Collection
             return ds;
         }
 
-       async Task<DataSet> ICollectionService.GetFieldBalanceReport(SeasonAdvReportModel _input)
+        async Task<DataSet> ICollectionService.GetFieldBalanceReport(SeasonAdvReportModel _input)
         {
             DataSet ds;
             ds = await _unitOfWork.CollectionRepository.GetFieldBalanceReport(_input);
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionService.GetSaleRateFixFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSaleRateFixFactory(_input);
             return ds;
         }
     }

@@ -787,5 +787,22 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "FieldBalance";
             return ds;
         }
+
+        async Task<DataSet> ICollectionRepository.GetSaleRateFixFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@IsClientView", _input.IsClientView ??false),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetRateFixSaleFactory]", oclsPairs);
+            ds.Tables[0].TableName = "FactoryList";
+            return ds;
+        }
     }
 }
