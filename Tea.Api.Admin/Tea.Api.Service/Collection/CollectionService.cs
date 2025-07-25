@@ -304,5 +304,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.GetSaleRateFixFactory(_input);
             return ds;
         }
+
+        async Task<DataSet> ICollectionService.GetSupplierRateFixFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSupplierRateFixFactory(_input);
+            return ds;
+        }
     }
 }
