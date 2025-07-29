@@ -79,6 +79,10 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetSaleRateFixFactory(GetSaleRateFixFactory _input);
 
         Task<DataSet> GetSupplierRateFixFactory(GetSaleRateFixFactory _input);
-        
+
+        Task<DataSet> GetSupplierHistoryFactory(GetSaleRateFixFactory _input);
+
+        Task<DataSet> GetSupplierHistory(ReportHistoryFilterModel _input);
+
     }
 }

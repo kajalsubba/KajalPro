@@ -311,5 +311,19 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.GetSupplierRateFixFactory(_input);
             return ds;
         }
+
+        async Task<DataSet> ICollectionService.GetSupplierHistoryFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSupplierHistoryFactory(_input);
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionService.GetSupplierHistory(ReportHistoryFilterModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetSupplierHistory(_input);
+            return ds;
+        }
     }
 }

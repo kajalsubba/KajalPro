@@ -114,5 +114,17 @@ namespace Tea.Api.Entity.Collection
 
     }
 
+    public class ReportHistoryFilterModel
+    {
+        public long? TenantId { get; set; }
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public string? Status { get; set; }
+        public long? ClientId { get; set; }
+        public long? FactoryId { get; set; }
+        public long? AccountId { get; set; }
+        public string? FineLeaf { get; set; }
+        public long? CreatedBy { get; set; }
+    }
 
 }

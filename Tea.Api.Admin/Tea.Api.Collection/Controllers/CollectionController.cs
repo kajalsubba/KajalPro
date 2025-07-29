@@ -245,5 +245,23 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetSupplierHistoryFactory")]
+        public async Task<IActionResult> GetSupplierHistoryFactory([FromBody] GetSaleRateFixFactory _input)
+        {
+            var results = await _collectionService.GetSupplierHistoryFactory(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        [HttpPost, Route("GetSupplierHistory")]
+        public async Task<IActionResult> GetSupplierHistory([FromBody] ReportHistoryFilterModel _input)
+        {
+            var results = await _collectionService.GetSupplierHistory(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }
