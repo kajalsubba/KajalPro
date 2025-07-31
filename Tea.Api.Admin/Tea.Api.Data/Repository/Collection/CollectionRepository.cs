@@ -860,5 +860,22 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "SupplierDetails";
             return ds;
         }
+
+        async Task<DataSet> ICollectionRepository.GetStgRateFixGradeData(GetStgRateFixFilterModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetRateFixSTGGradeClient]", oclsPairs);
+            ds.Tables[0].TableName = "GradeList";
+            ds.Tables[1].TableName = "ClientList";
+            return ds;
+        }
     }
 }

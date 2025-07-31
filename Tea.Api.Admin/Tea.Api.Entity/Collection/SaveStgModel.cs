@@ -27,7 +27,7 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
         public string? Status { get; set; }
         public long? CreatedBy { get; set; }
-   
+
     }
 
     public class StgFilterModel
@@ -57,7 +57,7 @@ namespace Tea.Api.Entity.Collection
         public long? TotalLongLeaf { get; set; }
         public long? TotalDeduction { get; set; }
         public long? TotalFinalWeight { get; set; }
-        
+
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
 
@@ -67,7 +67,7 @@ namespace Tea.Api.Entity.Collection
     public class ApproveStgMapping
     {
         public Boolean? IsApprove { get; set; }
-        public  long ? CollectionId { get; set;}
+        public long? CollectionId { get; set; }
         public string? Status { get; set; }
     }
 
@@ -105,7 +105,7 @@ namespace Tea.Api.Entity.Collection
         public float? TotalFinalWeight { get; set; }
         public int? FineLeaf { get; set; }
         public float? ChallanWeight { get; set; }
-        public decimal? Rate  { get; set; }
+        public decimal? Rate { get; set; }
         public decimal? Incentive { get; set; }
         public decimal? GrossAmount { get; set; }
         public string? Remarks { get; set; }
@@ -142,7 +142,7 @@ namespace Tea.Api.Entity.Collection
     }
     public class GetStgPendingDateModel
     {
-      public long? TenantId { get; set; }
+        public long? TenantId { get; set; }
 
     }
 
@@ -163,5 +163,14 @@ namespace Tea.Api.Entity.Collection
         public long? ClientId { get; set; }
         public long? CreatedBy { get; set; }
     }
+
+    public class GetStgRateFixFilterModel
+    {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+        public long? TenantId { get; set; }
+
+    }
+
 
 }
