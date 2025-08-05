@@ -1,11 +1,7 @@
-﻿
-
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using Serilog.Events;
 using Serilog;
 using Tea.RMQ.MessageConsume.ExchangeTypes;
-using Newtonsoft.Json;
-using Tea.RMQ.MessageConsume.Entity;
 using Microsoft.Extensions.Configuration;
 
 Log.Logger = new LoggerConfiguration()
