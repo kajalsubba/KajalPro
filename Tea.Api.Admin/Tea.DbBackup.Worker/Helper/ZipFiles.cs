@@ -14,11 +14,11 @@ namespace Tea.DbBackup.Worker.Helper
 
         public async static Task ZipDbFolder()
         {
-            // Build configuration
+           
             IConfiguration config = new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .Build();
+               .SetBasePath(AppContext.BaseDirectory)
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+               .Build();
 
             var dbSettings = config.GetSection("ConnectionStrings");
             string sourceFolder = dbSettings["BackupPath"] ?? "";

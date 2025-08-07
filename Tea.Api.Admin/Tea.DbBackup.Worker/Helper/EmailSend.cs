@@ -15,10 +15,11 @@ namespace Tea.DbBackup.Worker.Helper
     {
         public async static Task MailSendService()
         {
+          
             IConfiguration config = new ConfigurationBuilder()
-                      .SetBasePath(Directory.GetCurrentDirectory())
-                      .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                      .Build();
+               .SetBasePath(AppContext.BaseDirectory)
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+               .Build();
 
             var dbSettings = config.GetSection("ConnectionStrings");
             string zipPath = dbSettings["ZipPath"] + "TeaDBBackup.zip";         // Output .zip file path
@@ -26,8 +27,8 @@ namespace Tea.DbBackup.Worker.Helper
             string senderEmail = dbSettings["SenderEmail"]??"";
             string appPassword = dbSettings["AppPassword"] ?? ""; 
             string recipientEmail = dbSettings["RecipientEmail"] ?? ""; 
-            string subject = "GLS portals Database Backup on "+DateTime.Now.Date.ToString("dd/MM/yyyy");
-            string body = "Both Production and Development Databases are included.";
+            string subject = "Automatic Database Backup for GLS Portals on " + DateTime.Now.Date.ToString("dd/MM/yyyy");
+            string body = "Please donot reyply. Both Production and Development Databases are included.";
 
             string attachmentPath = zipPath; // Change as needed
             Log.Information("Email sent starts.");

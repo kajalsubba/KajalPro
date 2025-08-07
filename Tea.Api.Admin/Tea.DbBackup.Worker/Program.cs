@@ -15,4 +15,5 @@ await ProdBackupHelper.ProdDbBackup();
 await DevBackupHelper.DevDbBackup();
 await ZipFiles.ZipDbFolder();
 await EmailSend.MailSendService();
-Log.CloseAndFlush();
+Log.Information("Backup is Completed");
+Console.ReadLine();

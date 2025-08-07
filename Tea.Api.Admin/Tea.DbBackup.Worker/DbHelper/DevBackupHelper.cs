@@ -14,10 +14,15 @@ namespace Tea.DbBackup.Worker.DbHelper
         public async static Task DevDbBackup()
         {
             // Build configuration
+            //IConfiguration config = new ConfigurationBuilder()
+            //            .SetBasePath(Directory.GetCurrentDirectory())
+            //            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            //            .Build();
             IConfiguration config = new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .Build();
+               .SetBasePath(AppContext.BaseDirectory)
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+               .Build();
+
 
             var dbSettings = config.GetSection("ConnectionStrings");
 
