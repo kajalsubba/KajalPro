@@ -531,7 +531,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCompanyWiseChart]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetCompanyWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "CompanyWiseChart";
             ds.Tables[1].TableName = "YearWiseChart";
             return ds;
@@ -547,7 +547,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSTGWiseChart]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetSTGWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "StgWiseChart";
             return ds;
         }
@@ -562,7 +562,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSupplierWiseChart]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetSupplierWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "SupplierWiseChart";
             return ds;
         }
