@@ -22,7 +22,9 @@ namespace Tea.DbBackup.Worker.Helper
                .Build();
 
             var dbSettings = config.GetSection("ConnectionStrings");
-            string zipPath = dbSettings["ZipPath"] + "TeaDBBackup.zip";         // Output .zip file path
+            //  string zipPath = dbSettings["ZipPath"] + "TeaDBBackup.zip";         // Output .zip file path
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string zipPath = dbSettings["ZipPath"] + $"TeaDBBackup_{date}.zip";
 
             string senderEmail = dbSettings["SenderEmail"]??"";
             string appPassword = dbSettings["AppPassword"] ?? ""; 

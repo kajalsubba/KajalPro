@@ -247,6 +247,7 @@ namespace Tea.Api.Data.Repository.Accounts
             ds.Tables[0].TableName = "SupplierData";
             ds.Tables[1].TableName = "PaymentData";
             ds.Tables[2].TableName = "OutStandingData";
+            ds.Tables[3].TableName = "SupplierDataWithoutRate";
             return ds;
         }
 

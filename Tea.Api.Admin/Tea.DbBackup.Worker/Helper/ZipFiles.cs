@@ -22,7 +22,9 @@ namespace Tea.DbBackup.Worker.Helper
 
             var dbSettings = config.GetSection("ConnectionStrings");
             string sourceFolder = dbSettings["BackupPath"] ?? "";
-            string zipPath = dbSettings["ZipPath"] + "TeaDBBackup.zip";         // Output .zip file path
+            // string zipPath = dbSettings["ZipPath"] + "TeaDBBackup.zip"; 
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string zipPath = dbSettings["ZipPath"] + $"TeaDBBackup_{date}.zip";
 
             Log.Information("Folder zipped started.");
             try

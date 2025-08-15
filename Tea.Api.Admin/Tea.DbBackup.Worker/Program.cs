@@ -17,3 +17,4 @@ await ZipFiles.ZipDbFolder();
 await EmailSend.MailSendService();
 Log.Information("Backup is Completed");
 Console.ReadLine();
+
