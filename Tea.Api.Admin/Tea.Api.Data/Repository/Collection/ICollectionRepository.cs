@@ -31,7 +31,7 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetSupplierDetails(SupplierFilterModel _input);
 
         Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
-
+        Task<DataSet> GetStgRateFixModifyData(GetStgRateFixModel _input);
         Task<string> SaveStgRate(SaveStgRateFixModel _input);
         Task<DataSet> GetSupplierRateFixData(GetSupplierRateFixModel _input);
 

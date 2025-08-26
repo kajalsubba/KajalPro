@@ -169,7 +169,7 @@ namespace Tea.Api.Entity.Collection
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
         public long? TenantId { get; set; }
-
+        public bool? IsModify { get; set; }
     }
 
 

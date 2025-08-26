@@ -332,5 +332,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.GetStgRateFixGradeData(_input);
             return ds;
         }
+
+        async Task<DataSet> ICollectionService.GetStgRateFixModifyData(GetStgRateFixModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetStgRateFixModifyData(_input);
+            return ds;
+        }
     }
 }

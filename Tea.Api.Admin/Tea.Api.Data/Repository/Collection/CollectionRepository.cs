@@ -869,12 +869,31 @@ namespace Tea.Api.Data.Repository.Collection
                 new ClsParamPair("@FromDate", _input.FromDate??""),
                 new ClsParamPair("@ToDate", _input.ToDate ??""),
                 new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@IsModify", _input.IsModify??false),
 
             };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetRateFixSTGGradeClient]", oclsPairs);
             ds.Tables[0].TableName = "GradeList";
             ds.Tables[1].TableName = "ClientList";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetStgRateFixModifyData(GetStgRateFixModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@GradeId",_input.GradeId == null ? 0 : _input.GradeId),
+                new ClsParamPair("@ClientId",_input.ClientId == null ? 0 : _input.ClientId)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGRateFixModifyData]", oclsPairs);
+            ds.Tables[0].TableName = "StgRateModifyData";
             return ds;
         }
     }
