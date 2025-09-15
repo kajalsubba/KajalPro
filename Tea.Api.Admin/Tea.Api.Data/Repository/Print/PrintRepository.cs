@@ -223,6 +223,11 @@ namespace Tea.Api.Data.Repository.Print
             return response;
         }
 
+        async Task<string> IPrintRepository.SendEmail(EmailModel _input)
+        {
+            return await EmailHelper.SendEmail(_input.FromEmail, _input.ToEmail, _input.Subject, _input.Message);
+        }
+
         async Task<byte[]> IPrintRepository.StgBillPrint(BillPrintModel _input)
         {
 

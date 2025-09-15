@@ -12,7 +12,7 @@ Log.Logger = new LoggerConfiguration()
                   .CreateLogger();
 
 await ProdBackupHelper.ProdDbBackup();
-await DevBackupHelper.DevDbBackup();
+//await DevBackupHelper.DevDbBackup();
 await ZipFiles.ZipDbFolder();
 await EmailSend.MailSendService();
 Log.Information("Backup is Completed");

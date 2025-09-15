@@ -36,7 +36,7 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetStgRateFixData(GetStgRateFixModel _input);
         Task<DataSet> GetStgRateFixModifyData(GetStgRateFixModel _input);
 
-        
+
         Task<DataSet> GetSupplierRateFixData(GetSupplierRateFixModel _input);
 
         Task<SaveReturnModel> SaveStgRate(SaveStgRateFixModel _input);
@@ -78,7 +78,7 @@ namespace Tea.Api.Service.Collection
         Task<DataSet> GetSeasonAdvanceReport(SeasonAdvReportModel _input);
 
         Task<DataSet> GetFieldBalanceReport(SeasonAdvReportModel _input);
-
+        Task<DataSet> AnalysisReport(AnalysisReportModel _input);
         Task<DataSet> GetSaleRateFixFactory(GetSaleRateFixFactory _input);
 
         Task<DataSet> GetSupplierRateFixFactory(GetSaleRateFixFactory _input);

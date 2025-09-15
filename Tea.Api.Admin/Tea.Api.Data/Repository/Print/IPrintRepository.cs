@@ -15,6 +15,6 @@ namespace Tea.Api.Data.Repository.Print
         Task<string> WhatsAppMessage(WhatsAppModel message);
 
         Task<byte[]> SalePrint(PrintSaleModel _input);
-
+        Task<string> SendEmail(EmailModel _input);
     }
 }

@@ -11,6 +11,7 @@ namespace Tea.Api.Data.Repository.Admin
 {
     public interface IAdminRepository
     {
+        Task<DataSet> GetFinancialYear(SelectFinancialYear _input);
         Task<string> SaveUser(SaveUserModel _input);
         Task<DataSet> GetUser(SelectUserModel _input);
         Task<DataSet> Login(LoginModel _input);
@@ -26,6 +27,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<string> DeleteClient(DeleteClientModel _input);
         Task<string> UpdateClientPassword(PasswordUpdateClientModel _input);
         Task<string> SaveGrade(SaveGradeModel _input);
+        Task<string> SaveSupplierTarget(TargetModel _input);
 
         Task<string> SaveFactory(SaveFactoryModel _input);
         Task<string> DeleteFactory(DeleteFactoryModel _input);

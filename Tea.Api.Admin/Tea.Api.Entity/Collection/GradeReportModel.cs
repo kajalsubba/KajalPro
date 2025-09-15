@@ -19,4 +19,11 @@ namespace Tea.Api.Entity.Collection
         public string? Category { get; set; }
 
     }
+
+    public class AnalysisReportModel
+    {
+        public long? TenantId { get; set; }
+        public long? FinancialYearId { get; set; }
+
+    }
 }

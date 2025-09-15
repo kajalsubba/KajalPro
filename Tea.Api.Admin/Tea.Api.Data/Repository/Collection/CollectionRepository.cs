@@ -896,5 +896,20 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "StgRateModifyData";
             return ds;
         }
+
+        async Task<DataSet> ICollectionRepository.AnalysisReport(AnalysisReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FinancialYearId", _input.FinancialYearId??0),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetSupplierAnalysisReport]", oclsPairs);
+            ds.Tables[0].TableName = "AnalysisReport";
+            return ds;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Tea.Api.Service.Admin
         Task<JwtReturnModel> AuthenticationLogin(LoginModel _input);
 
         Task<DataSet> ClientLogin(ClientLoginModel _input);
-
+        Task<DataSet> GetFinancialYear(SelectFinancialYear _input);
         Task<SaveReturnModel> SaveCategory(SaveCategoryModel _input);
         Task<SaveReturnModel> DeleteCategory(DeleteCategoryModel _input);
 
@@ -26,6 +26,8 @@ namespace Tea.Api.Service.Admin
         Task<SaveReturnModel> UpdateClientPassword(PasswordUpdateClientModel _input);
         Task<SaveReturnModel> DeleteClient(DeleteClientModel _input);
         Task<SaveReturnModel> SaveGrade(SaveGradeModel _input);
+
+        Task<SaveReturnModel> SaveSupplierTarget(TargetModel _input);
         Task<SaveReturnModel> DeleteGrade(DeleteGradeModel _input);
         Task<SaveReturnModel> SaveFactory(SaveFactoryModel _input);
         Task<SaveReturnModel> DeleteFactory(DeleteFactoryModel _input);

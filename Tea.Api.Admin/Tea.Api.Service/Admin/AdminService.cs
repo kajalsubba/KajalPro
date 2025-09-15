@@ -328,5 +328,19 @@ namespace Tea.Api.Service.Admin
             ds = await _unitOfWork.AdminRepository.GetClientCollActivityChart(_input);
             return ds;
         }
+
+        async Task<SaveReturnModel> IAdminService.SaveSupplierTarget(TargetModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.SaveSupplierTarget(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+        }
+
+        async Task<DataSet> IAdminService.GetFinancialYear(SelectFinancialYear _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.AdminRepository.GetFinancialYear(_input);
+            return ds;
+        }
     }
 }

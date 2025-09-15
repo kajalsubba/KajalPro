@@ -77,7 +77,7 @@ namespace Tea.Api.Data.Repository.Collection
         Task<DataSet> GetSeasonAdvanceReport(SeasonAdvReportModel _input);
 
         Task<DataSet> GetFieldBalanceReport(SeasonAdvReportModel _input);
-
+        Task<DataSet> AnalysisReport(AnalysisReportModel _input);
         Task<DataSet> GetSaleRateFixFactory(GetSaleRateFixFactory _input);
 
         Task<DataSet> GetSupplierRateFixFactory(GetSaleRateFixFactory _input);

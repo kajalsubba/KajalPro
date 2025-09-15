@@ -30,7 +30,7 @@ namespace Tea.DbBackup.Worker.Helper
             string appPassword = dbSettings["AppPassword"] ?? ""; 
             string recipientEmail = dbSettings["RecipientEmail"] ?? ""; 
             string subject = "Automatic Database Backup for GLS Portals on " + DateTime.Now.Date.ToString("dd/MM/yyyy");
-            string body = "Please donot reyply. Both Production and Development Databases are included.";
+            string body = "Please donot reyply. Production Database is included.";
 
             string attachmentPath = zipPath; // Change as needed
             Log.Information("Email sent starts.");

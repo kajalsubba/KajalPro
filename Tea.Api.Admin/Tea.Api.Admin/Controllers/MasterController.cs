@@ -17,6 +17,16 @@ namespace Tea.Api.Admin.Controllers
             _adminService = adminService;
         }
 
+
+        [HttpPost, Route("GetFinancialYear")]
+        public async Task<IActionResult> GetFinancialYear([FromBody] SelectFinancialYear _input)
+        {
+            var results = await _adminService.GetFinancialYear(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
         [HttpPost, Route("SaveCategory")]
         public async Task<IActionResult> SaveCategory([FromBody] SaveCategoryModel _input)
         {
@@ -76,6 +86,13 @@ namespace Tea.Api.Admin.Controllers
         public async Task<IActionResult> SaveGrade([FromBody] SaveGradeModel _input)
         {
             var results = await _adminService.SaveGrade(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
+
+        [HttpPost, Route("SaveSupplierTarget")]
+        public async Task<IActionResult> SaveSupplierTarget([FromBody] TargetModel _input)
+        {
+            var results = await _adminService.SaveSupplierTarget(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
@@ -221,7 +238,7 @@ namespace Tea.Api.Admin.Controllers
             var results = await _adminService.SavePaymentType(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
-  
+
 
     }
 }
