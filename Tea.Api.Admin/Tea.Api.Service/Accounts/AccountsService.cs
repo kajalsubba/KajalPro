@@ -144,49 +144,49 @@ namespace Tea.Api.Service.Accounts
         {
             string msg = await _unitOfWork.AccountsRepository.SavePayment(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAccountsService.SavePettyCashBook(PettyCashBookModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SavePettyCashBook(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAccountsService.SaveRecovery(SaveRecoveryModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveRecovery(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAccountsService.SaveSeasonAdvance(SaveSeasonAdvanceModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveSeasonAdvance(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAccountsService.SaveStgBill(SaveStgBill _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveStgBill(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAccountsService.SaveSupplierBill(SaveSupplierBill _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveSupplierBill(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAccountsService.SaveUserWallet(WalletModel _input)
         {
             string msg = await _unitOfWork.AccountsRepository.SaveUserWallet(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
     }
 }
