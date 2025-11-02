@@ -85,6 +85,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> CheckRenewDate(RenewTenantModel _input);
 
         Task<DataSet> GetClientCollActivityChart(ClientActivityChartModel _input);
+        Task<string> SaveFinancialYear(FinancialYearModel _input);
 
 
     }

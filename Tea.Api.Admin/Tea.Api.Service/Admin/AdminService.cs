@@ -22,7 +22,7 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.ChangePassword(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<DataSet> IAdminService.ClientLogin(ClientLoginModel _input)
@@ -36,42 +36,42 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.CreateRole(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.DeleteCategory(DeleteCategoryModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.DeleteCategory(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.DeleteClient(DeleteClientModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.DeleteClient(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.DeleteFactory(DeleteFactoryModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.DeleteFactory(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.DeleteFactoryAccount(DeleteAccountModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.DeleteFactoryAccount(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.DeleteGrade(DeleteGradeModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.DeleteGrade(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<DataTable> IAdminService.GetApkUpdateNotification()
@@ -217,28 +217,28 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.SaveCategory(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveClient(SaveClientModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveClient(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveCompany(SaveCompanyModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveCompany(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveFactory(SaveFactoryModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveFactory(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
 
         }
 
@@ -246,14 +246,14 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.SaveFactoryAccount(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveGrade(SaveGradeModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveGrade(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
 
         }
 
@@ -261,28 +261,28 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.SavePaymentType(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveRolePermission(SaveRolePermissionModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveRolePermission(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveTenant(SaveTenantModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveTenant(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveUser(SaveUserModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveUser(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
 
         }
 
@@ -290,7 +290,7 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.UpdateClientPassword(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<JwtReturnModel> IAdminService.AuthenticationLogin(LoginModel _input)
@@ -304,14 +304,14 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.ChangeUserPassword(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<SaveReturnModel> IAdminService.SaveVehicle(SaveVehicleModel _input)
         {
             string msg = await _unitOfWork.AdminRepository.SaveVehicle(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<DataSet> IAdminService.CheckRenewDate(RenewTenantModel _input)
@@ -333,7 +333,7 @@ namespace Tea.Api.Service.Admin
         {
             string msg = await _unitOfWork.AdminRepository.SaveSupplierTarget(_input);
             string[] msgList = msg.Split(",");
-            return new SaveReturnModel() { Id = Convert.ToInt16(msgList[0]), Message = msgList[1] };
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
 
         async Task<DataSet> IAdminService.GetFinancialYear(SelectFinancialYear _input)
@@ -341,6 +341,13 @@ namespace Tea.Api.Service.Admin
             DataSet ds;
             ds = await _unitOfWork.AdminRepository.GetFinancialYear(_input);
             return ds;
+        }
+
+        async Task<SaveReturnModel> IAdminService.SaveFinancialYear(FinancialYearModel _input)
+        {
+            string msg = await _unitOfWork.AdminRepository.SaveFinancialYear(_input);
+            string[] msgList = msg.Split(",");
+            return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
     }
 }

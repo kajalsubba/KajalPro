@@ -79,5 +79,6 @@ namespace Tea.Api.Service.Admin
 
         Task<DataSet> GetClientCollActivityChart(ClientActivityChartModel _input);
 
+        Task<SaveReturnModel> SaveFinancialYear(FinancialYearModel _input);
     }
 }

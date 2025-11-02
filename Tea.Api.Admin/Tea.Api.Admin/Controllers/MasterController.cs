@@ -240,5 +240,12 @@ namespace Tea.Api.Admin.Controllers
         }
 
 
+
+        [HttpPost, Route("SaveFinancialYear")]
+        public async Task<IActionResult> SaveFinancialYear([FromBody] FinancialYearModel _input)
+        {
+            var results = await _adminService.SaveFinancialYear(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
     }
 }

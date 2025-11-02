@@ -702,6 +702,20 @@ namespace Tea.Api.Data.Repository.Admin
             ds.Tables[0].TableName = "FinancialYear";
             return ds;
         }
+
+        async Task<string> IAdminRepository.SaveFinancialYear(FinancialYearModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FinancialYearId", _input.FinancialYearId??0, false, "long"),
+                new ClsParamPair("@FinancialYear", _input.FinancialYear??0, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[FinancialYearInsertUpdate]", oclsPairs);
+            return Msg;
+        }
     }
 }
 
