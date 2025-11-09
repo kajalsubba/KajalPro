@@ -911,5 +911,20 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "AnalysisReport";
             return ds;
         }
+
+        async Task<DataSet> ICollectionRepository.GetMobileRecoveryVehicle(GetRecoveryVehicleModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CollectionDate", _input.CollectionDate??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetRecoveryVehicle]", oclsPairs);
+            ds.Tables[0].TableName = "VehicleDetails";
+            return ds;
+        }
     }
 }

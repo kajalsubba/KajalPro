@@ -346,5 +346,12 @@ namespace Tea.Api.Service.Collection
             ds = await _unitOfWork.CollectionRepository.AnalysisReport(_input);
             return ds;
         }
+
+        async Task<DataSet> ICollectionService.GetMobileRecoveryVehicle(GetRecoveryVehicleModel _input)
+        {
+            DataSet ds;
+            ds = await _unitOfWork.CollectionRepository.GetMobileRecoveryVehicle(_input);
+            return ds;
+        }
     }
 }

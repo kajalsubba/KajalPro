@@ -171,6 +171,11 @@ namespace Tea.Api.Entity.Collection
         public long? TenantId { get; set; }
         public bool? IsModify { get; set; }
     }
+    public class GetRecoveryVehicleModel
+    {
+        public string? CollectionDate { get; set; }
+        public long? TenantId { get; set; }
+    }
 
 
 }

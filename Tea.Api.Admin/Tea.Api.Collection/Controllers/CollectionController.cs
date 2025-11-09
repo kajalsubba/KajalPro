@@ -280,5 +280,14 @@ namespace Tea.Api.Collection.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("GetMobileRecoveryVehicle")]
+        public async Task<IActionResult> GetMobileRecoveryVehicle([FromBody] GetRecoveryVehicleModel _input)
+        {
+            var results = await _collectionService.GetMobileRecoveryVehicle(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }
