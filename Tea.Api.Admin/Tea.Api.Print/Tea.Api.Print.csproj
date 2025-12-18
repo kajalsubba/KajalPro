@@ -17,6 +17,8 @@
   <ItemGroup>
     <PackageReference Include="Google.Apis.Auth" Version="1.72.0" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.70.0.3819" />
+    <PackageReference Include="itext7" Version="9.4.0" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="9.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

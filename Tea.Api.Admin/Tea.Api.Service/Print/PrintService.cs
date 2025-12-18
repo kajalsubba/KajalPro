@@ -42,6 +42,12 @@ namespace Tea.Api.Service.Print
             return ds;
         }
 
+        async Task<byte[]> IPrintService.SupplierBillSaveToPdf(BillPrintModel _input)
+        {
+            byte[] ds = await _unitOfWork.PrintRepository.SupplierBillSaveToPdf(_input);
+            return ds;
+        }
+
         async Task<string> IPrintService.WhatsAppMessage(WhatsAppModel message)
         {
             return await _unitOfWork.PrintRepository.WhatsAppMessage(message);

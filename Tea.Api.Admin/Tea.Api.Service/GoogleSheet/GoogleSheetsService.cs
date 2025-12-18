@@ -1,6 +1,8 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,35 +14,47 @@ namespace Tea.Api.Service.GoogleSheet
 {
     public class GoogleSheetsService : IGoogleSheetsService
     {
-        private IGoogleSheetsService _sheetsService;
+        private readonly string _credentialsPath;
         private readonly string _spreadsheetId;
 
-        public GoogleSheetsService(IGoogleSheetsService sheetsService)
+        public GoogleSheetsService(IConfiguration config)
         {
-            _sheetsService = sheetsService;
+            _spreadsheetId = config["GoogleSheet:SpreadSheetId"];
+            _credentialsPath = config["GoogleSheet:JsonFileName"];
         }
 
         async Task<string> IGoogleSheetsService.AddAppointmentData(string sheetName, IList<object> rowData)
         {
-            throw new NotImplementedException();
+            var service = CreateSheetsService();
+            var range = $"{sheetName}!A:Z";
+
+            var valueRange = new ValueRange
+            {
+                Values = new List<IList<object>> { rowData }
+            };
+
+            var request = service.Spreadsheets.Values.Append(valueRange, _spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+
+            var response = await request.ExecuteAsync();
+            return response.Updates?.UpdatedRange;
         }
 
-        public SheetsService GetSheetsService(string spreadsheetId, string credentialsPath)
+        private SheetsService CreateSheetsService()
         {
             GoogleCredential credential;
-            using (var stream = new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+
+            using (var stream = new FileStream(_credentialsPath, FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleCredential.FromStream(stream)
                     .CreateScoped(SheetsService.Scope.Spreadsheets);
             }
 
-            var sheetsService = new SheetsService(new BaseClientService.Initializer()
+            return new SheetsService(new BaseClientService.Initializer
             {
                 HttpClientInitializer = credential,
-                ApplicationName = "My .NET Core Sheets API",
+                ApplicationName = "Z Finance"
             });
-
-            return sheetsService;
         }
 
     }

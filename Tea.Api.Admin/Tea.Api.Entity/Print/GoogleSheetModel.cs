@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Tea.Api.Entity.Print
 {
-    public class SheetRowDto
+    public class GoogleSheetModel
     {
         public string? Name { get; set; }
         public string? Email { get; set; }
-        public string? Message { get; set; }
+        public string? Phone { get; set; }
+        public string? PreferredDate { get; set; }
+        public string? ServiceInterest { get; set; }
+
     }
 }

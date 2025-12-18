@@ -10,6 +10,8 @@ namespace Tea.Api.Entity.Print
     {
         public long? TenantId { get; set; }
         public long? BillNo { get; set; }
+        public string? ClientName { get; set; }
+        public string? Number { get; set; }
     }
 
    
