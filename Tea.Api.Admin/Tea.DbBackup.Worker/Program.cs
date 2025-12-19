@@ -12,9 +12,11 @@ Log.Logger = new LoggerConfiguration()
                   .CreateLogger();
 
 await ProdBackupHelper.ProdDbBackup();
-//await DevBackupHelper.DevDbBackup();
+await DevBackupHelper.DevDbBackup();
 await ZipFiles.ZipDbFolder();
-await EmailSend.MailSendService();
+//await EmailSend.MailSendService();
+await BillFilesCleanUp.DeleteOldFilesSafe("Supplier");
+await BillFilesCleanUp.DeleteOldFilesSafe("Stg");
 Log.Information("Backup is Completed");
-Console.ReadLine();
+//Console.ReadLine();
 

@@ -13,7 +13,10 @@ namespace Tea.Api.Data.Repository.Print
 
         Task<byte[]> SupplierBillPrint(BillPrintModel _input);
 
-        Task<byte[]> SupplierBillSaveToPdf(BillPrintModel _input); 
+        Task<byte[]> SupplierBillSaveToPdf(BillPrintModel _input);
+
+        Task<byte[]> StgBillSaveToPdf(BillPrintModel _input);
+
         Task<string> WhatsAppMessage(WhatsAppModel message);
 
         Task<byte[]> SalePrint(PrintSaleModel _input);

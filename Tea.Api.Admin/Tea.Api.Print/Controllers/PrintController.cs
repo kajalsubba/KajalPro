@@ -12,12 +12,12 @@ namespace Tea.Api.Print.Controllers
     public class PrintController : ControllerBase
     {
         readonly IPrintService _printService;
-        private readonly string _supplierPdfPath;
+        private readonly string _PdfPath;
         private readonly string _relativePath;
         public PrintController(IPrintService printService, IConfiguration config)
         {
             _printService = printService;
-            _supplierPdfPath = config["ConnectionStrings:SupplierPdfPath"];
+            _PdfPath = config["ConnectionStrings:PdfPath"];
             _relativePath = config["ConnectionStrings:RelativePath"];
         }
 
@@ -42,8 +42,12 @@ namespace Tea.Api.Print.Controllers
             // 1. Generate non-encrypted PDF
             byte[] pdfBytes = await _printService.SupplierBillSaveToPdf(_input);
 
-            string fileName = $"BillNo_{_input.BillNo}.pdf";
+            // string fileName = $"BillNo_{_input.BillNo}.pdf";
+            string fileName = $"{Guid.NewGuid()}.pdf";
 
+            string _supplierPdfPath = Path.Combine(_PdfPath, "Supplier");
+
+            string _supplierRelativePath = Path.Combine(_relativePath, "Supplier");
             // 2. Ensure directory exists
             if (!Directory.Exists(_supplierPdfPath))
                 Directory.CreateDirectory(_supplierPdfPath);
@@ -64,10 +68,49 @@ namespace Tea.Api.Print.Controllers
             await System.IO.File.WriteAllBytesAsync(filePath, encryptedPdf);
 
             // 5. Create public URL
-            string fileUrl = $"https://glsportals.com/{_relativePath.Replace("\\", "/")}/{fileName}";
+            string fileUrl = $"https://glsportals.com/{_supplierRelativePath.Replace("\\", "/")}/{fileName}";
 
             return Ok(new { url = fileUrl, fileName = fileName });
         }
+
+
+
+        [HttpPost, Route("StgBillSaveToPdf")]
+        public async Task<IActionResult> StgBillSaveToPdf([FromBody] BillPrintModel _input)
+        {
+            // 1. Generate non-encrypted PDF
+            byte[] pdfBytes = await _printService.StgBillSaveToPdf(_input);
+
+            // string fileName = $"BillNo_{_input.BillNo}.pdf";
+            string fileName = $"{Guid.NewGuid()}.pdf";
+
+            string _stgPdfPath = Path.Combine(_PdfPath, "Stg");
+
+            string _stgRelativePath = Path.Combine(_relativePath, "Stg");
+            // 2. Ensure directory exists
+            if (!Directory.Exists(_stgPdfPath))
+                Directory.CreateDirectory(_stgPdfPath);
+
+            string filePath = Path.Combine(_stgPdfPath, fileName);
+
+            // 3. Apply password encryption
+            // string password = _input.ClientName+_input.Number; // fallback password
+
+
+            string password = _input.Number ?? "";
+
+            byte[] encryptedPdf = EncryptPdf(pdfBytes, password);
+
+            // 4. Save encrypted file
+            await System.IO.File.WriteAllBytesAsync(filePath, encryptedPdf);
+
+            // 5. Create public URL
+            string fileUrl = $"https://glsportals.com/{_stgRelativePath.Replace("\\", "/")}/{fileName}";
+
+            return Ok(new { url = fileUrl, fileName = fileName });
+        }
+
+
         private byte[] EncryptPdf(byte[] pdfBytes, string password)
         {
             using var input = new MemoryStream(pdfBytes);

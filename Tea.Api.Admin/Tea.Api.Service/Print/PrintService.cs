@@ -36,6 +36,12 @@ namespace Tea.Api.Service.Print
             return ds;
         }
 
+        async Task<byte[]> IPrintService.StgBillSaveToPdf(BillPrintModel _input)
+        {
+            byte[] ds = await _unitOfWork.PrintRepository.StgBillSaveToPdf(_input);
+            return ds;
+        }
+
         async Task<byte[]> IPrintService.SupplierBillPrint(BillPrintModel _input)
         {
             byte[] ds = await _unitOfWork.PrintRepository.SupplierBillPrint(_input);
