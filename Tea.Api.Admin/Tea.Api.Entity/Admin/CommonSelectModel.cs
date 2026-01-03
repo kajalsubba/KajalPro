@@ -17,4 +17,10 @@ namespace Tea.Api.Entity.Admin
         public long? TenantId { get; set; }
         public string? Category { get; set; }
     }
+
+    public class SelectFinancialYear
+    {
+        public long? TenantId { get; set; }
+
+    }
 }

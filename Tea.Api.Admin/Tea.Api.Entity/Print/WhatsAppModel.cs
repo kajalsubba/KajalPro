@@ -11,4 +11,12 @@ namespace Tea.Api.Entity.Print
         public string? ToPhoneNumber { get; set; }
         public string? Message { get; set; }
     }
+
+    public class EmailModel
+    {
+        public string? FromEmail { get; set; }
+        public string? ToEmail { get; set; }
+        public string? Subject { get; set; }
+        public string? Message { get; set; }
+    }
 }

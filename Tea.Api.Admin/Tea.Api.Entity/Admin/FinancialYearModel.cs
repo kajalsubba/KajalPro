@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tea.Api.Entity.Admin
 {
-    public class CompanyWiseSaleChartModel
+    public class FinancialYearModel
     {
+        public long? FinancialYearId { get; set; }
+        public long? FinancialYear { get; set; }
         public long? TenantId { get; set; }
         public long? CreatedBy { get; set; }
-
-
-    }
-    public class ClientActivityChartModel
-    {
-        public long? TenantId { get; set; }
-
-
     }
 }

@@ -21,5 +21,12 @@ namespace Tea.Api.Print.Controllers
             var results = await _printService.WhatsAppMessage(_input);
             return (results != null) ? Ok(results) : throw new Exception();
         }
+
+        [HttpPost, Route("SendEmail")]
+        public async Task<IActionResult> SendEmail([FromBody] EmailModel _input)
+        {
+            var results = await _printService.SendEmail(_input);
+            return (results != null) ? Ok(results) : throw new Exception();
+        }
     }
 }

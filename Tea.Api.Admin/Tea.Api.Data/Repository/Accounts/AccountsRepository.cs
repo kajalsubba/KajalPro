@@ -9,6 +9,7 @@ using Tea.Api.Data.Common;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Entity.Accounts;
 using Tea.Api.Entity.Collection;
+using Tea.Api.Entity.Common;
 
 namespace Tea.Api.Data.Repository.Accounts
 {
@@ -90,6 +91,26 @@ namespace Tea.Api.Data.Repository.Accounts
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Accounts].[GetPettyCashBooktHistoryData]", oclsPairs);
             ds.Tables[0].TableName = "CashBookData";
+            return ds;
+        }
+
+        async Task<DataSet> IAccountsRepository.GetRecovery(RecoveryFilterRequest _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@CategoryId", _input.CategoryId??0),
+                new ClsParamPair("@ClientId", _input.ClientId??0),
+                new ClsParamPair("@RecovertType", _input.RecovertType??""),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Recovery].[GetRecoveryData]", oclsPairs);
+            ds.Tables[0].TableName = "RecoveryDetails";
             return ds;
         }
 
@@ -226,6 +247,7 @@ namespace Tea.Api.Data.Repository.Accounts
             ds.Tables[0].TableName = "SupplierData";
             ds.Tables[1].TableName = "PaymentData";
             ds.Tables[2].TableName = "OutStandingData";
+            ds.Tables[3].TableName = "SupplierDataWithoutRate";
             return ds;
         }
 
@@ -353,6 +375,25 @@ namespace Tea.Api.Data.Repository.Accounts
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long"),
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Accounts].[PettyCashBookInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+        async Task<string> IAccountsRepository.SaveRecovery(SaveRecoveryModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@RecoveryDate",Convert.ToDateTime(_input.RecoveryDate), true, "DateTime"),
+                new ClsParamPair("@ClientId",_input.ClientId??0, false,"long"),
+                new ClsParamPair("@ClientCategory",_input.ClientCategory??"", false,"string"),
+                new ClsParamPair("@CategoryId",_input.CategoryId??0, false,"long"),
+                new ClsParamPair("@RecoveryType", _input.RecoveryType??"", false, "long"),
+                new ClsParamPair("@FieldBalance", _input.FieldBalance??0, false, "long"),
+                new ClsParamPair("@Amount", _input.Amount??0, false, "long"),
+                new ClsParamPair("@Narration", _input.Narration??"", false, "string"),
+                new ClsParamPair("@TenantId", _input.TenantId ??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0, false, "long"),
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Recovery].[RecoveryInsertUpdate]", oclsPairs);
             return Msg;
         }
 

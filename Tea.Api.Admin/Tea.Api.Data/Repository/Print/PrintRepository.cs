@@ -48,7 +48,7 @@ namespace Tea.Api.Data.Repository.Print
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetSalesData]", clsPairs);
 
-            DateTime fromDate =Convert.ToDateTime(_input.FromDate);
+            DateTime fromDate = Convert.ToDateTime(_input.FromDate);
             DateTime toDate = Convert.ToDateTime(_input.ToDate);
             string? factoryName = string.Empty;
             string? address = string.Empty;
@@ -89,13 +89,13 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<td style = 'margin: 0; text-align: left;' > Supplier Name :</td>";
             htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;' >" + supplierName + " </td>";
             htmlContent += "<td style = 'margin: 0; text-align: left;' >Bio-Matric No : </td>";
-            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >"+ bioMatrixNo +"</td>";
+            htmlContent += "<td style = 'margin: 0; text-align: left; font-weight: bold;'  >" + bioMatrixNo + "</td>";
             htmlContent += "</tr>";
 
             htmlContent += "</tbody>";
             htmlContent += "</table>";
             htmlContent += "</div>";
-       
+
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
             htmlContent += "<thead>";
             htmlContent += "<tr>";
@@ -111,7 +111,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "</tr><hr/>";
             htmlContent += "</thead>";
             htmlContent += "<tbody>";
-          
+
             int VehicleCount = 0;
             int FineAvg = 0;
             decimal TotalFine = 0;
@@ -167,7 +167,7 @@ namespace Tea.Api.Data.Repository.Print
                 htmlContent += "</tfoot>";
             }
             htmlContent += "</table>";
-           
+
 
             htmlContent += "<br>";
 
@@ -179,7 +179,7 @@ namespace Tea.Api.Data.Repository.Print
 
             htmlContent += "</tbody>";
             htmlContent += "</table>";
-   
+
             htmlContent += "</div>";
             htmlContent += "<footer>";
             //htmlContent += "<p> Declaration: In the green leaf provided by me/us, I/we confirm that only PPFs (Plant Protection Formulations) recommended in the Plant Protection Code have been used. No chemicals or pesticides banned in India have been employed. Should it be found that any banned pesticides or chemicals, or their residues, exceed the prescribed limits, the Tea Board is authorized to take appropriate action against me/us.<br>";
@@ -197,11 +197,6 @@ namespace Tea.Api.Data.Repository.Print
 
             PdfGenerator.AddPdfPages(data, htmlContent, PageSize.A4);
 
-            //PdfPage page = data.AddPage();
-
-            //page.Size = PageSize.A4;
-            //double pageHeight = page.Height - 40; // Leaving margin
-            
             int currentPage = 0;
             XFont pageNumberFont = new XFont("Arial", 6, XFontStyle.Regular);
             int PageHi = 802;
@@ -226,6 +221,11 @@ namespace Tea.Api.Data.Repository.Print
             }
 
             return response;
+        }
+
+        async Task<string> IPrintRepository.SendEmail(EmailModel _input)
+        {
+            return await EmailHelper.SendEmail(_input.FromEmail, _input.ToEmail, _input.Subject, _input.Message);
         }
 
         async Task<byte[]> IPrintRepository.StgBillPrint(BillPrintModel _input)
@@ -347,7 +347,7 @@ namespace Tea.Api.Data.Repository.Print
                 foreach (DataRow row in ds.Tables[1].Rows)
                 {
                     //decimal FirstWgt= Convert.ToDecimal(row["FirstWeight"]);
-                   
+
                     htmlContent += "<tr>";
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' >" + Convert.ToString(row["CollectionDate"]) + " </td>";
                     htmlContent += "<td style = 'padding: 4px;margin:1px; text-align: left; ' > " + Convert.ToString(row["GradeName"]) + " </td>";
@@ -429,7 +429,7 @@ namespace Tea.Api.Data.Repository.Print
 
             htmlContent += "<div style = 'margin: 20px auto; heigth:120px; max-width: 100px; padding: 20px; border: 1px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif;' >";
             htmlContent += "<table style = 'width: 100%; border-collapse: collapse;'>";
-         
+
             htmlContent += "<tbody>";
 
             htmlContent += "<tr>";
@@ -590,7 +590,7 @@ namespace Tea.Api.Data.Repository.Print
             htmlContent += "<h3> Green Leaf Supplied Statement </h3>";
             htmlContent += "</div>";
             htmlContent += "<div style = 'margin-top: 5px auto; heigth:1000px; max-width: 600px; padding: 20px; border: 0px solid #ccc; background-color: #FFFFFF; font-family: Arial, sans-serif; font-size: 12px;' >";
-           
+
             htmlContent += "<p style = 'margin: 0;' >" + CompanyName + "</p>";
             htmlContent += "<p style = 'margin: 0;' > " + Address + "</p>";
             htmlContent += "<p style = 'margin: 0;' > " + ContactNo + " </p>";

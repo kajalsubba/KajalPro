@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tea.Api.Entity.Common
+namespace Tea.Api.Entity.Print
 {
-    public class SaveReturnModel
+    public class SheetRowDto
     {
-        public long? Id { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
         public string? Message { get; set; }
     }
 }

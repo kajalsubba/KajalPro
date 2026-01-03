@@ -52,5 +52,9 @@ namespace Tea.Api.Service.Accounts
         Task<SaveReturnModel> SavePettyCashBook(PettyCashBookModel _input);
 
         Task<DataSet> GetPettyCashBoook(WalletHistModel _input);
+
+        Task<SaveReturnModel> SaveRecovery(SaveRecoveryModel _input);
+
+        Task<DataSet> GetRecovery(RecoveryFilterRequest _input);
     }
 }

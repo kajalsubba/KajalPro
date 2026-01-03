@@ -221,5 +221,27 @@ namespace Tea.Api.Accounts.Controllers
         }
 
         #endregion
+
+        #region Recovery
+        [HttpPost, Route("SaveRecovery")]
+        public async Task<IActionResult> SaveRecovery([FromBody] SaveRecoveryModel _input)
+        {
+            var results = await _accountsService.SaveRecovery(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+
+        [HttpPost, Route("GetRecovery")]
+        public async Task<IActionResult> GetRecovery([FromBody] RecoveryFilterRequest _input)
+        {
+            var results = await _accountsService.GetRecovery(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
+
+        #endregion
     }
 }

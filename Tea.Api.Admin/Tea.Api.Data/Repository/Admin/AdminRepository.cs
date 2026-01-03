@@ -531,7 +531,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCompanyWiseChart]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetCompanyWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "CompanyWiseChart";
             ds.Tables[1].TableName = "YearWiseChart";
             return ds;
@@ -547,7 +547,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSTGWiseChart]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetSTGWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "StgWiseChart";
             return ds;
         }
@@ -562,7 +562,7 @@ namespace Tea.Api.Data.Repository.Admin
                 new ClsParamPair("@CreatedBy", _input.CreatedBy ??0)
             };
 
-            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetSupplierWiseChart]", oclsPairs);
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetSupplierWiseChart]", oclsPairs);
             ds.Tables[0].TableName = "SupplierWiseChart";
             return ds;
         }
@@ -657,6 +657,64 @@ namespace Tea.Api.Data.Repository.Admin
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[GetCheckRenewDate]", oclsPairs);
             ds.Tables[0].TableName = "RenewInfo";
             return ds;
+        }
+
+        async Task<DataSet> IAdminRepository.GetClientCollActivityChart(ClientActivityChartModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Chart].[GetSTGGapClientDetails]", oclsPairs);
+            ds.Tables[0].TableName = "STGClient";
+            ds.Tables[1].TableName = "SupplierClient";
+
+            return ds;
+        }
+
+        async Task<string> IAdminRepository.SaveSupplierTarget(TargetModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TargetId", _input.TargetId ??0, false, "long"),
+                new ClsParamPair("@ClientId", _input.ClientId ?? 0, false, "long"),
+                new ClsParamPair("@FinancialYearId", _input.FinancialYearId ?? 0, false, "long"),
+                new ClsParamPair("@TargetWeight", _input.TargetWeight ?? 0, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy == null ? 0 : _input.CreatedBy, false, "long")
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[SupplierTargetCollectionInsertUpdate]", oclsPairs);
+            return Msg;
+        }
+
+        async Task<DataSet> IAdminRepository.GetFinancialYear(SelectFinancialYear _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Master].[GetFinancialYear]", oclsPairs);
+            ds.Tables[0].TableName = "FinancialYear";
+            return ds;
+        }
+
+        async Task<string> IAdminRepository.SaveFinancialYear(FinancialYearModel _input)
+        {
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FinancialYearId", _input.FinancialYearId??0, false, "long"),
+                new ClsParamPair("@FinancialYear", _input.FinancialYear??0, false, "long"),
+                new ClsParamPair("@TenantId", _input.TenantId??0, false, "long"),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy??0, false, "long"),
+
+            };
+            string Msg = await _dataHandler.SaveChangesAsyn("[Master].[FinancialYearInsertUpdate]", oclsPairs);
+            return Msg;
         }
     }
 }

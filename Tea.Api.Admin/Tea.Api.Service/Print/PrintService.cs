@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Tea.Api.Data.Repository.Print;
 using Tea.Api.Data.UnitOfWork;
 using Tea.Api.Entity.Print;
+using Twilio.TwiML.Messaging;
 
 namespace Tea.Api.Service.Print
 {
@@ -18,10 +19,15 @@ namespace Tea.Api.Service.Print
             _unitOfWork = unitOfWork;
         }
 
-       async Task<byte[]> IPrintService.SalePrint(PrintSaleModel _input)
+        async Task<byte[]> IPrintService.SalePrint(PrintSaleModel _input)
         {
             byte[] ds = await _unitOfWork.PrintRepository.SalePrint(_input);
             return ds;
+        }
+
+        async Task<string> IPrintService.SendEmail(EmailModel _input)
+        {
+            return await _unitOfWork.PrintRepository.SendEmail(_input);
         }
 
         async Task<byte[]> IPrintService.StgBillPrint(BillPrintModel _input)
@@ -30,13 +36,13 @@ namespace Tea.Api.Service.Print
             return ds;
         }
 
-       async Task<byte[]> IPrintService.SupplierBillPrint(BillPrintModel _input)
+        async Task<byte[]> IPrintService.SupplierBillPrint(BillPrintModel _input)
         {
             byte[] ds = await _unitOfWork.PrintRepository.SupplierBillPrint(_input);
             return ds;
         }
 
-       async Task<string> IPrintService.WhatsAppMessage(WhatsAppModel message)
+        async Task<string> IPrintService.WhatsAppMessage(WhatsAppModel message)
         {
             return await _unitOfWork.PrintRepository.WhatsAppMessage(message);
 

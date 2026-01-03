@@ -787,5 +787,144 @@ namespace Tea.Api.Data.Repository.Collection
             ds.Tables[0].TableName = "FieldBalance";
             return ds;
         }
+
+        async Task<DataSet> ICollectionRepository.GetSaleRateFixFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@IsClientView", _input.IsClientView ??false),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Sales].[GetRateFixSaleFactory]", oclsPairs);
+            ds.Tables[0].TableName = "FactoryList";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetSupplierRateFixFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@IsClientView", _input.IsClientView ??false),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetRateFixSupplierFactory]", oclsPairs);
+            ds.Tables[0].TableName = "FactoryList";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetSupplierHistoryFactory(GetSaleRateFixFactory _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@IsClientView", _input.IsClientView ??false),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierFactory]", oclsPairs);
+            ds.Tables[0].TableName = "FactoryList";
+            ds.Tables[1].TableName = "ClientList";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetSupplierHistory(ReportHistoryFilterModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@Status", _input.Status ??""),
+                new ClsParamPair("@ClientId", _input.ClientId??0),
+                new ClsParamPair("@FactoryId", _input.FactoryId ??0),
+                new ClsParamPair("@AccountId", _input.AccountId??0),
+                new ClsParamPair("@FineLeaf", _input.FineLeaf ??""),
+                new ClsParamPair("@CreatedBy", _input.CreatedBy ??0),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSupplierHistoryData]", oclsPairs);
+            ds.Tables[0].TableName = "SupplierDetails";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetStgRateFixGradeData(GetStgRateFixFilterModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FromDate", _input.FromDate??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+                new ClsParamPair("@IsModify", _input.IsModify??false),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetRateFixSTGGradeClient]", oclsPairs);
+            ds.Tables[0].TableName = "GradeList";
+            ds.Tables[1].TableName = "ClientList";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetStgRateFixModifyData(GetStgRateFixModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId),
+                new ClsParamPair("@FromDate", _input.FromDate ??""),
+                new ClsParamPair("@ToDate", _input.ToDate ??""),
+                new ClsParamPair("@GradeId",_input.GradeId == null ? 0 : _input.GradeId),
+                new ClsParamPair("@ClientId",_input.ClientId == null ? 0 : _input.ClientId)
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[TeaCollection].[GetSTGRateFixModifyData]", oclsPairs);
+            ds.Tables[0].TableName = "StgRateModifyData";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.AnalysisReport(AnalysisReportModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@FinancialYearId", _input.FinancialYearId??0),
+                new ClsParamPair("@TenantId", _input.TenantId ??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Reports].[GetSupplierAnalysisReport]", oclsPairs);
+            ds.Tables[0].TableName = "AnalysisReport";
+            return ds;
+        }
+
+        async Task<DataSet> ICollectionRepository.GetMobileRecoveryVehicle(GetRecoveryVehicleModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@CollectionDate", _input.CollectionDate??""),
+                new ClsParamPair("@TenantId", _input.TenantId??0),
+
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Mobile].[GetRecoveryVehicle]", oclsPairs);
+            ds.Tables[0].TableName = "VehicleDetails";
+            return ds;
+        }
     }
 }
