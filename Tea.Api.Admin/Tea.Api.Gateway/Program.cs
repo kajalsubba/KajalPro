@@ -1,7 +1,10 @@
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Values;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("ocelot.json");
@@ -22,7 +25,53 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tea.Api.Gateway", Version = "v1" });
+    // 🔐 JWT Support in Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter: Bearer {your JWT token}"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
+
+// 🔐 JWT Authentication for Gateway
+builder.Services.AddAuthentication()
+    .AddJwtBearer("GatewayAuthenticationScheme", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+            ValidAudience = builder.Configuration["JWT:ValidAudience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
+
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
 
 builder.Services.AddOcelot();
 
@@ -56,9 +105,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     // Route template change needed to keep everything under one path.
     app.UseSwagger(c => c.RouteTemplate = name + "/swagger/{documentName}/swagger.json");
 
-    // Makes the assumption that where FlipPos.Api.N is the project name and N 
-    // is the microservice name, N is also the name of the primary controller 
-    // so both Swagger and the actual endpoints both end up under /N.
+
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/" + name + "/swagger/v1/swagger.json", "Tea.Api." + name + " v1");
@@ -69,6 +116,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseOcelot().Wait();
 
     // app.UseMiddleware<ExceptionHandler>();
+ 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();

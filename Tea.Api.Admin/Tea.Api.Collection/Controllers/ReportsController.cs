@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Tea.Api.Entity.Collection;
 using Tea.Api.Service.Collection;
 
 namespace Tea.Api.Collection.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ReportsController : ControllerBase

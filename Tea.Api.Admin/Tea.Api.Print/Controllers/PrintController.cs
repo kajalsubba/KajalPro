@@ -1,4 +1,5 @@
 ﻿using iText.Kernel.Pdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tea.Api.Entity.Collection;
 using Tea.Api.Entity.Print;
@@ -7,6 +8,7 @@ using Tea.Api.Service.Print;
 
 namespace Tea.Api.Print.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PrintController : ControllerBase

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Tea.Api.Entity.Admin;
 using Tea.Api.Service.Admin;
 
 namespace Tea.Api.Admin.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class MasterController : ControllerBase

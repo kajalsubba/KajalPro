@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Tea.Api.Entity.Accounts;
@@ -9,6 +10,7 @@ using Tea.Api.Service.Collection;
 
 namespace Tea.Api.Accounts.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     [EnableCors("AllowSpecificOrigins")]
