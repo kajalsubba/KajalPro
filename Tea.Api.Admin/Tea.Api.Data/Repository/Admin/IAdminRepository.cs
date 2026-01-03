@@ -16,6 +16,7 @@ namespace Tea.Api.Data.Repository.Admin
         Task<DataSet> GetUser(SelectUserModel _input);
         Task<DataSet> Login(LoginModel _input);
         Task<JwtReturnModel> AuthenticationLogin(LoginModel _input);
+        Task<JwtReturnModel> AuthenticationClientLogin(ClientLoginModel _input);
 
         Task<DataSet> ClientLogin(ClientLoginModel _input);
 

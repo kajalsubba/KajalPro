@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Xml;
 using Tea.Api.Entity.Admin;
@@ -6,6 +7,7 @@ using Tea.Api.Service.Admin;
 
 namespace Tea.Api.Admin.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AdminController : ControllerBase
@@ -48,7 +50,7 @@ namespace Tea.Api.Admin.Controllers
             return (results != null) ? Ok(results) : throw new Exception();
         }
 
-
+        [AllowAnonymous]
         [HttpGet, Route("GetTenant")]
         public async Task<IActionResult> GetTenant()
         {

@@ -584,24 +584,24 @@ namespace Tea.Api.Data.Repository.Admin
         {
             DataSet ds;
             List<ClsParamPair> oclsPairs = new()
-            {
-                  new ClsParamPair("@LoginUserName", _input.UserName ??""),
-                new ClsParamPair("@Password", _input.Password ??"")
-            };
+               {
+                   new ClsParamPair("@LoginUserName", _input.UserName ??""),
+                   new ClsParamPair("@Password", _input.Password ??"")
+               };
 
             ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[Login]", oclsPairs);
             ds.Tables[0].TableName = "LoginDetails";
             ds.Tables[1].TableName = "PermissionDetails";
 
-
-            if (ds.Tables[0].Rows.Count < 0)
+            if (ds.Tables[0].Rows.Count <= 0)
             {
-                return null;
+                return new JwtReturnModel
+                {
+                    Message = "User or password is not correct"
+                };
             }
             else
             {
-                //var userRoles = await _userManager.GetRolesAsync(user);
-
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, _input.UserName??""),
@@ -609,11 +609,13 @@ namespace Tea.Api.Data.Repository.Admin
                 };
                 var tokenOptions = JwtExtensions.GetToken(authClaims);
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return (new JwtReturnModel
+                return new JwtReturnModel
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(tokenOptions),
-                    expiration = tokenOptions.ValidTo
-                });
+                    Token = tokenString,
+                    Expiration = TimeZoneInfo.ConvertTimeFromUtc(tokenOptions.ValidTo, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")),
+                    Data = ds,
+                    Message = "Success"
+                };
             }
 
         }
@@ -715,6 +717,44 @@ namespace Tea.Api.Data.Repository.Admin
             };
             string Msg = await _dataHandler.SaveChangesAsyn("[Master].[FinancialYearInsertUpdate]", oclsPairs);
             return Msg;
+        }
+
+        async Task<JwtReturnModel> IAdminRepository.AuthenticationClientLogin(ClientLoginModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@UserId",  _input.UserId ?? "", false, "String"),
+                new ClsParamPair("@Password",  _input.Password ?? "", false, "String"),
+                new ClsParamPair("@TenantId", _input.TenantId == null ? 0 : _input.TenantId)
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[ClientLogin]", oclsPairs);
+            ds.Tables[0].TableName = "ClientLoginDetails";
+            if (ds.Tables[0].Rows.Count <= 0)
+            {
+                return new JwtReturnModel
+                {
+                    Message = "User or password is not correct"
+                };
+            }
+            else
+            {
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, _input.UserId??""),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+                var tokenOptions = JwtExtensions.GetToken(authClaims);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                return new JwtReturnModel
+                {
+                    Token = tokenString,
+                    Expiration = TimeZoneInfo.ConvertTimeFromUtc(tokenOptions.ValidTo, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")),
+                    Data = ds,
+                    Message = "Success"
+                };
+            }
         }
     }
 }
