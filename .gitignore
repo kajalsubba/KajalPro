@@ -396,3 +396,16 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Google service account keys
+google-service-account.json
+zfinance-google-service-account.json
+*.service-account.json
+
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+
+# User secrets
+secrets.json
