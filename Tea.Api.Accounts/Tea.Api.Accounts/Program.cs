@@ -1,13 +1,9 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.MiddleWare;
 using Tea.Api.Data.Repository.Accounts;
 using Tea.Api.Data.UnitOfWork;
 using Tea.Api.Service.Accounts;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -24,61 +20,16 @@ builder.Services.AddScoped<IAccountsService, AccountsService>();
 builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
-
-
-// JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-    };
-});
-
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tea.Api.Accounts", Version = "v1" });
-
-    // JWT Bearer configuration
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter: Bearer {your JWT token}"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
 });
-
+//builder.Services.AddCors(policyBuilder =>
+//    policyBuilder.AddDefaultPolicy(policy =>
+//        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+//);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
@@ -104,7 +55,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     // Route template change needed to keep everything under one path.
     app.UseSwagger(c => c.RouteTemplate = name + "/swagger/{documentName}/swagger.json");
 
-
+    // Makes the assumption that where FlipPos.Api.N is the project name and N 
+    // is the microservice name, N is also the name of the primary controller 
     // so both Swagger and the actual endpoints both end up under /N.
     app.UseSwaggerUI(c =>
     {
@@ -115,7 +67,6 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionHandler>();
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

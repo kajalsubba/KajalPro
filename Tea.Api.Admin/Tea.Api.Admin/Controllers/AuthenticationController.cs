@@ -25,14 +25,5 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
-
-        [HttpPost, Route("AuthenticationClientLogin")]
-        public async Task<IActionResult> AuthenticationClientLogin([FromBody] ClientLoginModel _input)
-        {
-            var results = await _adminService.AuthenticationClientLogin(_input);
-            string JsonResult;
-            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
-            return (results != null) ? Ok(JsonResult) : throw new Exception();
-        }
     }
 }

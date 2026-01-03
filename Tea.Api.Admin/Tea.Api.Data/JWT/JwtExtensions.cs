@@ -24,12 +24,12 @@ namespace Tea.Api.Data.JWT
         public static JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var _configuration = config.GetSection("JWT");
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Secret"]??""));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Secret"]));
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["ValidIssuer"],
                 audience: _configuration["ValidAudience"],
-                expires: DateTime.Now.AddHours(5),
+                expires: DateTime.Now.AddMinutes(10),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );

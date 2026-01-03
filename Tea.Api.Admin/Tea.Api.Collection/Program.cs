@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.MiddleWare;
 using Tea.Api.Data.Repository.Collection;
@@ -23,57 +20,11 @@ builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
-
-// JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-    };
-});
-
-
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tea.Api.Collection", Version = "v1" });
-
-    // JWT Bearer configuration
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter: Bearer {your JWT token}"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
 });
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>
@@ -104,8 +55,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionHandler>();
-app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

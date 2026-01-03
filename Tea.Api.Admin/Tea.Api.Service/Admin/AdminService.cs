@@ -349,11 +349,5 @@ namespace Tea.Api.Service.Admin
             string[] msgList = msg.Split(",");
             return new SaveReturnModel() { Id = Convert.ToInt64(msgList[0]), Message = msgList[1] };
         }
-
-        async Task<JwtReturnModel> IAdminService.AuthenticationClientLogin(ClientLoginModel _input)
-        {
-            return await _unitOfWork.AdminRepository.AuthenticationClientLogin(_input);
-
-        }
     }
 }

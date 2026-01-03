@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Xml;
 using Tea.Api.Entity.Admin;
@@ -8,7 +7,7 @@ using Tea.Api.Service.Collection;
 
 namespace Tea.Api.Collection.Controllers
 {
-    [Authorize]
+
     [ApiController]
     [Route("[controller]")]
     public class CollectionController : ControllerBase

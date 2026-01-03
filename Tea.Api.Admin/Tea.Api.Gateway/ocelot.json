@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/Authentication/{everything}",
+      "DownstreamPathTemplate": "/Admin/{everything}", // Admin service
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,41 +9,15 @@
           "Port": 44325
         }
       ],
-      "UpstreamPathTemplate": "/Authentication/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/Admin/GetTenant",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44325
-        }
-      ],
-      "UpstreamPathTemplate": "/Admin/GetTenant",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/Admin/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44325
-        }
-      ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //},
       "UpstreamPathTemplate": "/Admin/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-
     {
-      "DownstreamPathTemplate": "/Master/{everything}",
+      "DownstreamPathTemplate": "/Master/{everything}", // Adjustment Service
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -52,32 +26,10 @@
         }
       ],
       "UpstreamPathTemplate": "/Master/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-
     {
-      "DownstreamPathTemplate": "/Collection/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44324
-        }
-      ],
-      "UpstreamPathTemplate": "/Collection/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
-    },
-
-    {
-      "DownstreamPathTemplate": "/Sale/{everything}",
+      "DownstreamPathTemplate": "/Collection/{everything}", // Collection Service
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -86,15 +38,10 @@
         }
       ],
       "UpstreamPathTemplate": "/Sale/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-
     {
-      "DownstreamPathTemplate": "/Reports/{everything}",
+      "DownstreamPathTemplate": "/Sale/{everything}", // Sale Service
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -102,83 +49,12 @@
           "Port": 44324
         }
       ],
-      "UpstreamPathTemplate": "/Reports/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
-    },
-
-    {
-      "DownstreamPathTemplate": "/Accounts/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44337
-        }
-      ],
-      "UpstreamPathTemplate": "/Accounts/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
-    },
-
-    {
-      "DownstreamPathTemplate": "/Print/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44321
-        }
-      ],
-      "UpstreamPathTemplate": "/Print/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
-    },
-
-    {
-      "DownstreamPathTemplate": "/MessageBroker/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 455
-        }
-      ],
-      "UpstreamPathTemplate": "/MessageBroker/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
-    },
-
-    {
-      "DownstreamPathTemplate": "/SignalR/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 455
-        }
-      ],
-      "UpstreamPathTemplate": "/SignalR/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": []
-      }
+      "UpstreamPathTemplate": "/Sale/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
+  
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:44368"
+    "BaseUrl": "https://localhost:7077"
   }
 }
