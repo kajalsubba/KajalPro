@@ -34,5 +34,14 @@ namespace Tea.Api.Admin.Controllers
             JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
             return (results != null) ? Ok(JsonResult) : throw new Exception();
         }
+
+        [HttpPost, Route("AuthenticationMobileLogin")]
+        public async Task<IActionResult> AuthenticationMobileLogin([FromBody] LoginModel _input)
+        {
+            var results = await _adminService.AuthenticationMobileLogin(_input);
+            string JsonResult;
+            JsonResult = JsonConvert.SerializeObject(results, Newtonsoft.Json.Formatting.Indented);
+            return (results != null) ? Ok(JsonResult) : throw new Exception();
+        }
     }
 }

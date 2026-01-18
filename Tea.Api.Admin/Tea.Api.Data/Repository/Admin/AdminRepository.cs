@@ -756,6 +756,43 @@ namespace Tea.Api.Data.Repository.Admin
                 };
             }
         }
+
+        async Task<JwtReturnModel> IAdminRepository.AuthenticationMobileLogin(LoginModel _input)
+        {
+            DataSet ds;
+            List<ClsParamPair> oclsPairs = new()
+            {
+                new ClsParamPair("@LoginUserName",  _input.UserName ?? "", false, "String"),
+                new ClsParamPair("@Password",  _input.Password ?? "", false, "String"),
+            };
+
+            ds = await _dataHandler.ExecProcDataSetAsyn("[Admin].[MobileAdminLogin]", oclsPairs);
+            ds.Tables[0].TableName = "LoginDetails";
+            if (ds.Tables[0].Rows.Count <= 0)
+            {
+                return new JwtReturnModel
+                {
+                    Message = "User or password is not correct"
+                };
+            }
+            else
+            {
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, _input.UserName??""),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+                var tokenOptions = JwtExtensions.GetToken(authClaims);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                return new JwtReturnModel
+                {
+                    Token = tokenString,
+                    Expiration = TimeZoneInfo.ConvertTimeFromUtc(tokenOptions.ValidTo, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")),
+                    Data = ds,
+                    Message = "Success"
+                };
+            }
+        }
     }
 }
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IO.Compression;
 using System.Text;
 using Tea.Api.Data.DbHandler;
 using Tea.Api.Data.MiddleWare;
@@ -9,13 +11,34 @@ using Tea.Api.Service.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+    {
+        "application/json",
+        "text/plain"
+    });
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
+builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
 builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                }); // use to same model name display in api
-
+                });
 
 builder.Services.AddScoped<IDataHandler, DataHandler>();
 builder.Services.AddScoped<IAdminService, AdminService>();
@@ -41,7 +64,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -79,23 +101,24 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("https://www.glsportals.com") // Replace with your frontend URL
+            policy.WithOrigins("https://www.glsportals.com")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
-                  .AllowCredentials(); // If you need credentials (e.g., cookies)
+                  .AllowCredentials();
         });
 });
 var app = builder.Build();
+app.UseResponseCompression();
+
 app.UseCors("AllowSpecificOrigin");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseDeveloperExceptionPage();
     var project = System.Reflection.Assembly.GetEntryAssembly().GetName().Name.Split(".");
     var name = project[project.Length - 1];
     app.UseSwagger(c => c.RouteTemplate = name + "/swagger/{documentName}/swagger.json");
- 
+
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/" + name + "/swagger/v1/swagger.json", "Tea.Api." + name + " v1");

@@ -13,10 +13,7 @@ namespace Tea.RMQ.MessageConsume.FileUpload
         {
             try
             {
-
-                //// Getting Image
-                ///
-                var FilePath = pathToSave;//config.GetConnectionString("CompanyLogoPath");
+                var FilePath = pathToSave;
                 var image = Images;
 
 
@@ -55,7 +52,6 @@ namespace Tea.RMQ.MessageConsume.FileUpload
 
                 return "https://glsportals.com/" + DirName + "/" + sentences[4] + "/" + name + "/" + FileName;
 
-                // return new ReturnData() { Id = 1, message = fileName + " is uploaded successfully." };
             }
             catch (Exception)
             {

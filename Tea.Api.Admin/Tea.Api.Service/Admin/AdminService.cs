@@ -355,5 +355,11 @@ namespace Tea.Api.Service.Admin
             return await _unitOfWork.AdminRepository.AuthenticationClientLogin(_input);
 
         }
+
+        async Task<JwtReturnModel> IAdminService.AuthenticationMobileLogin(LoginModel _input)
+        {
+            return await _unitOfWork.AdminRepository.AuthenticationMobileLogin(_input);
+
+        }
     }
 }
